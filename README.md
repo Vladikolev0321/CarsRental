@@ -1,2 +1,2 @@
 # Cars rental web application
-Making a Cars web app using Flask framework for the subject in school - Software Development
+Making a Cars rental web app using Flask framework for the subject in school - Software Development
