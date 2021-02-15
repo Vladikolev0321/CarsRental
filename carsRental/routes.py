@@ -1,12 +1,12 @@
 from werkzeug.utils import redirect
 from wtforms.validators import Email
 from carsRental.models import Admin
-from carsRental import app
+from carsRental import app, bcrypt, db
 from flask import render_template, url_for, flash, redirect
 from carsRental.forms import LoginForm, RegistrationForm
-from carsRental.models import Admin
-from carsRental import bcrypt
-from carsRental import db
+from carsRental.models import Admin 
+from flask_login import login_user
+
 
 @app.route("/")
 def home():
@@ -36,4 +36,12 @@ def register():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    if form.validate_on_submit():
+        admin = Admin.query.filter_by(username=form.username.data).first()
+        if(admin and bcrypt.check_password_hash(admin.password, form.password.data)):
+            login_user(admin, remember=form.remember.data)
+            flash('You have been logged in!', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Login unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title = "Login", form=form)
