@@ -1,3 +1,4 @@
+from flask_login.utils import logout_user
 from werkzeug.utils import redirect
 from wtforms.validators import Email
 from carsRental.models import Admin
@@ -11,6 +12,12 @@ from flask_login import login_user, current_user
 @app.route("/")
 def home():
     return render_template('home.html', title = "Home")
+
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
