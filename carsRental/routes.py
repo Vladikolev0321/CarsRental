@@ -5,7 +5,7 @@ from carsRental import app, bcrypt, db
 from flask import render_template, url_for, flash, redirect
 from carsRental.forms import LoginForm, RegistrationForm
 from carsRental.models import Admin 
-from flask_login import login_user
+from flask_login import login_user, current_user
 
 
 @app.route("/")
@@ -14,6 +14,8 @@ def home():
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
+    if(current_user.is_authenticated):
+        return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
         admin_username = Admin.query.filter_by(username=form.username.data).first()
@@ -35,6 +37,8 @@ def register():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    if(current_user.is_authenticated):
+        return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
         admin = Admin.query.filter_by(username=form.username.data).first()
