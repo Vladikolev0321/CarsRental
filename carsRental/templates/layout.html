@@ -43,6 +43,9 @@
                     </li>
                     {% if current_user.is_authenticated %}
                         <a class="nav-link" href="/logout"><i class="fa fa-sign-in" aria-hidden="true"></i>Logout</a>
+                        {% if is_admin == True %}
+                            <a class="nav-link" href="/upload"><i aria-hidden="true"></i>Add a car</a>
+                        {% endif %}
                     {% else %}
                     <li class="nav-item mr-2">
                         <a class="nav-link" href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i>Sign in</a>
