@@ -43,7 +43,7 @@
                     </li>
                     {% if current_user.is_authenticated %}
                         <a class="nav-link" href="/logout"><i class="fa fa-sign-in" aria-hidden="true"></i>Logout</a>
-                        {% if is_admin == True %}
+                        {% if current_user.is_admin %}
                             <a class="nav-link" href="/upload"><i aria-hidden="true"></i>Add a car</a>
                         {% endif %}
                     {% else %}

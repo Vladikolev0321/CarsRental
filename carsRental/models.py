@@ -38,6 +38,7 @@ class Admin(db.Model, UserMixin):
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
+    is_admin = db.Column(db.Boolean, nullable=False, default = True)
 
     def __repr__(self):
         return f"Admin('{self.username}', {self.email})"

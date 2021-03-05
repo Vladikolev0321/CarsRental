@@ -74,7 +74,7 @@ def login():
         if(admin and bcrypt.check_password_hash(admin.password, form.password.data)):
             login_user(admin, remember=form.remember.data)
             flash('You have been logged in!', 'success')
-            return render_template('home.html', title = "Home", is_admin = True)
+            return render_template('home.html', title = "Home")
         
         flash('Login unsuccessful. Please check username and password', 'danger')
 
@@ -94,19 +94,18 @@ def upload():
     if request.method == 'GET':
         return render_template('add_car.html')
     else:
-        db.create_all()
         file = request.files['inputFile']
-        data = file.read()
-        render_file = render_picture(data)
+        image = file.read()
+        render_file = render_picture(image)
         text = request.form['text']
         location = request.form['location']
 
-        newCar = Car(image=data, rendered_data=render_file, model=text)
+        newCar = Car(image=image, rendered_data=render_file, model=text)
         db.session.add(newCar)
         db.session.commit() 
-        flash(f'Pic {newCar.name} uploaded Text: {newCar.text} Location: {newCar.location}')
+        #flash(f'Pic {newCar.model} uploaded Text: {newCar.rendered_data}')
 
-        return render_template('upload.html')
+        return redirect(url_for('home'))
 
 
 
