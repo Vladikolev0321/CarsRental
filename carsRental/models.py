@@ -13,11 +13,11 @@ def load_user(user_id):
 class Car(db.Model, UserMixin): # to improve the car db model
     id = db.Column(db.Integer, primary_key=True)
     #filename = db.Column(db.String(128), nullable=False)
-    model = db.Column(db.String(20), nullable=False)
-    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    #content = db.Column(db.Text, nullable=False)
-    #user_id = db.Column(db.Integer, db.ForeignKey('admin.id'), nullable=False)
+    model = db.Column(db.String(100), nullable=False)
     image = db.Column(db.LargeBinary, nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    location = db.Column(db.String(100), nullable=False)
+    price = db.Column(db.Float, nullable=False)
     rendered_data = db.Column(db.Text, nullable=False)#Data to render the pic in browser
 
     def __repr__(self):

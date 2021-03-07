@@ -1,4 +1,4 @@
-from flask_login.utils import logout_user
+from flask_login.utils import login_required, logout_user
 from werkzeug.utils import redirect
 from wtforms.validators import Email
 from carsRental.models import *
@@ -90,6 +90,7 @@ def render_picture(data):
     return render_pic
 
 @app.route('/upload', methods=['GET', 'POST'])
+@login_required
 def upload():
     if request.method == 'GET':
         return render_template('add_car.html')
@@ -97,10 +98,11 @@ def upload():
         file = request.files['inputFile']
         image = file.read()
         render_file = render_picture(image)
-        text = request.form['text']
+        model = request.form['model']
         location = request.form['location']
+        price = request.form['price']
 
-        newCar = Car(image=image, rendered_data=render_file, model=text)
+        newCar = Car(model = model, image=image, location = location, price = price, rendered_data=render_file)
         db.session.add(newCar)
         db.session.commit() 
         #flash(f'Pic {newCar.model} uploaded Text: {newCar.rendered_data}')
