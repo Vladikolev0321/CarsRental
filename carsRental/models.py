@@ -8,7 +8,7 @@ from flask_login import UserMixin
 
 @login_manager.user_loader
 def load_user(user_id):
-    return Admin.query.get(user_id)
+    return User.query.get(user_id)
 
 class Car(db.Model, UserMixin): # to improve the car db model
     id = db.Column(db.Integer, primary_key=True)
@@ -28,20 +28,10 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-    is_admin = db.Column(db.Boolean, nullable=False, default = False)
+    #is_admin = db.Column(db.Boolean, nullable=False, default = False)
     #cars =  db.relationship('Car', backref='uploader', lazy=True)
 
     def __repr__(self):
         return f"User('{self.username}', {self.email})"
-
-class Admin(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False)
-    email = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(60), nullable=False)
-    is_admin = db.Column(db.Boolean, nullable=False, default = True)
-
-    def __repr__(self):
-        return f"Admin('{self.username}', {self.email})"
 
 db.create_all()

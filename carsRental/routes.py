@@ -5,7 +5,6 @@ from carsRental.models import *
 from carsRental import app, bcrypt, db
 from flask import request, render_template, url_for, flash, redirect
 from carsRental.forms import LoginForm, RegistrationForm
-from carsRental.models import Admin 
 from flask_login import login_user, current_user
 from base64 import b64encode
 import base64
@@ -34,21 +33,11 @@ def register():
             flash('That username is taken. Choose another one.', 'danger')
             return redirect(url_for('register'))
 
-        admin_username = Admin.query.filter_by(username=form.username.data).first()
-        if admin_username:
-            flash('That username is taken. Choose another one.', 'danger')
-            return redirect(url_for('register'))
-
-
         email = User.query.filter_by(email=form.email.data).first()
         if email:
             flash('That email is taken. Choose another one.', 'danger')
             return redirect(url_for('register'))
 
-        admin_email = Admin.query.filter_by(email=form.email.data).first()
-        if admin_email:
-            flash('That email is taken. Choose another one.', 'danger')
-            return redirect(url_for('register'))
         # valid username and email
         hashed_pass = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(username=form.username.data, email=form.email.data, password=hashed_pass)
@@ -67,12 +56,6 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if(user and bcrypt.check_password_hash(user.password, form.password.data)):
             login_user(user, remember=form.remember.data)
-            flash('You have been logged in!', 'success')
-            return redirect(url_for('home'))
-
-        admin = Admin.query.filter_by(username=form.username.data).first()
-        if(admin and bcrypt.check_password_hash(admin.password, form.password.data)):
-            login_user(admin, remember=form.remember.data)
             flash('You have been logged in!', 'success')
             return redirect(url_for('home'))
         
