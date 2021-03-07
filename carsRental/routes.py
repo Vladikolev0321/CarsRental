@@ -68,13 +68,13 @@ def login():
         if(user and bcrypt.check_password_hash(user.password, form.password.data)):
             login_user(user, remember=form.remember.data)
             flash('You have been logged in!', 'success')
-            return render_template('home.html', title = "Home")
+            return redirect(url_for('home'))
 
         admin = Admin.query.filter_by(username=form.username.data).first()
         if(admin and bcrypt.check_password_hash(admin.password, form.password.data)):
             login_user(admin, remember=form.remember.data)
             flash('You have been logged in!', 'success')
-            return render_template('home.html', title = "Home")
+            return redirect(url_for('home'))
         
         flash('Login unsuccessful. Please check username and password', 'danger')
 
