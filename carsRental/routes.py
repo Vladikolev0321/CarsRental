@@ -40,7 +40,11 @@ def register():
 
         # valid username and email
         hashed_pass = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_pass)
+        if form.username.data == "admin" and form.email.data == "admin@gmail.com" and form.password.data == "admin":
+            admin = True
+        else:
+            admin = False
+        user = User(username=form.username.data, email=form.email.data, password=hashed_pass, is_admin = admin)
         db.session.add(user)
         db.session.commit()
         flash(f'Created account for {form.username.data}. You can now log in.', 'success')
