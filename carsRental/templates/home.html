@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-	<div class="card-deck" style="margin-left: 10vw; width: 70vw;">
+	<div class="card-deck" style="width: 70vw;">
 		{% for car in cars %}
 			<div class="card" style="min-width: 20vw; max-width: 20vw; margin-top: 2vh;">
 				<img src="{{ path + car.filename }}" class="card-img-top" alt="Car image">
