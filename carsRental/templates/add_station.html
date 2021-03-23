@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block content %}
+    <form method="POST" action="/add/station" enctype="multipart/form-data">
+        <!-- Station name -->
+        <div class="form-group">
+            <label for="name">Име на станцията</label>
+            <textarea class="form-control" name="name" id="name" placeholder="Write the name"></textarea>
+        </div>
+
+        <!-- Location -->
+        <div class="form-group">
+            <label for="location">Координати</label>
+            <input class="form-control" type="text" name="location" placeholder="Write location">
+        </div>
+
+        <!-- Submit -->        
+        <button type="submit" class="btn btn-outline-info">Submit</button>
+    </form>
+{% endblock %}

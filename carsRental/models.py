@@ -17,7 +17,7 @@ class Car(db.Model): # to improve the car db model
     model = db.Column(db.String(100), nullable=False)
     #image = db.Column(db.LargeBinary, nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    location = db.Column(db.String(100), nullable=False)
+    location = db.Column(db.String(128), nullable=False)
     price = db.Column(db.Float, nullable=False)
     #rendered_data = db.Column(db.Text, nullable=False)#Data to render the pic in browser
 
@@ -26,7 +26,8 @@ class Car(db.Model): # to improve the car db model
 
 class Station(db.Model): # to improve the stations db model
     id = db.Column(db.Integer, primary_key=True)
-    location = db.Column(db.String(100), nullable=False)
+    location = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(128), unique=True, nullable=False)
 
 
 class User(db.Model, UserMixin):

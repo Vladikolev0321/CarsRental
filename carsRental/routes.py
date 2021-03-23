@@ -75,14 +75,14 @@ def render_picture(data):
 
 @app.route('/add/car', methods=['GET', 'POST'])
 @login_required
-def upload():
+def add_car():
     if request.method == 'GET':
         if current_user.is_admin == True:
-            return render_template('add_car.html')
+            return render_template('add_car.html', stations = Station.query.all())
         else:
             abort(403)
     else:
-        app.config["IMAGE_UPLOADS"] = app.root_path + "\static\carImages"
+        app.config["IMAGE_UPLOADS"] = app.root_path + "\\static\\carImages"
         #flash('path: {app.config["IMAGE_UPLOADS"]}')
         file = request.files['inputFile']
         #image = file.read()
@@ -100,5 +100,22 @@ def upload():
 
         return redirect(url_for('home'))
 
+@app.route('/add/station', methods=['GET', 'POST'])
+@login_required
+def add_station():
+    if request.method == 'GET':
+        if current_user.is_admin == True:
+            return render_template('add_station.html')
+        else:
+            abort(403)
+    else:
 
+        location = request.form['location']
+        name = request.form['name']
+
+        newStation = Station(location = location, name = name)
+        db.session.add(newStation)
+        db.session.commit()
+
+        return redirect(url_for('home'))
 

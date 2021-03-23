@@ -44,6 +44,7 @@
                     {% if current_user.is_authenticated %}
                         {% if current_user.is_admin == True %}
                             <a class="nav-link" href="/add/car"><i class="fa fa-plus-circle" aria-hidden="true"></i></i> Add a car</a>
+                            <a class="nav-link" href="/add/station"><i class="fa fa-plus-circle" aria-hidden="true"></i></i> Add a station</a>
                         {% endif %}
                         <a class="nav-link navbar" href="/logout"><i class="fa fa-sign-in" aria-hidden="true"></i> Logout</a>
                     {% else %}
