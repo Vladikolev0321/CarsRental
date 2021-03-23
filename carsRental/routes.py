@@ -15,7 +15,7 @@ from io import BytesIO #Converts data from Database into bytes
 
 @app.route("/")
 def home():
-    return render_template('home.html', title = "Home")
+    return render_template('home.html', title = "Home", cars = Car.query.all(), path = "\\static\\carImages\\")
 
 
 @app.route("/logout")
@@ -83,7 +83,7 @@ def upload():
             abort(403)
     else:
         app.config["IMAGE_UPLOADS"] = app.root_path + "\static\carImages"
-        flash('path: {app.config["IMAGE_UPLOADS"]}')
+        #flash('path: {app.config["IMAGE_UPLOADS"]}')
         file = request.files['inputFile']
         #image = file.read()
         #render_file = render_picture(image)
