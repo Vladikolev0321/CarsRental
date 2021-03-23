@@ -4,7 +4,7 @@ from sqlalchemy.orm import backref
 from carsRental import db, login_manager
 from datetime import datetime
 from flask_login import UserMixin
-from flask_admin.contrib.sqla import ModelView
+#from flask_admin.contrib.sqla import ModelView
 
 
 @login_manager.user_loader
@@ -13,13 +13,13 @@ def load_user(user_id):
 
 class Car(db.Model, UserMixin): # to improve the car db model
     id = db.Column(db.Integer, primary_key=True)
-    #filename = db.Column(db.String(128), nullable=False)
+    filename = db.Column(db.String(128), nullable=False)
     model = db.Column(db.String(100), nullable=False)
-    image = db.Column(db.LargeBinary, nullable=False)
+    #image = db.Column(db.LargeBinary, nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     location = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Float, nullable=False)
-    rendered_data = db.Column(db.Text, nullable=False)#Data to render the pic in browser
+    #rendered_data = db.Column(db.Text, nullable=False)#Data to render the pic in browser
 
     def __repr__(self):
         return f"Car('{self.model}', {self.date_posted})"

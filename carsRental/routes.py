@@ -8,6 +8,7 @@ from carsRental.forms import LoginForm, RegistrationForm
 from flask_login import login_user, current_user
 from base64 import b64encode
 import base64
+import os
 from io import BytesIO #Converts data from Database into bytes
 
 
@@ -81,17 +82,21 @@ def upload():
         else:
             abort(403)
     else:
+        app.config["IMAGE_UPLOADS"] = app.root_path + "\static\carImages"
+        flash('path: {app.config["IMAGE_UPLOADS"]}')
         file = request.files['inputFile']
-        image = file.read()
-        render_file = render_picture(image)
+        #image = file.read()
+        #render_file = render_picture(image)
         model = request.form['model']
         location = request.form['location']
         price = request.form['price']
 
-        newCar = Car(model = model, image=image, location = location, price = price, rendered_data=render_file)
+        newCar = Car(model = model, filename = file.filename, location = location, price = price)
         db.session.add(newCar)
         db.session.commit() 
         #flash(f'Pic {newCar.model} uploaded Text: {newCar.rendered_data}')
+
+        file.save(os.path.join(app.config["IMAGE_UPLOADS"], file.filename))
 
         return redirect(url_for('home'))
 
