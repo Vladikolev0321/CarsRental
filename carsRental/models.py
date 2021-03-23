@@ -11,7 +11,7 @@ from flask_login import UserMixin
 def load_user(user_id):
     return User.query.get(user_id)
 
-class Car(db.Model, UserMixin): # to improve the car db model
+class Car(db.Model): # to improve the car db model
     id = db.Column(db.Integer, primary_key=True)
     filename = db.Column(db.String(128), nullable=False)
     model = db.Column(db.String(100), nullable=False)
@@ -23,6 +23,11 @@ class Car(db.Model, UserMixin): # to improve the car db model
 
     def __repr__(self):
         return f"Car('{self.model}', {self.date_posted})"
+
+class Station(db.Model): # to improve the stations db model
+    id = db.Column(db.Integer, primary_key=True)
+    location = db.Column(db.String(100), nullable=False)
+
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)

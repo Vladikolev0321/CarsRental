@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
-	<div class="card-deck" style="margin-left: 3vw; width: 70vw;">
+	<div class="card-deck" style="margin-left: 10vw; width: 70vw;">
 		{% for car in cars %}
 			<div class="card" style="min-width: 20vw; max-width: 20vw; margin-top: 2vh;">
 				<img src="{{ path + car.filename }}" class="card-img-top" alt="Car image">
 				<div class="card-body">
-					<p class="card-text">{{ car.model }}</p>
-					<h5 class="card-title">{{ car.location }}</h5>
-					<h5 class="card-title">Цена на час: {{ car.price }}</h5>
+					<h5 class="card-title">{{ car.model }}</h5>
+					<p class="card-tex">{{ car.location }}</p>
+					<p class="card-tex">Цена на час: {{ car.price }}</p>
 					<a href="#" class="btn btn-primary">Преглед</a>
 				</div>
 			</div>
