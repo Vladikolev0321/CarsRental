@@ -1,20 +1,18 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>Home page<h1>
-    	<div class="card-columns" style=" margin:0 auto;">
-            {% for car in cars %}
-	            <div class="card">
-				  <img src="{{ path + car.filename }}" class="card-img-top" alt="Car image">
-				  <div class="card-body">
-				  	<p class="card-text">{{ car.model }}</p>
-				    
-				    <h5 class="card-title">{{ car.location }}</h5>
-				    <h5 class="card-title">Цена на час: {{ car.price }}</h5>
-				    <a href="#" class="btn btn-primary">Преглед</a>
-				  </div>
+	<div class="card-deck" style="margin-left: 3vw; width: 70vw;">
+		{% for car in cars %}
+			<div class="card" style="min-width: 20vw; max-width: 20vw; margin-top: 2vh;">
+				<img src="{{ path + car.filename }}" class="card-img-top" alt="Car image">
+				<div class="card-body">
+					<p class="card-text">{{ car.model }}</p>
+					<h5 class="card-title">{{ car.location }}</h5>
+					<h5 class="card-title">Цена на час: {{ car.price }}</h5>
+					<a href="#" class="btn btn-primary">Преглед</a>
 				</div>
-
-            {% endfor %}
-        </div>
+			</div>
+		{% endfor %}
+	</div>
+    	
 
 {% endblock %}
