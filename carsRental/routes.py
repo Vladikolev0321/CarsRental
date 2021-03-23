@@ -3,7 +3,7 @@ from werkzeug.utils import redirect
 from wtforms.validators import Email
 from carsRental.models import *
 from carsRental import app, bcrypt, db
-from flask import request, render_template, url_for, flash, redirect
+from flask import request, render_template, url_for, flash, redirect, abort
 from carsRental.forms import LoginForm, RegistrationForm
 from flask_login import login_user, current_user
 from base64 import b64encode
@@ -40,11 +40,7 @@ def register():
 
         # valid username and email
         hashed_pass = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        if form.username.data == "admin" and form.email.data == "admin@gmail.com" and form.password.data == "admin":
-            admin = True
-        else:
-            admin = False
-        user = User(username=form.username.data, email=form.email.data, password=hashed_pass, is_admin = admin)
+        user = User(username=form.username.data, email=form.email.data, password=hashed_pass, is_admin = False)
         db.session.add(user)
         db.session.commit()
         flash(f'Created account for {form.username.data}. You can now log in.', 'success')
@@ -76,11 +72,14 @@ def render_picture(data):
     render_pic = base64.b64encode(data).decode('ascii') 
     return render_pic
 
-@app.route('/upload', methods=['GET', 'POST'])
+@app.route('/add/car', methods=['GET', 'POST'])
 @login_required
 def upload():
     if request.method == 'GET':
-        return render_template('add_car.html')
+        if current_user.is_admin == True:
+            return render_template('add_car.html')
+        else:
+            abort(403)
     else:
         file = request.files['inputFile']
         image = file.read()

@@ -39,19 +39,19 @@
                 <span class="navbar-brand mr-4" style="font-size: 32px;"><img src="https://img.icons8.com/color/55/000000/car--v1.png"/> Rent a car</span>
                 <ul class="navbar-nav h4">
                     <li class="nav-item mr-2 mb-0">
-                        <a class="nav-link" href="/"><i class="fa fa-home" aria-hidden="true"></i>Home</a>
+                        <a class="nav-link" href="/"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
                     </li>
                     {% if current_user.is_authenticated %}
-                        <a class="nav-link" href="/logout"><i class="fa fa-sign-in" aria-hidden="true"></i>Logout</a>
+                        <a class="nav-link" href="/logout"><i class="fa fa-sign-in" aria-hidden="true"></i> Logout</a>
                         {% if current_user.is_admin == True %}
-                            <a class="nav-link" href="/upload"><i aria-hidden="true"></i>Add a car</a>
+                            <a class="nav-link" href="/add/car"><i aria-hidden="true"></i>Add a car</a>
                         {% endif %}
                     {% else %}
                     <li class="nav-item mr-2">
-                        <a class="nav-link" href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i>Sign in</a>
+                        <a class="nav-link" href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign in</a>
                     </li>
                     <li class="nav-item mr-2">
-                        <a class="nav-link" href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i>Sign up</a>
+                        <a class="nav-link" href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign up</a>
                     </li>
                     {% endif %}
                 </ul>
