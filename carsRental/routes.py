@@ -2,7 +2,7 @@ from flask_login.utils import login_required, logout_user
 from werkzeug.utils import redirect
 from wtforms.validators import Email
 from carsRental.models import *
-from carsRental import app, bcrypt, db
+from carsRental import app, bcrypt, db, folium
 from flask import request, render_template, url_for, flash, redirect, abort
 from carsRental.forms import LoginForm, RegistrationForm
 from flask_login import login_user, current_user
@@ -118,4 +118,11 @@ def add_station():
         db.session.commit()
 
         return redirect(url_for('home'))
+
+# Testing maps
+@app.route('/map')
+def show_map():
+    start_coords = (46.9540700, 142.7360300)
+    folium_map = folium.Map(location=start_coords, zoom_start=14)
+    return folium_map._repr_html_()
 
