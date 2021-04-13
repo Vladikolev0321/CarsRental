@@ -8,7 +8,7 @@
 					<h5 class="card-title">{{ car.model }}</h5>
 					<p class="card-tex">{{ car.location }}</p>
 					<p class="card-tex">Цена на час: {{ car.price }}</p>
-					<a href="#" class="btn btn-primary">Преглед</a>
+					<a href="{{ url_for('show_car', car_id=car.id) }}" class="btn btn-primary">Преглед</a>
 				</div>
 			</div>
 		{% endfor %}

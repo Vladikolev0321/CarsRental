@@ -105,12 +105,13 @@ def add_car():
 
         return redirect(url_for('home'))
 
-@app.route('/show/car', methods=['GET', 'POST'])
+@app.route('/show/car/<int:car_id>', methods=['GET', 'POST'])
 @login_required
-def show_car():
+def show_car(car_id):
     if request.method == 'GET':
         if current_user.is_admin == True:
-            return render_template('show_car.html', stations = Station.query.all())
+            car = Car.query.get(car_id)
+            return render_template('show_car.html', car=car)
         else:
             abort(403)
 
