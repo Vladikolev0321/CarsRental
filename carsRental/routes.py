@@ -111,7 +111,14 @@ def show_car(car_id):
     if request.method == 'GET':
         if current_user.is_admin == True:
             car = Car.query.get(car_id)
-            return render_template('show_car.html', car=car)
+
+            start_coords = (car.latitude, car.longitude)
+            folium_map = folium.Map(location=start_coords, zoom_start=14)
+            tooltip = "Click me!"   
+
+            folium.Marker([car.latitude, car.longitude], popup=car.model, tooltip=tooltip).add_to(folium_map)
+            folium_map.save('carsRental/templates/map.html')
+            return render_template('show_car.html', car=car, path = "\\static\\carImages\\")
         else:
             abort(403)
 
@@ -146,8 +153,7 @@ def show_map():
     start_coords = (42.69807953619626, 23.321380446073142)
     folium_map = folium.Map(location=start_coords, zoom_start=13)
     tooltip = "Click me!"   
-    nom = Nominatim(user_agent="CarsReantal")
-    location = nom.geocode("София Руски паметник")
+
     stations = Station.query.all()
     for station in stations:
         folium.Marker(
