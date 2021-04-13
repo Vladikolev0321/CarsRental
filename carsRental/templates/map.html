@@ -23,7 +23,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_27f2894d261b473290d77ea057ca507f {
+                #map_406f63e80d47432c9dc1101081ad40eb {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -35,17 +35,17 @@
 </head>
 <body>    
     
-            <div class="folium-map" id="map_27f2894d261b473290d77ea057ca507f" ></div>
+            <div class="folium-map" id="map_406f63e80d47432c9dc1101081ad40eb" ></div>
         
 </body>
 <script>    
     
-            var map_27f2894d261b473290d77ea057ca507f = L.map(
-                "map_27f2894d261b473290d77ea057ca507f",
+            var map_406f63e80d47432c9dc1101081ad40eb = L.map(
+                "map_406f63e80d47432c9dc1101081ad40eb",
                 {
-                    center: [42.662254149999995, 23.37332119613994],
+                    center: [42.69807953619626, 23.321380446073142],
                     crs: L.CRS.EPSG3857,
-                    zoom: 14,
+                    zoom: 13,
                     zoomControl: true,
                     preferCanvas: false,
                 }
@@ -55,32 +55,59 @@
 
         
     
-            var tile_layer_6036f1436a774f59b6776bd4a04e51f8 = L.tileLayer(
+            var tile_layer_2bf383a640104d72bb44ab2bc377877a = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_27f2894d261b473290d77ea057ca507f);
+            ).addTo(map_406f63e80d47432c9dc1101081ad40eb);
         
     
-            var marker_3f605f9da29749d09a523c3076d7fd7e = L.marker(
-                [42.662254149999995, 23.37332119613994],
+            var marker_f5a73e9cbe334636bfc70545c7c257bb = L.marker(
+                [42.69225175, 23.310437050000004],
                 {}
-            ).addTo(map_27f2894d261b473290d77ea057ca507f);
+            ).addTo(map_406f63e80d47432c9dc1101081ad40eb);
         
     
-        var popup_ab1a927679df45c1b7999f33342da2f1 = L.popup({"maxWidth": "100%"});
+        var popup_a25428d01c574cb88e6cedbd6faa5d58 = L.popup({"maxWidth": "100%"});
 
         
-            var html_7a3ad85d6e1249219a2493792787759e = $(`<div id="html_7a3ad85d6e1249219a2493792787759e" style="width: 100.0%; height: 100.0%;">Audi Quatro</div>`)[0];
-            popup_ab1a927679df45c1b7999f33342da2f1.setContent(html_7a3ad85d6e1249219a2493792787759e);
+            var html_643a01376d36494ea6c10ab896e0fa2d = $(`<div id="html_643a01376d36494ea6c10ab896e0fa2d" style="width: 100.0%; height: 100.0%;"></div>`)[0];
+            popup_a25428d01c574cb88e6cedbd6faa5d58.setContent(html_643a01376d36494ea6c10ab896e0fa2d);
         
 
-        marker_3f605f9da29749d09a523c3076d7fd7e.bindPopup(popup_ab1a927679df45c1b7999f33342da2f1)
+        marker_f5a73e9cbe334636bfc70545c7c257bb.bindPopup(popup_a25428d01c574cb88e6cedbd6faa5d58)
         ;
 
         
     
     
-            marker_3f605f9da29749d09a523c3076d7fd7e.bindTooltip(
+            marker_f5a73e9cbe334636bfc70545c7c257bb.bindTooltip(
+                `<div>
+                     Click me!
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_a050308468b546529e61c4f6558810e2 = L.marker(
+                [42.662254149999995, 23.37332119613994],
+                {}
+            ).addTo(map_406f63e80d47432c9dc1101081ad40eb);
+        
+    
+        var popup_6fa37fc870aa41628f4d26d48ef1ae68 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_460e9135b6f847deafb6fb4eefeabf50 = $(`<div id="html_460e9135b6f847deafb6fb4eefeabf50" style="width: 100.0%; height: 100.0%;">ТУЕС</div>`)[0];
+            popup_6fa37fc870aa41628f4d26d48ef1ae68.setContent(html_460e9135b6f847deafb6fb4eefeabf50);
+        
+
+        marker_a050308468b546529e61c4f6558810e2.bindPopup(popup_6fa37fc870aa41628f4d26d48ef1ae68)
+        ;
+
+        
+    
+    
+            marker_a050308468b546529e61c4f6558810e2.bindTooltip(
                 `<div>
                      Click me!
                  </div>`,

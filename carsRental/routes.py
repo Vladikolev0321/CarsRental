@@ -109,18 +109,13 @@ def add_car():
 @login_required
 def show_car(car_id):
     if request.method == 'GET':
-        if current_user.is_admin == True:
-            car = Car.query.get(car_id)
-
-            start_coords = (car.latitude, car.longitude)
-            folium_map = folium.Map(location=start_coords, zoom_start=14)
-            tooltip = "Click me!"   
-
-            folium.Marker([car.latitude, car.longitude], popup=car.model, tooltip=tooltip).add_to(folium_map)
-            folium_map.save('carsRental/templates/map.html')
-            return render_template('show_car.html', car=car, path = "\\static\\carImages\\")
-        else:
-            abort(403)
+        car = Car.query.get(car_id)
+        start_coords = (car.latitude, car.longitude)
+        folium_map = folium.Map(location=start_coords, zoom_start=15)
+        tooltip = "Click me!"   
+        folium.Marker([car.latitude, car.longitude], popup=car.model, tooltip=tooltip).add_to(folium_map)
+        folium_map.save('carsRental/templates/map.html')
+        return render_template('show_car.html', car=car, path = "\\static\\carImages\\")
 
 @app.route('/add/station', methods=['GET', 'POST'])
 @login_required

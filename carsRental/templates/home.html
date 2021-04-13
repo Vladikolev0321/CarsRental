@@ -7,7 +7,7 @@
 				<div class="card-body">
 					<h5 class="card-title">{{ car.model }}</h5>
 					<p class="card-tex">{{ car.location }}</p>
-					<p class="card-tex">Цена на час: {{ car.price }}</p>
+					<p class="card-tex">Цена на час: {{ car.price }} BGN</p>
 					<a href="{{ url_for('show_car', car_id=car.id) }}" class="btn btn-primary">Преглед</a>
 				</div>
 			</div>
