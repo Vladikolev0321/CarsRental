@@ -27,6 +27,8 @@ class Car(db.Model): # to improve the car db model
 class Station(db.Model): # to improve the stations db model
     id = db.Column(db.Integer, primary_key=True)
     location = db.Column(db.String(50), nullable=False)
+    latitude = db.Column(db.Float, nullable=False)
+    longitude = db.Column(db.Float, nullable=False)
     name = db.Column(db.String(128), unique=True, nullable=False)
 
 

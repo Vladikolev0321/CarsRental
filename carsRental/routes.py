@@ -10,6 +10,7 @@ from base64 import b64encode
 import base64
 import os
 from io import BytesIO #Converts data from Database into bytes
+from geopy.geocoders import Nominatim
 
 
 
@@ -111,18 +112,37 @@ def add_station():
     else:
 
         location = request.form['location']
+        nom = Nominatim(user_agent="CarsReantal")
+        geo = nom.geocode(location)
         name = request.form['name']
-
-        newStation = Station(location = location, name = name)
+        #if(geo == None)
+        #{
+        #    return redirect('/add/station')
+        #}
+        newStation = Station(location = location, name = name, latitude = geo.latitude, longitude = geo.longitude)
         db.session.add(newStation)
         db.session.commit()
 
         return redirect(url_for('home'))
 
 # Testing maps
-@app.route('/map')
+@app.route('/stations')
 def show_map():
-    start_coords = (46.9540700, 142.7360300)
-    folium_map = folium.Map(location=start_coords, zoom_start=14)
-    return folium_map._repr_html_()
+    start_coords = (42.69807953619626, 23.321380446073142)
+    folium_map = folium.Map(location=start_coords, zoom_start=13)
+    tooltip = "Click me!"   
+    nom = Nominatim(user_agent="CarsReantal")
+    location = nom.geocode("София Руски паметник")
+    stations = Station.query.all()
+    for station in stations:
+        folium.Marker(
+            [station.latitude, station.longitude], popup=station.name, tooltip=tooltip
+        ).add_to(folium_map)
+    folium_map.save('carsRental/templates/map.html')
+    return render_template('stations.html')
+    #folium_map._repr_html_()
+
+@app.route('/map')
+def map():
+    return render_template('map.html')
 
