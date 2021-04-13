@@ -18,6 +18,8 @@ class Car(db.Model): # to improve the car db model
     #image = db.Column(db.LargeBinary, nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     location = db.Column(db.String(128), nullable=False)
+    latitude = db.Column(db.Float, nullable=False)
+    longitude = db.Column(db.Float, nullable=False)
     price = db.Column(db.Float, nullable=False)
     #rendered_data = db.Column(db.Text, nullable=False)#Data to render the pic in browser
 

@@ -90,9 +90,13 @@ def add_car():
         #render_file = render_picture(image)
         model = request.form['model']
         location = request.form['location']
+
+        station = Station.query.filter_by(id=location).first()
+        #return str(station is None)
         price = request.form['price']
 
-        newCar = Car(model = model, filename = file.filename, location = location, price = price)
+        newCar = Car(model = model, filename = file.filename, location = station.name,
+                                    latitude=station.latitude, longitude=station.longitude, price = price)
         db.session.add(newCar)
         db.session.commit() 
         #flash(f'Pic {newCar.model} uploaded Text: {newCar.rendered_data}')
@@ -100,6 +104,15 @@ def add_car():
         file.save(os.path.join(app.config["IMAGE_UPLOADS"], file.filename))
 
         return redirect(url_for('home'))
+
+@app.route('/show/car', methods=['GET', 'POST'])
+@login_required
+def show_car():
+    if request.method == 'GET':
+        if current_user.is_admin == True:
+            return render_template('show_car.html', stations = Station.query.all())
+        else:
+            abort(403)
 
 @app.route('/add/station', methods=['GET', 'POST'])
 @login_required
@@ -115,10 +128,11 @@ def add_station():
         nom = Nominatim(user_agent="CarsReantal")
         geo = nom.geocode(location)
         name = request.form['name']
-        #if(geo == None)
-        #{
-        #    return redirect('/add/station')
-        #}
+
+        if geo is None:
+            flash("Couldn't find location with this name", 'danger')
+            return redirect('/add/station')
+        
         newStation = Station(location = location, name = name, latitude = geo.latitude, longitude = geo.longitude)
         db.session.add(newStation)
         db.session.commit()
