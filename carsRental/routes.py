@@ -123,6 +123,8 @@ def remove(car_id):
     if request.method == 'GET':
         if current_user.is_admin == True:
             car = Car.query.get_or_404(car_id)
+            app.config["IMAGE_UPLOADS"] = app.root_path + "\\static\\carImages"
+            os.remove(os.path.join(app.config['IMAGE_UPLOADS'], car.filename))
             db.session.delete(car)
             db.session.commit()
             flash('This car has been deleted!', 'success')
