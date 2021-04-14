@@ -131,7 +131,18 @@ def remove(car_id):
             return redirect(url_for('home'))
         else:
             abort(403)
+
+@app.route('/show/car/<int:car_id>/update', methods=['GET', 'POST'])
+@login_required
+def update(car_id):
+    car = Car.query.get_or_404(car_id)
     
+    if request.method == 'GET':
+        if current_user.is_admin == True:
+            return render_template('update_car.html', car=car, stations = Station.query.all())
+        else:
+            abort(403)
+
     
     
 @app.route('/add/station', methods=['GET', 'POST'])

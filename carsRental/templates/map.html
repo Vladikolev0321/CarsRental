@@ -23,7 +23,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_2ce6c8c0bd3843bd9758240a8a569aa3 {
+                #map_fb4214429dfe4b6c93b0c820b5e6064e {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -35,17 +35,17 @@
 </head>
 <body>    
     
-            <div class="folium-map" id="map_2ce6c8c0bd3843bd9758240a8a569aa3" ></div>
+            <div class="folium-map" id="map_fb4214429dfe4b6c93b0c820b5e6064e" ></div>
         
 </body>
 <script>    
     
-            var map_2ce6c8c0bd3843bd9758240a8a569aa3 = L.map(
-                "map_2ce6c8c0bd3843bd9758240a8a569aa3",
+            var map_fb4214429dfe4b6c93b0c820b5e6064e = L.map(
+                "map_fb4214429dfe4b6c93b0c820b5e6064e",
                 {
-                    center: [42.662254149999995, 23.37332119613994],
+                    center: [42.69807953619626, 23.321380446073142],
                     crs: L.CRS.EPSG3857,
-                    zoom: 15,
+                    zoom: 13,
                     zoomControl: true,
                     preferCanvas: false,
                 }
@@ -55,32 +55,59 @@
 
         
     
-            var tile_layer_5bdac6edf70e4110a7b368d7fb93b8ea = L.tileLayer(
+            var tile_layer_68b30d46c74c40beb17cc75d56a64fb8 = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_2ce6c8c0bd3843bd9758240a8a569aa3);
+            ).addTo(map_fb4214429dfe4b6c93b0c820b5e6064e);
         
     
-            var marker_3083876bf17c4844b1aeaba5074b9f23 = L.marker(
-                [42.662254149999995, 23.37332119613994],
+            var marker_5bf5ff0725bf472f9ae7a62e413e7817 = L.marker(
+                [42.69225175, 23.310437050000004],
                 {}
-            ).addTo(map_2ce6c8c0bd3843bd9758240a8a569aa3);
+            ).addTo(map_fb4214429dfe4b6c93b0c820b5e6064e);
         
     
-        var popup_3dedae7537ab44d08292d0b36357289c = L.popup({"maxWidth": "100%"});
+        var popup_dd19975468ee46f3ae0886afc7a769e4 = L.popup({"maxWidth": "100%"});
 
         
-            var html_3c53f2e603c84bb0ae583239f32bf331 = $(`<div id="html_3c53f2e603c84bb0ae583239f32bf331" style="width: 100.0%; height: 100.0%;">Porche 918</div>`)[0];
-            popup_3dedae7537ab44d08292d0b36357289c.setContent(html_3c53f2e603c84bb0ae583239f32bf331);
+            var html_34bbb3be614e4619af0a9649728312ab = $(`<div id="html_34bbb3be614e4619af0a9649728312ab" style="width: 100.0%; height: 100.0%;"></div>`)[0];
+            popup_dd19975468ee46f3ae0886afc7a769e4.setContent(html_34bbb3be614e4619af0a9649728312ab);
         
 
-        marker_3083876bf17c4844b1aeaba5074b9f23.bindPopup(popup_3dedae7537ab44d08292d0b36357289c)
+        marker_5bf5ff0725bf472f9ae7a62e413e7817.bindPopup(popup_dd19975468ee46f3ae0886afc7a769e4)
         ;
 
         
     
     
-            marker_3083876bf17c4844b1aeaba5074b9f23.bindTooltip(
+            marker_5bf5ff0725bf472f9ae7a62e413e7817.bindTooltip(
+                `<div>
+                     Click me!
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_9875e05f3a1b4d649635d2ae55b1bf28 = L.marker(
+                [42.662254149999995, 23.37332119613994],
+                {}
+            ).addTo(map_fb4214429dfe4b6c93b0c820b5e6064e);
+        
+    
+        var popup_f88a5d033e7b4013bcf8f2f24c251e97 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_a06e86558fee43049cbf011b3979af0c = $(`<div id="html_a06e86558fee43049cbf011b3979af0c" style="width: 100.0%; height: 100.0%;">ТУЕС</div>`)[0];
+            popup_f88a5d033e7b4013bcf8f2f24c251e97.setContent(html_a06e86558fee43049cbf011b3979af0c);
+        
+
+        marker_9875e05f3a1b4d649635d2ae55b1bf28.bindPopup(popup_f88a5d033e7b4013bcf8f2f24c251e97)
+        ;
+
+        
+    
+    
+            marker_9875e05f3a1b4d649635d2ae55b1bf28.bindTooltip(
                 `<div>
                      Click me!
                  </div>`,
