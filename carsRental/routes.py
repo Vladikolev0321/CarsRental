@@ -117,6 +117,21 @@ def show_car(car_id):
         folium_map.save('carsRental/templates/map.html')
         return render_template('show_car.html', car=car, path = "\\static\\carImages\\")
 
+@app.route('/show/car/<int:car_id>/remove', methods=['GET', 'POST'])
+@login_required
+def remove(car_id):
+    if request.method == 'GET':
+        if current_user.is_admin == True:
+            car = Car.query.get_or_404(car_id)
+            db.session.delete(car)
+            db.session.commit()
+            flash('This car has been deleted!', 'success')
+            return redirect(url_for('home'))
+        else:
+            abort(403)
+    
+    
+    
 @app.route('/add/station', methods=['GET', 'POST'])
 @login_required
 def add_station():

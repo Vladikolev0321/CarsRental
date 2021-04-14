@@ -11,7 +11,16 @@
 		<iframe class="map", src="/map" width="730vw" height="400vh" style="border-style: solid;"></iframe>
 		<br>
 		<br>
-		<button type="submit" class="btn btn-outline-info" style="margin-left: 42%">Наеми колата</button>
+        {% if current_user.is_authenticated %}
+            {% if current_user.is_admin == True %}
+		        <button type="button" onclick="window.location.href='{{ url_for("remove", car_id=car.id) }}'" class="btn btn-outline-info" style="margin-left: 35%; margin-right: 1%;">Премахни</button>
+                <button type="button" class="btn btn-outline-info" >Редактирай</button>
+            {% else %}
+                <button type="submit" class="btn btn-outline-info" style="margin-left: 42%">Наеми колата</button>
+            {% endif %}
+        {% endif %}
+
+
 		<br>
 		<br>
 		<br>

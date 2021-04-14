@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
     
-    <h1>Select a location!</h1>
+    <!--<h1>Select a location!</h1>
         <p>Click on a location on the map to select it. Drag the marker to change location.</p>
         
-        <!--map div-->
+        <--map div--
         <div id="map"></div>
         
-        <!--our form-->
+        <--our form--
         <h2>Chosen Location</h2>
         <form method="post">
             <input type="text" id="lat" readonly="yes"><br>
@@ -76,7 +76,7 @@
             google.maps.event.addDomListener(window, 'load', initMap);
         </script>
     
-
+    --->
     <form method="POST" action="/add/station" enctype="multipart/form-data">
         <!-- Station name -->
         <div class="form-group">
