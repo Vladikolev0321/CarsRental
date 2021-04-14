@@ -3,9 +3,17 @@
     <div style="  margin-top: 3%; margin-left: 25%; margin-right: -25%">
     	<figure class="figure">
   			<img src="{{ path + car.filename }}" class="figure-img img-fluid rounded" alt="A "  style = "width: 150%">
-  			<h2 class="card-title">{{ car.model }}</h2>
-			<h5 class="card-tex">{{ car.location }}</h5>
-			<h5 class="card-tex">Цена на час: {{ car.price }} BGN.</h5>
+  			<h2 class="card-title">Model: {{ car.model }}</h2>
+			<h5 class="card-tex">Station: {{ car.location }}</h5>
+			<h5 class="card-tex">
+				Status:
+				{% if car.status %}
+					<span style="color: red;">Busy</span> 
+				{% else %}
+				<span style="color: green;">Available</span>
+				{% endif %}
+			</h5>
+			<h5 class="card-tex">Price/hour: {{ car.price }} BGN.</h5>
 		</figure>
 		<iframe class="map", src="/map" width="730vw" height="400vh" style="border-style: solid;"></iframe>
 		<br>

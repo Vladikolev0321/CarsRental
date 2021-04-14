@@ -21,6 +21,7 @@ class Car(db.Model): # to improve the car db model
     latitude = db.Column(db.Float, nullable=False)
     longitude = db.Column(db.Float, nullable=False)
     price = db.Column(db.Float, nullable=False)
+    status = db.Column(db.Boolean, nullable=False, default=False)
     #rendered_data = db.Column(db.Text, nullable=False)#Data to render the pic in browser
 
     def __repr__(self):

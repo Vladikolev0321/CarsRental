@@ -5,9 +5,17 @@
 			<div class="card" style="min-width: 20vw; max-width: 20vw; margin-top: 2vh;">
 				<img src="{{ path + car.filename }}" class="card-img-top" alt="Car image">
 				<div class="card-body">
-					<h5 class="card-title">{{ car.model }}</h5>
-					<p class="card-tex">{{ car.location }}</p>
-					<p class="card-tex">Цена на час: {{ car.price }} BGN</p>
+					<h5 class="card-title">Model: {{ car.model }}</h5>
+					<p class="card-tex">Station: {{ car.location }}</p>
+					<p class="card-tex">
+						Status:
+						{% if car.status %}
+							<span style="color: red;">Busy</span> 
+						{% else %}
+						<span style="color: green;">Available</span>
+						{% endif %}
+					</p>
+					<p class="card-tex">Price/hour: {{ car.price }} BGN</p>
 					<a href="{{ url_for('show_car', car_id=car.id) }}" class="btn btn-primary">Преглед</a>
 				</div>
 			</div>
