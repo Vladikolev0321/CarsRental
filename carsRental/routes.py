@@ -91,7 +91,7 @@ def add_car():
         model = request.form['model']
         location = request.form['location']
 
-        station = Station.query.filter_by(id=location).first()
+        station = Station.query.filter_by(id=location).first()#maybe some check
         #return str(station is None)
         price = request.form['price']
 
@@ -142,6 +142,38 @@ def update(car_id):
             return render_template('update_car.html', car=car, stations = Station.query.all())
         else:
             abort(403)
+    else:
+        #### not sure
+        # app.config["IMAGE_UPLOADS"] = app.root_path + "\\static\\carImages"
+        #flash('path: {app.config["IMAGE_UPLOADS"]}')
+        app.config["IMAGE_UPLOADS"] = app.root_path + "\\static\\carImages"
+        #os.remove(os.path.join(app.config['IMAGE_UPLOADS'], car.filename))
+        
+        file = request.files['inputFile']
+        if file.filename != "":
+            os.remove(os.path.join(app.config['IMAGE_UPLOADS'], car.filename))  
+            car.filename = file.filename
+            file.save(os.path.join(app.config["IMAGE_UPLOADS"], file.filename))
+        #image = file.read()
+        #render_file = render_picture(image)
+        car.model = request.form['model']
+        location = request.form['location']
+
+        station = Station.query.filter_by(id=location).first()#maybe some check
+        car.location = station.name
+        car.latitude = station.latitude
+        car.longitude = station.longitude
+
+        #return str(station is None)
+        car.price = request.form['price']
+        #return "Updated"
+        db.session.commit()
+        flash('This car has been updated', 'success')
+        return redirect(url_for('show_car', car_id=car_id))
+
+        #newCar = Car(model = model, filename = file.filename, location = station.name,
+         #                           latitude=station.latitude, longitude=station.longitude, price = price)
+         ##not sure
 
     
     
