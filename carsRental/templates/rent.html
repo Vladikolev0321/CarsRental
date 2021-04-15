@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+    <form method="POST" action="/show/car/{{car.id}}/rent" enctype="multipart/form-data">
+        
+
+        <!-- End Location -->
+        <div class="form-group">
+            <label for="endlocation">End Location:</label>
+            <input type="text" class="form-control" name="endlocation" id="endlocation" placeholder="Write end location">
+        </div>
+
+        
+        <!-- End of rental time -->
+        <div class="form-group">
+            <label for="endtime">End of rental time:</label>
+            <input type="time" class="form-control" name="endtime" id="endtime" >
+        </div>
+        
+        <!-- Submit -->        
+        <button type="submit" class="btn btn-outline-info">Rent</button>
+    </form>
+{% endblock %}

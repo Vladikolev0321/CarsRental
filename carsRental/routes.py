@@ -11,9 +11,10 @@ import base64
 import os
 from io import BytesIO #Converts data from Database into bytes
 from geopy.geocoders import Nominatim
+from wtforms import TimeField
 
 
-
+nom = Nominatim(user_agent="CarsRental")
 @app.route("/")
 def home():
     return render_template('home.html', title = "Home", cars = Car.query.all(), path = "\\static\\carImages\\")
@@ -175,6 +176,26 @@ def update(car_id):
          #                           latitude=station.latitude, longitude=station.longitude, price = price)
          ##not sure
 
+@app.route('/show/car/<int:car_id>/rent', methods=['GET', 'POST'])
+@login_required
+def rent(car_id):
+    car = Car.query.get_or_404(car_id)
+    if request.method == 'GET':
+        return render_template('rent.html', car=car)
+    else:
+        start_location = nom.reverse(str(car.latitude) + ', ' + str(car.longitude))
+        end_location = request.form['endlocation']
+        end_time = TimeField('endtime')
+        #return str(type(end_time))
+        rental_info = RentalInformation(start_location=start_location, end_location=end_location,
+            end_time=end_time, user_id=current_user.id, car_id=car_id)
+        car.status = True
+        db.session.add(rental_info)
+        db.session.commit()
+        return redirect(url_for('home'))
+
+
+
     
     
 @app.route('/add/station', methods=['GET', 'POST'])
@@ -188,7 +209,7 @@ def add_station():
     else:
 
         location = request.form['location']
-        nom = Nominatim(user_agent="CarsReantal")
+        #nom = Nominatim(user_agent="CarsRental")
         geo = nom.geocode(location)
         name = request.form['name']
 

@@ -4,6 +4,8 @@ from sqlalchemy.orm import backref
 from carsRental import db, login_manager
 from datetime import datetime
 from flask_login import UserMixin
+from datetime import datetime
+from dateutil.tz import gettz
 #from flask_admin.contrib.sqla import ModelView
 
 
@@ -46,6 +48,18 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User('{self.username}', {self.email})"
 
+class RentalInformation(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    #user_name = db.Column(db.String(20), unique=True, nullable=False)
+    start_location = db.Column(db.String(1000), nullable=False)
+    end_location = db.Column(db.String(1000), nullable=False)
+    start_time = db.Column(db.DateTime, nullable=False, default=datetime.now(gettz('Europe/Sofia')))
+    end_time = db.Column(db.DateTime, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    car_id = db.Column(db.Integer, db.ForeignKey('car.id'), nullable=False)
+
+    def __repr__(self):
+        return f"RentalInfo('{self.user_name}', {self.car_id})"
 
 
 
