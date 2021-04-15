@@ -131,10 +131,10 @@ h6 {
     transition: all 0.3s ease-in-out
 }
 </style>
-<div class="page-content page-container" id="page-content">
+<div class="page-content page-container" id="page-content" style="width: 150%; margin-left: 5%; margin-top: 10%;">
     <div class="padding">
         <div class="row container d-flex justify-content-center">
-            <div class="col-xl-6 col-md-12">
+            <div class="col-xl-20 col-md-12">
                 <div class="card user-card-full">
                     <div class="row m-l-0 m-r-0">
                         <div class="col-sm-4 bg-c-lite-green user-profile">
@@ -156,17 +156,19 @@ h6 {
                                         <h6 class="text-muted f-w-400">98979989898</h6>
                                     </div>-->
                                 </div>
-                                {% if  rental_info %}
+                                {% if rental_info %}
 	                                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Rented car at the moment</h6>
+                                    <h5>{{car.model}}</h5>
 	                                <div class="row">
-	                                	<h5>{{car.model}}</h5> <br>
 	                                    <div class="col-sm-6">
 	                                        <p class="m-b-10 f-w-600">From: {{rental_info.start_location}}</p>
-	                                        <h6 class="text-muted f-w-400">{{rental_info.start_time}}</h6>
+	                                        <h6 class="text-muted f-w-400">Start time: {{rental_info.start_time}}</h6>
 	                                    </div>
+                                    </div>
+                                    <div class="row">
 	                                    <div class="col-sm-6">
 	                                        <p class="m-b-10 f-w-600">To: {{rental_info.end_location}}</p>
-	                                        <h6 class="text-muted f-w-400">{{rental_info.end_time}}</h6>
+	                                        <h6 class="text-muted f-w-400">End time: {{rental_info.end_time}}</h6>
 	                                    </div>
 	                                </div>
 
