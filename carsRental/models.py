@@ -52,8 +52,8 @@ class RentalInformation(db.Model):
     #user_name = db.Column(db.String(20), unique=True, nullable=False)
     start_location = db.Column(db.String(1000), nullable=False)
     end_location = db.Column(db.String(1000), nullable=False)
-    start_time = db.Column(db.Time, nullable=False, default=1)
-    end_time = db.Column(db.DateTime, nullable=False)
+    start_time = db.Column(db.String(10), nullable=True)
+    end_time = db.Column(db.String(10), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     car_id = db.Column(db.Integer, db.ForeignKey('car.id'), nullable=False)
 

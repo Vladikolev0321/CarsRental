@@ -115,7 +115,7 @@ def show_car(car_id):
         folium_map = folium.Map(location=start_coords, zoom_start=15)
         tooltip = "Click me!"   
         folium.Marker([car.latitude, car.longitude], popup=car.model, tooltip=tooltip).add_to(folium_map)
-        folium_map.save('carsRental/templates/map.html')
+        folium_map.save(app.root_path + '\\templates\\map.html')
         return render_template('show_car.html', car=car, path = "\\static\\carImages\\")
 
 @app.route('/show/car/<int:car_id>/remove', methods=['GET', 'POST'])
@@ -184,14 +184,17 @@ def rent(car_id):
     if request.method == 'GET':
         return render_template('rent.html', car=car, form=form)
     else:
-        start_location = nom.reverse(str(car.latitude) + ', ' + str(car.longitude))
+        start_location = (str(car.latitude) + ', ' + str(car.longitude))
         end_location = form.endloctation
-        end_time = form.endtime
+        end_time = form.endtime.data
+        #return str(end_time)
         #return str(type(end_time))
         rental_info = RentalInformation(start_location=start_location, end_location=end_location,
-            end_time=end_time, user_id=current_user.id, car_id=car_id)
-        car.status = True
+            end_time=str(end_time), user_id=current_user.id, car_id=car_id)
         db.session.add(rental_info)
+        db.session.commit()
+
+        car.status = True
         db.session.commit()
         return redirect(url_for('home'))
 
@@ -236,7 +239,7 @@ def show_map():
         folium.Marker(
             [station.latitude, station.longitude], popup=station.name, tooltip=tooltip
         ).add_to(folium_map)
-    folium_map.save('carsRental/templates/map.html')
+    folium_map.save(app.root_path + '\\templates\\map.html')
     return render_template('stations.html')
     #folium_map._repr_html_()
 
