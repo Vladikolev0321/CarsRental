@@ -185,12 +185,12 @@ def rent(car_id):
         return render_template('rent.html', car=car, form=form)
     else:
         start_location = (str(car.latitude) + ', ' + str(car.longitude))
-        end_location = form.endloctation
-        end_time = form.endtime.data
+        end_location = form.endloctation.data
+        end_time = str(form.endtime.data)
         #return str(end_time)
         #return str(type(end_time))
         rental_info = RentalInformation(start_location=start_location, end_location=end_location,
-            end_time=str(end_time), user_id=current_user.id, car_id=car_id)
+            end_time=end_time, user_id=current_user.id, car_id=car_id)
         db.session.add(rental_info)
         db.session.commit()
 
