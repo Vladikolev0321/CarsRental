@@ -111,12 +111,13 @@ def add_car():
 def show_car(car_id):
     if request.method == 'GET':
         car = Car.query.get(car_id)
+        rent = RentalInformation.query.filter_by(car_id=car_id).first()
         start_coords = (car.latitude, car.longitude)
         folium_map = folium.Map(location=start_coords, zoom_start=15)
         tooltip = "Click me!"   
         folium.Marker([car.latitude, car.longitude], popup=car.model, tooltip=tooltip).add_to(folium_map)
         folium_map.save(app.root_path + '\\templates\\map.html')
-        return render_template('show_car.html', car=car, path = "\\static\\carImages\\")
+        return render_template('show_car.html', car=car, path = "\\static\\carImages\\", rent=rent)
 
 @app.route('/show/car/<int:car_id>/remove', methods=['GET', 'POST'])
 @login_required
