@@ -182,6 +182,8 @@ def update(car_id):
 def rent(car_id):
     car = Car.query.get_or_404(car_id)
     form = RentForm()
+    if car.status is True:
+        abort(403)
     if request.method == 'GET':
         return render_template('rent.html', car=car, form=form)
     else:
