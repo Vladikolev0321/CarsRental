@@ -70,10 +70,28 @@ def login():
 #@app.route('/add_car', methods=['GET', 'POST'])
 #    return render_template('add_car.html')
 
-def render_picture(data):
 
-    render_pic = base64.b64encode(data).decode('ascii') 
-    return render_pic
+
+#def render_picture(data):
+
+#    render_pic = base64.b64encode(data).decode('ascii') 
+#    return render_pic
+
+@app.route('/profile', methods=['GET', 'POST'])
+@login_required
+def view_profile():
+    if request.method == 'GET':
+        rental_info = RentalInformation.query.filter_by(user_id=current_user.id).first()
+        if rental_info:
+            car = Car.query.filter_by(id=rental_info.car_id).first()
+            return render_template('profile.html', rental_info = rental_info, car = car)
+
+        else:
+            return render_template('profile.html', rental_info = rental_info)
+
+    else:
+        pass
+
 
 @app.route('/add/car', methods=['GET', 'POST'])
 @login_required

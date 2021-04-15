@@ -42,6 +42,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     is_admin = db.Column(db.Boolean, nullable=False, default = False)
+    money = db.Column(db.Float, nullable=False, default = 0.0)
     #cars =  db.relationship('Car', backref='uploader', lazy=True)
 
     def __repr__(self):
