@@ -4,7 +4,6 @@ from sqlalchemy.orm import backref
 from carsRental import db, login_manager
 from datetime import datetime
 from flask_login import UserMixin
-from datetime import datetime
 from dateutil.tz import gettz
 #from flask_admin.contrib.sqla import ModelView
 
@@ -53,7 +52,7 @@ class RentalInformation(db.Model):
     #user_name = db.Column(db.String(20), unique=True, nullable=False)
     start_location = db.Column(db.String(1000), nullable=False)
     end_location = db.Column(db.String(1000), nullable=False)
-    start_time = db.Column(db.DateTime, nullable=False, default=datetime.now(gettz('Europe/Sofia')))
+    start_time = db.Column(db.Time, nullable=False, default=1)
     end_time = db.Column(db.DateTime, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     car_id = db.Column(db.Integer, db.ForeignKey('car.id'), nullable=False)

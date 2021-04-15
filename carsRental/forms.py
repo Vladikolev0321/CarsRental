@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TimeField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 
 class RegistrationForm(FlaskForm):
@@ -16,4 +16,11 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember me')
     
     submit = SubmitField('Log in')
+
+class RentForm(FlaskForm):
+    endloctation = StringField('End Location')
+    endtime = TimeField('End of rental time')
+    submit = SubmitField('Rent')
+
+
 

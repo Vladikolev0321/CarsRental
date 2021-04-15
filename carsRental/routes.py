@@ -4,7 +4,7 @@ from wtforms.validators import Email
 from carsRental.models import *
 from carsRental import app, bcrypt, db, folium
 from flask import request, render_template, url_for, flash, redirect, abort
-from carsRental.forms import LoginForm, RegistrationForm
+from carsRental.forms import LoginForm, RegistrationForm, RentForm
 from flask_login import login_user, current_user
 from base64 import b64encode
 import base64
@@ -180,12 +180,13 @@ def update(car_id):
 @login_required
 def rent(car_id):
     car = Car.query.get_or_404(car_id)
+    form = RentForm()
     if request.method == 'GET':
-        return render_template('rent.html', car=car)
+        return render_template('rent.html', car=car, form=form)
     else:
         start_location = nom.reverse(str(car.latitude) + ', ' + str(car.longitude))
-        end_location = request.form['endlocation']
-        end_time = TimeField('endtime')
+        end_location = form.endloctation
+        end_time = form.endtime
         #return str(type(end_time))
         rental_info = RentalInformation(start_location=start_location, end_location=end_location,
             end_time=end_time, user_id=current_user.id, car_id=car_id)
