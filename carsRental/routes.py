@@ -12,6 +12,8 @@ import os
 from io import BytesIO #Converts data from Database into bytes
 from geopy.geocoders import Nominatim
 from wtforms import TimeField
+from datetime import datetime
+import pytz
 
 
 nom = Nominatim(user_agent="CarsRental")
@@ -238,8 +240,10 @@ def rent(car_id):
         end_time = str(form.endtime.data)
         #return str(end_time)
         #return str(type(end_time))
+        tz_Sofia = pytz.timezone('Europe/Sofia')
+        start_time =  datetime.now(tz_Sofia).strftime("%H:%M:%S")
         rental_info = RentalInformation(start_location=start_location, end_location=end_location,
-            end_time=end_time, user_id=current_user.id, car_id=car_id)
+            end_time=end_time, start_time = start_time, user_id=current_user.id, car_id=car_id)
         db.session.add(rental_info)
         db.session.commit()
 
