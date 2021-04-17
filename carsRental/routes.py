@@ -11,15 +11,30 @@ import base64
 import os
 from io import BytesIO #Converts data from Database into bytes
 from geopy.geocoders import Nominatim
+from geopy import distance
 from wtforms import TimeField
 from datetime import datetime
 import pytz
+import geocoder
+import math
+
 
 
 nom = Nominatim(user_agent="CarsRental")
 @app.route("/")
+
 def home():
-    return render_template('home.html', title = "Home", cars = Car.query.all(), path = "\\static\\carImages\\")
+    g = geocoder.ip('me')
+    user_location = (42.66581588791862, 23.30008508582709)
+    cars = Car.query.all()
+    func = lambda car: math.sqrt(((user_location[0] - car.latitude)**2)+((user_location[1] - car.longitude)**2))
+    sorted_cars = sorted(cars,key=func, reverse=False)
+    list1 = []
+    for car in sorted_cars:
+        list1.append(car.model)
+        list1.append(distance.distance(user_location,(car.latitude, car.longitude)).km)
+    return render_template('home.html', title = "Home", cars = sorted_cars, path = "\\static\\carImages\\")
+
 
 
 @app.route("/logout")
