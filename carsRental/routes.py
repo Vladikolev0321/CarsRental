@@ -84,10 +84,36 @@ def view_profile():
         rental_info = RentalInformation.query.filter_by(user_id=current_user.id).first()
         if rental_info:
             car = Car.query.filter_by(id=rental_info.car_id).first()
-            return render_template('profile.html', rental_info = rental_info, car = car)
+            start_coords = (42.69807953619626, 23.321380446073142)
+            folium_map = folium.Map(location=start_coords, zoom_start=13)
+            tooltip = "Click me!"
 
+            cord1 = [float(item) for item in rental_info.start_location.split(", ")]
+            rev1 = nom.reverse(rental_info.start_location)
+            popup1 = rev1.address.split(", ")
+            marker1 = folium.Marker(
+                cord1, popup=popup1[0], tooltip=tooltip
+            ).add_to(folium_map)
+            
+            cord2 = [float(item) for item in rental_info.end_location.split(", ")]
+            rev2 = nom.reverse(rental_info.end_location)
+            popup2 = rev2.address.split(", ")
+            marker2 = folium.Marker(
+                cord2, popup=popup2[0], tooltip=tooltip
+            ).add_to(folium_map)
+            
+            coordinates = [cord1, cord2]
+
+            folium.PolyLine(coordinates,
+                color='red',
+                weight=1,
+                opacity=1).add_to(folium_map)  
+
+            folium_map.save(app.root_path + '\\templates\\map.html')
+
+            return render_template('profile.html', rental_info = rental_info, car = car)
         else:
-            return render_template('profile.html', rental_info = rental_info)
+            return render_template('profile.html')
 
     else:
         pass
@@ -205,8 +231,10 @@ def rent(car_id):
     if request.method == 'GET':
         return render_template('rent.html', car=car, form=form)
     else:
-        start_location = (str(car.latitude) + ', ' + str(car.longitude))
-        end_location = form.endloctation.data
+        start_location = (str(car.latitude) + ", " + str(car.longitude))
+        location = form.endloctation.data
+        geo = nom.geocode(location)
+        end_location = (str(geo.latitude) + ", " + str(geo.longitude))
         end_time = str(form.endtime.data)
         #return str(end_time)
         #return str(type(end_time))
