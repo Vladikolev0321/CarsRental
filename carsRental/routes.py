@@ -219,8 +219,19 @@ def rent(car_id):
         db.session.commit()
         return redirect(url_for('home'))
 
-
-
+@app.route('/show/car/<int:car_id>/abandon', methods=['GET', 'POST'])
+@login_required
+def abandon(car_id):
+    rental_info = RentalInformation.query.filter_by(car_id=car_id).first()
+    if rental_info.user_id == current_user.id:
+        car = Car.query.get_or_404(car_id)
+        db.session.delete(rental_info)
+        db.session.commit()
+        car.status = False
+        db.session.commit()
+        return redirect(url_for('home'))
+    else:
+        abort(403) 
     
     
 @app.route('/add/station', methods=['GET', 'POST'])
@@ -263,6 +274,7 @@ def show_map():
     folium_map.save(app.root_path + '\\templates\\map.html')
     return render_template('stations.html')
     #folium_map._repr_html_()
+
 
 @app.route('/map')
 def map():

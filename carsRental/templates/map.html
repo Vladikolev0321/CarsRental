@@ -23,7 +23,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_f5d0546f29544e429d1da805b2053e31 {
+                #map_2bd57852879746ceb79372d195b249f8 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -35,17 +35,17 @@
 </head>
 <body>    
     
-            <div class="folium-map" id="map_f5d0546f29544e429d1da805b2053e31" ></div>
+            <div class="folium-map" id="map_2bd57852879746ceb79372d195b249f8" ></div>
         
 </body>
 <script>    
     
-            var map_f5d0546f29544e429d1da805b2053e31 = L.map(
-                "map_f5d0546f29544e429d1da805b2053e31",
+            var map_2bd57852879746ceb79372d195b249f8 = L.map(
+                "map_2bd57852879746ceb79372d195b249f8",
                 {
-                    center: [42.69225175, 23.310437050000004],
+                    center: [42.69807953619626, 23.321380446073142],
                     crs: L.CRS.EPSG3857,
-                    zoom: 15,
+                    zoom: 13,
                     zoomControl: true,
                     preferCanvas: false,
                 }
@@ -55,32 +55,59 @@
 
         
     
-            var tile_layer_2286c874def14b67b502e548f3d6f968 = L.tileLayer(
+            var tile_layer_c1be25249ea446e5905f9caaba2fd5ac = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_f5d0546f29544e429d1da805b2053e31);
+            ).addTo(map_2bd57852879746ceb79372d195b249f8);
         
     
-            var marker_477c1056056c470bbd44c7d62bb0f5e0 = L.marker(
+            var marker_5806102263284130803ca7f9bde42d87 = L.marker(
                 [42.69225175, 23.310437050000004],
                 {}
-            ).addTo(map_f5d0546f29544e429d1da805b2053e31);
+            ).addTo(map_2bd57852879746ceb79372d195b249f8);
         
     
-        var popup_a7d106015af742d082ef3edfec755c0c = L.popup({"maxWidth": "100%"});
+        var popup_7fb61fc86f764222a309a06894f656ba = L.popup({"maxWidth": "100%"});
 
         
-            var html_9e6259a08e514458b789e6c031edbad1 = $(`<div id="html_9e6259a08e514458b789e6c031edbad1" style="width: 100.0%; height: 100.0%;">Porche 918</div>`)[0];
-            popup_a7d106015af742d082ef3edfec755c0c.setContent(html_9e6259a08e514458b789e6c031edbad1);
+            var html_8d80e5057b9a4880b3440642b8c74b78 = $(`<div id="html_8d80e5057b9a4880b3440642b8c74b78" style="width: 100.0%; height: 100.0%;">Руски паметник</div>`)[0];
+            popup_7fb61fc86f764222a309a06894f656ba.setContent(html_8d80e5057b9a4880b3440642b8c74b78);
         
 
-        marker_477c1056056c470bbd44c7d62bb0f5e0.bindPopup(popup_a7d106015af742d082ef3edfec755c0c)
+        marker_5806102263284130803ca7f9bde42d87.bindPopup(popup_7fb61fc86f764222a309a06894f656ba)
         ;
 
         
     
     
-            marker_477c1056056c470bbd44c7d62bb0f5e0.bindTooltip(
+            marker_5806102263284130803ca7f9bde42d87.bindTooltip(
+                `<div>
+                     Click me!
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_131eeb6636e341b3bc12702e4ad5d3f1 = L.marker(
+                [42.662254149999995, 23.37332119613994],
+                {}
+            ).addTo(map_2bd57852879746ceb79372d195b249f8);
+        
+    
+        var popup_cb874933e66440908c5ad28de93fb3a3 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_d6305a47e86e42dba0c9ddc752740aca = $(`<div id="html_d6305a47e86e42dba0c9ddc752740aca" style="width: 100.0%; height: 100.0%;">ТУЕС</div>`)[0];
+            popup_cb874933e66440908c5ad28de93fb3a3.setContent(html_d6305a47e86e42dba0c9ddc752740aca);
+        
+
+        marker_131eeb6636e341b3bc12702e4ad5d3f1.bindPopup(popup_cb874933e66440908c5ad28de93fb3a3)
+        ;
+
+        
+    
+    
+            marker_131eeb6636e341b3bc12702e4ad5d3f1.bindTooltip(
                 `<div>
                      Click me!
                  </div>`,

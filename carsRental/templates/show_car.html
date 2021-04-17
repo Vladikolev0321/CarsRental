@@ -27,7 +27,7 @@
                 	<button type="button" onclick="window.location.href='{{ url_for("rent", car_id=car.id) }}'" class="btn btn-outline-info" style="margin-left: 42%">Rent a car</button>
 				{% else %}
 					{% if rent.user_id == current_user.id %}
-						<button type="button" onclick="window.location.href='#'" class="btn btn-outline-info" style="margin-left: 45%">Abandon</button>
+						<button type="button" onclick="window.location.href='{{ url_for("abandon", car_id=car.id) }}'" class="btn btn-outline-info" style="margin-left: 45%">Abandon</button>
 					{% else %}
 						<button type="button" onclick="window.location.href='#'" class="btn btn-outline-info" style="margin-left: 38%">Request from user</button>
 					{% endif %}
