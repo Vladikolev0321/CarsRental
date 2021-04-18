@@ -29,10 +29,6 @@ def home():
     cars = Car.query.all()
     func = lambda car: math.sqrt(((user_location[0] - car.latitude)**2)+((user_location[1] - car.longitude)**2))
     sorted_cars = sorted(cars,key=func, reverse=False)
-    list1 = []
-    for car in sorted_cars:
-        list1.append(car.model)
-        list1.append(distance.distance(user_location,(car.latitude, car.longitude)).km)
     return render_template('home.html', title = "Home", cars = sorted_cars, path = "\\static\\carImages\\")
 
 
