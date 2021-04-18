@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block content %}
+	<script type="text/javascript">
+	function sendPosition(position) {
+		document.getElementById("latitude").value = position.coords.latitude;
+		document.getElementById("longitude").value = position.coords.longitude;
+
+		document.getElementById("form_button").click();
+
+	}
+	function sendError(position) {
+		document.getElementById("latitude").value = "-1.0";
+		document.getElementById("longitude").value = "-1.0";
+
+		document.getElementById("form_button").click();
+
+	}
+
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(sendPosition, sendError);
+	} else {
+	    alert("Geolocation is not supported by this browser.");
+	}
+
+	</script>
+
+	
+	<form hidden method="post" id="position">
+	  	<label for="latitude"></label><br>
+	  	<input type="text" id="latitude" name="latitude"><br>
+	  	<label for="longitude"></label><br>
+	  	<input type="text" id="longitude" name="longitude">
+	</form>
+
+	<button hidden id="form_button" type="submit" form="position" value="Submit">Submit</button>
+
+{% endblock %}
+
+	

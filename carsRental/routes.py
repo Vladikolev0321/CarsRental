@@ -21,16 +21,25 @@ import math
 
 
 nom = Nominatim(user_agent="CarsRental")
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 
 def home():
-    g = geocoder.ip('me')
-    user_location = (42.66581588791862, 23.30008508582709)
-    cars = Car.query.all()
-    func = lambda car: math.sqrt(((user_location[0] - car.latitude)**2)+((user_location[1] - car.longitude)**2))
-    sorted_cars = sorted(cars,key=func, reverse=False)
-    return render_template('home.html', title = "Home", cars = sorted_cars, path = "\\static\\carImages\\")
+    if request.method == 'GET':
+        return render_template('home_js.html')
+    else:
+        latitude = request.form['latitude']
+        longitude = request.form['longitude']
 
+        if float(latitude) > 0 and float(longitude) > 0: #Check if Location is allowed
+            user_location = (float(latitude), float(longitude))
+            cars = Car.query.all()
+            func = lambda car: math.sqrt(((user_location[0] - car.latitude)**2)+((user_location[1] - car.longitude)**2))
+            sorted_cars = sorted(cars,key=func, reverse=False)
+            return render_template('home.html', title = "Home", cars = sorted_cars, path = "\\static\\carImages\\")
+
+        else:
+            cars = Car.query.all()
+            return render_template('home.html', title = "Home", cars = cars, path = "\\static\\carImages\\")
 
 
 @app.route("/logout")
