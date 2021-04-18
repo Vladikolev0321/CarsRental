@@ -346,6 +346,15 @@ def abandon(car_id):
     rental_info = RentalInformation.query.filter_by(car_id=car_id).first()
     if rental_info.user_id == current_user.id:
         car = Car.query.get_or_404(car_id)
+        end_station = Station.query.filter_by(id = rental_info.nearest_station_id).first()
+        start_station = Station.query.filter_by(name = car.location).first()
+        start_station.count_cars -= 1
+        end_station.count_cars +=1
+        db.session.commit()
+        car.location = end_station.name
+        car.latitude = end_station.latitude
+        car.longitude = end_station.longitude
+        db.session.commit()
         current_user.is_rent = False
         db.session.commit()
         db.session.delete(rental_info)

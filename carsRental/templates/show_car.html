@@ -26,7 +26,7 @@
 				{% if car.status == False %}
                 	<button type="button" onclick="window.location.href='{{ url_for("rent", car_id=car.id) }}'" class="btn btn-outline-primary" style="margin-left: 42%">Rent a car</button>
 				{% else %}
-					<button type="button" onclick="window.location.href='{{ url_for("home")}}'" class="btn btn-outline-primary" style="margin-left: 42%">Back to Home</button>
+					<button type="button" onclick="window.location.href='#'" class="btn btn-outline-primary" style="margin-left: 42%">Request form user</button>
 				{% endif %}
             {% endif %}
         {% endif %}
