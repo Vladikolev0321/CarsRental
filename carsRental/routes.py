@@ -339,7 +339,7 @@ def show_map():
     stations = Station.query.all()
     for station in stations:
         folium.Marker(
-            [station.latitude, station.longitude], popup=station.name, tooltip=tooltip
+            [station.latitude, station.longitude], popup=station.name, tooltip=tooltip, icon=folium.Icon(color='red', icon = "circle", prefix='fa')
         ).add_to(folium_map)
     folium_map.save(app.root_path + '\\templates\\map.html')
     return render_template('stations.html', stations=stations, car=Car.query)

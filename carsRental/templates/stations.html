@@ -1,15 +1,29 @@
 {% extends "layout.html" %}
 {% block content %}
-    <iframe class="map", src="/map" width="1250vw" height="750vh" style="margin-top: 5%; margin-left: -10%; border-style: solid;"></iframe>
-    <div>
-        {% for station in stations %}
-            {{ station.name }}: {{ station.count_cars }}  
-            <br>
-            {% if current_user.is_authenticated %}
-                {% if current_user.is_admin == True %}
-                    <button type="button" onclick="window.location.href='{{ url_for("remove_station", station_id=station.id) }}'" class="btn btn-outline-info">Remove</button>
-                {% endif %}
-            {% endif %}
-        {% endfor %}    
-    </div>
+    <iframe class="map", src="/map" width="1250vw" height="750vh" style="margin-top: 5%; margin-left: -40%; border-style: solid;"></iframe>
+    <table class="table table-ligh" style="border-style: solid ; border-color: black; border-width: 2px; width: 60%; margin-left: 140%; margin-top: -103%;">
+        <tbody>
+            {% for station in stations %}
+                <tr>
+                    <td class="align-middle font-weight-bold">
+                        {{ station.name }}
+                    </td>
+                    <td class="align-middle font-weight-bold">
+                        {{ station.count_cars }}
+                    </td>
+                    {% if current_user.is_authenticated %}
+                        {% if current_user.is_admin == True %}
+                            <td>
+                                <button class="btn btn-outline-info">Remove</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-outline-info">Edit</button>
+                            </td>
+                        {% endif %}
+                    {% endif %}
+                </tr>
+            {% endfor %}  
+        </tbody>
+    </table>
+      
 {% endblock %}
