@@ -24,13 +24,9 @@
                 <button type="button" onclick="window.location.href='/show/car/{{car.id}}/update'" class="btn btn-outline-info" >Edit</button>
             {% else %}
 				{% if car.status == False %}
-                	<button type="button" onclick="window.location.href='{{ url_for("rent", car_id=car.id) }}'" class="btn btn-outline-info" style="margin-left: 42%">Rent a car</button>
+                	<button type="button" onclick="window.location.href='{{ url_for("rent", car_id=car.id) }}'" class="btn btn-outline-primary" style="margin-left: 42%">Rent a car</button>
 				{% else %}
-					{% if rent.user_id == current_user.id %}
-						<button type="button" onclick="window.location.href='{{ url_for("abandon", car_id=car.id) }}'" class="btn btn-outline-info" style="margin-left: 45%">Abandon</button>
-					{% else %}
-						<button type="button" onclick="window.location.href='#'" class="btn btn-outline-info" style="margin-left: 38%">Request from user</button>
-					{% endif %}
+					<button type="button" onclick="window.location.href='{{ url_for("home")}}'" class="btn btn-outline-primary" style="margin-left: 42%">Back to Home</button>
 				{% endif %}
             {% endif %}
         {% endif %}

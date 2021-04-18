@@ -259,23 +259,86 @@ def rent(car_id):
     if request.method == 'GET':
         return render_template('rent.html', car=car, form=form)
     else:
+        current_user.is_rent = True
+        db.session.commit()
         start_location = (str(car.latitude) + ", " + str(car.longitude))
         location = form.endloctation.data
         geo = nom.geocode(location)
         end_location = (str(geo.latitude) + ", " + str(geo.longitude))
         end_time = str(form.endtime.data)
+        stations = Station.query.all()
+        list_end_location = (float(item) for item in end_location.split(", "))
+        func = lambda station: distance.distance(end_location, (station.latitude, station.longitude)).km
+        sorted_stations = sorted(stations,key=func, reverse=False)
+        station = sorted_stations[0]
         #return str(end_time)
         #return str(type(end_time))
         tz_Sofia = pytz.timezone('Europe/Sofia')
         start_time =  datetime.now(tz_Sofia).strftime("%H:%M:%S")
         rental_info = RentalInformation(start_location=start_location, end_location=end_location,
-            end_time=end_time, start_time = start_time, user_id=current_user.id, car_id=car_id)
+            end_time=end_time, start_time = start_time, user_id=current_user.id, car_id=car_id, nearest_station_id=station.id)
         db.session.add(rental_info)
         db.session.commit()
 
         car.status = True
         db.session.commit()
-        return redirect(url_for('home'))
+        return redirect(url_for('rentinfo'))
+
+@app.route('/rentinfo', methods=['GET', 'POST'])
+@login_required
+def rentinfo():
+    if request.method == 'GET':
+        rentinfo = RentalInformation.query.filter_by(user_id = current_user.id).first()
+        if rentinfo is None:
+            abort(403)
+        car = Car.query.filter_by(id = rentinfo.car_id).first()
+        station = Station.query.filter_by(id = rentinfo.nearest_station_id).first()
+
+        #Map
+        start_coords = [float(item) for item in rentinfo.start_location.split(", ")]
+        folium_map = folium.Map(location=start_coords, zoom_start=15)
+        tooltip = "Click me!"
+        #marksers
+        cord1 = [float(item) for item in rentinfo.start_location.split(", ")]
+        rev1 = nom.reverse(rentinfo.start_location)
+        popup1 = rev1.address.split(", ")
+        marker1 = folium.Marker(
+            cord1, popup=popup1[0], tooltip=tooltip, icon=folium.Icon(color='green', icon = "map-marker", prefix='fa')
+        ).add_to(folium_map)
+            
+        cord2 = [float(item) for item in rentinfo.end_location.split(", ")]
+        rev2 = nom.reverse(rentinfo.end_location)
+        popup2 = rev2.address.split(", ")
+        marker2 = folium.Marker(
+            cord2, popup=popup2[0], tooltip=tooltip, icon=folium.Icon(color='blue', icon = "location-arrow", prefix='fa')
+        ).add_to(folium_map)
+        
+        cord3 = [station.latitude, station.longitude]
+        listToStr = ' '.join([str(elem) for elem in cord3])
+        rev3 = nom.reverse(listToStr)
+        popup3 = rev3.address.split(", ")
+        marker3 = folium.Marker(
+            cord3, popup=popup2[0], tooltip=tooltip, icon=folium.Icon(color='black', icon = "flag-checkered", prefix='fa')
+        ).add_to(folium_map)
+
+        coordinates1 = [cord1, cord2]
+        coordinates2 = [cord2, cord3]
+
+        folium.PolyLine(coordinates1,
+            color='red',
+            weight=1,
+            opacity=1).add_to(folium_map)
+
+        folium.PolyLine(coordinates2,
+            color='red',
+            weight=1,
+            opacity=1).add_to(folium_map)  
+
+        folium_map.save(app.root_path + '\\templates\\map.html')
+
+        return render_template('rent_car.html', rentinfo=rentinfo, car=car, path = "\\static\\carImages\\", station = station )
+
+
 
 @app.route('/show/car/<int:car_id>/abandon', methods=['GET', 'POST'])
 @login_required
@@ -283,6 +346,8 @@ def abandon(car_id):
     rental_info = RentalInformation.query.filter_by(car_id=car_id).first()
     if rental_info.user_id == current_user.id:
         car = Car.query.get_or_404(car_id)
+        current_user.is_rent = False
+        db.session.commit()
         db.session.delete(rental_info)
         db.session.commit()
         car.status = False
@@ -327,7 +392,6 @@ def remove_station(station_id):
         return redirect(url_for('show_map'))
     else:
         abort(403)
-
 
 # Testing maps
 @app.route('/stations')

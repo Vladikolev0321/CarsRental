@@ -45,6 +45,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=False)
     is_admin = db.Column(db.Boolean, nullable=False, default = False)
     money = db.Column(db.Float, nullable=False, default = 0.0)
+    is_rent = db.Column(db.Boolean, nullable=False, default = False)
     #cars =  db.relationship('Car', backref='uploader', lazy=True)
 
     def __repr__(self):
@@ -59,6 +60,7 @@ class RentalInformation(db.Model):
     end_time = db.Column(db.String(10), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     car_id = db.Column(db.Integer, db.ForeignKey('car.id'), nullable=False)
+    nearest_station_id = db.Column(db.Integer, db.ForeignKey('station.id'), nullable=False)
 
     def __repr__(self):
         return f"RentalInfo('{self.user_name}', {self.car_id})"

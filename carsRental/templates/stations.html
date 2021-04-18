@@ -1,7 +1,18 @@
 {% extends "layout.html" %}
 {% block content %}
     <iframe class="map", src="/map" width="1250vw" height="750vh" style="margin-top: 5%; margin-left: -40%; border-style: solid;"></iframe>
-    <table class="table table-ligh" style="border-style: solid ; border-color: black; border-width: 2px; width: 60%; margin-left: 140%; margin-top: -103%;">
+    <table class="table table-ligh" style="border-style: solid ; border-color: black; border-width: 2px; width: 60%; margin-left: 140%; margin-top: -103.5%;">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" >Stations</th>
+                <th scope="col" >Car count</th>
+                {% if current_user.is_authenticated %}
+                    {% if current_user.is_admin == True %}
+                        <th scope="col" >Remove</th>
+                    {% endif %}
+                {% endif %}             
+            </tr>
+        </thead>
         <tbody>
             {% for station in stations %}
                 <tr>
@@ -14,16 +25,12 @@
                     {% if current_user.is_authenticated %}
                         {% if current_user.is_admin == True %}
                             <td>
-                                <button class="btn btn-outline-info">Remove</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-outline-info">Edit</button>
+                                <button type="button" onclick="window.location.href='{{ url_for("remove_station", station_id=station.id) }}'" class="btn btn-outline-info">Remove</button>
                             </td>
                         {% endif %}
                     {% endif %}
                 </tr>
             {% endfor %}  
         </tbody>
-    </table>
-      
+    </table>  
 {% endblock %}

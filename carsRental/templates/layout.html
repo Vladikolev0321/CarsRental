@@ -45,6 +45,9 @@
                         <a class="nav-link" href="/stations"><i class="fa fa-podcast" aria-hidden="true"></i> Stations</a>
                     </li>
                     {% if current_user.is_authenticated %}
+                        {% if current_user.is_rent == True %}
+                            <a class="nav-link" href="/rentinfo"><i class="fa fa-car" aria-hidden="true"></i></i> Rental Info</a>
+                        {% endif %}
                         {% if current_user.is_admin == True %}
                             <a class="nav-link" href="/add/car"><i class="fa fa-plus-circle" aria-hidden="true"></i></i> Add a car</a>
                             <a class="nav-link" href="/add/station"><i class="fa fa-plus-circle" aria-hidden="true"></i></i> Add a station</a>

@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div style="  margin-top: 3%; margin-left: 25%; margin-right: -25%">
+    	<figure class="figure">
+  			<img src="{{ path + car.filename }}" class="figure-img img-fluid rounded" alt="A "  style = "width: 150%">
+  			<h2 class="card-title">Model: {{ car.model }}</h2>
+			<h5 class="card-tex">Nearest Station: {{station.name}}</h5>
+			<h6 class="text-muted f-w-400">Start time: {{rentinfo.start_time}}</h6>
+            <h6 class="text-muted f-w-400">End time: {{rentinfo.end_time}}</h6>
+		</figure>
+		<iframe class="map", src="/map" width="730vw" height="400vh" style="border-style: solid;"></iframe>
+		<br>
+		<br>
+        {% if current_user.is_authenticated %}
+			{% if rentinfo.user_id == current_user.id %}
+				<button type="button" onclick="window.location.href='{{ url_for("abandon", car_id=car.id) }}'" class="btn btn-outline-info" style="margin-left: 45%">Abandon</button>
+			{% else %}
+				<button type="button" onclick="window.location.href='#'" class="btn btn-outline-info" style="margin-left: 38%">Request from user</button>
+			{% endif %}
+        {% endif %}
+		<br>
+		<br>
+		<br>
+    </div>
+{% endblock %}
