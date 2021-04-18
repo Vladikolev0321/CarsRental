@@ -1,4 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
     <iframe class="map", src="/map" width="1250vw" height="750vh" style="margin-top: 5%; margin-left: -10%; border-style: solid;"></iframe>
+    <div>
+        {% for station in stations %}
+            {{ station.name }}: {{ station.count_cars }}  
+            <br>
+            {% if current_user.is_authenticated %}
+                {% if current_user.is_admin == True %}
+                    <button type="button" onclick="window.location.href='{{ url_for("remove_station", station_id=station.id) }}'" class="btn btn-outline-info">Remove</button>
+                {% endif %}
+            {% endif %}
+        {% endfor %}    
+    </div>
 {% endblock %}

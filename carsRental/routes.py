@@ -159,7 +159,9 @@ def add_car():
         model = request.form['model']
         location = request.form['location']
 
-        station = Station.query.filter_by(id=location).first()#maybe some check
+        station = Station.query.filter_by(id=location).first()
+        station.count_cars += 1
+        db.session.commit()
         #return str(station is None)
         price = request.form['price']
 
@@ -188,10 +190,13 @@ def show_car(car_id):
 
 @app.route('/show/car/<int:car_id>/remove', methods=['GET', 'POST'])
 @login_required
-def remove(car_id):
+def remove_car(car_id):
     if request.method == 'GET':
         if current_user.is_admin == True:
             car = Car.query.get_or_404(car_id)
+            station = Station.query.filter_by(name=car.location).first()
+            station.count_cars -= 1
+            db.session.commit()
             app.config["IMAGE_UPLOADS"] = app.root_path + "\\static\\carImages"
             os.remove(os.path.join(app.config['IMAGE_UPLOADS'], car.filename))
             db.session.delete(car)
@@ -310,7 +315,19 @@ def add_station():
         db.session.add(newStation)
         db.session.commit()
 
-        return redirect(url_for('home'))
+        return redirect(url_for('show_map'))
+
+@app.route('/stations/<int:station_id>/remove', methods=['GET', 'POST'])
+@login_required
+def remove_station(station_id):
+    if current_user.is_admin == True:
+        station = Station.query.get_or_404(station_id)
+        db.session.delete(station)
+        db.session.commit()
+        return redirect(url_for('show_map'))
+    else:
+        abort(403)
+
 
 # Testing maps
 @app.route('/stations')
@@ -325,7 +342,7 @@ def show_map():
             [station.latitude, station.longitude], popup=station.name, tooltip=tooltip
         ).add_to(folium_map)
     folium_map.save(app.root_path + '\\templates\\map.html')
-    return render_template('stations.html')
+    return render_template('stations.html', stations=stations, car=Car.query)
     #folium_map._repr_html_()
 
 

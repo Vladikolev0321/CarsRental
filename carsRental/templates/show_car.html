@@ -20,7 +20,7 @@
 		<br>
         {% if current_user.is_authenticated %}
             {% if current_user.is_admin == True %}
-		        <button type="button" onclick="window.location.href='{{ url_for("remove", car_id=car.id) }}'" class="btn btn-outline-info" style="margin-left: 35%; margin-right: 1%;">Remove</button>
+		        <button type="button" onclick="window.location.href='{{ url_for("remove_car", car_id=car.id) }}'" class="btn btn-outline-info" style="margin-left: 35%; margin-right: 1%;">Remove</button>
                 <button type="button" onclick="window.location.href='/show/car/{{car.id}}/update'" class="btn btn-outline-info" >Edit</button>
             {% else %}
 				{% if car.status == False %}

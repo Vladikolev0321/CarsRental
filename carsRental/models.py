@@ -34,6 +34,8 @@ class Station(db.Model): # to improve the stations db model
     latitude = db.Column(db.Float, nullable=False)
     longitude = db.Column(db.Float, nullable=False)
     name = db.Column(db.String(128), unique=True, nullable=False)
+    count_cars = db.Column(db.Integer, nullable=False, default=0)
+
 
 
 class User(db.Model, UserMixin):
