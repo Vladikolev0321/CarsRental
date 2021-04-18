@@ -33,7 +33,8 @@ def home():
         if float(latitude) > 0 and float(longitude) > 0: #Check if Location is allowed
             user_location = (float(latitude), float(longitude))
             cars = Car.query.all()
-            func = lambda car: math.sqrt(((user_location[0] - car.latitude)**2)+((user_location[1] - car.longitude)**2))
+            #func = lambda car: math.sqrt(((user_location[0] - car.latitude)**2)+((user_location[1] - car.longitude)**2))
+            func = lambda car: distance.distance(user_location, (car.latitude, car.longitude)).km
             sorted_cars = sorted(cars,key=func, reverse=False)
             return render_template('home.html', title = "Home", cars = sorted_cars, path = "\\static\\carImages\\")
 
