@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+    <form action="" method="POST">
+        <div class="form-group">
+            {{form.startlocation.label}} <br>
+            {{form.startlocation(size=1000, class="form-control", placeholder="")}}
+        </div>
+        <div class="form-group">
+            {{form.endloctation.label}} <br>
+            {{form.endloctation(size=1000, class="form-control", placeholder="")}}
+        </div>
+        <div class="form-group">
+            {{form.startlocation.label}} <br>
+            {{form.startlocation(class="form-control w-25", type="time")}}
+        </div>
+        <div class="form-group">
+            {{form.endtime.label}} <br>
+            {{form.endtime(class="form-control w-25", type="time")}}
+        </div>
+        <div class="form-group">
+            {{form.submit(class="btn btn-outline-primary")}}
+        </div>
+    </form>
+{% endblock %}

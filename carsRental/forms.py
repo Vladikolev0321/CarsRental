@@ -22,5 +22,12 @@ class RentForm(FlaskForm):
     endtime = TimeField('End of rental time')
     submit = SubmitField('Rent')
 
+class CarPoolForm(FlaskForm):
+    startlocation = StringField('Start location')
+    endloctation = StringField('End Location')
+    starttime = TimeField('Start of rental time')
+    endtime = TimeField('End of rental time')
+    submit = SubmitField('Find car')
+
 
 

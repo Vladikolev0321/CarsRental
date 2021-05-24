@@ -23,7 +23,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_581843887cea4a36b1d8f13f8798abee {
+                #map_af44e4c1456e49e3ae43c6ff786c89dc {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -35,17 +35,17 @@
 </head>
 <body>    
     
-            <div class="folium-map" id="map_581843887cea4a36b1d8f13f8798abee" ></div>
+            <div class="folium-map" id="map_af44e4c1456e49e3ae43c6ff786c89dc" ></div>
         
 </body>
 <script>    
     
-            var map_581843887cea4a36b1d8f13f8798abee = L.map(
-                "map_581843887cea4a36b1d8f13f8798abee",
+            var map_af44e4c1456e49e3ae43c6ff786c89dc = L.map(
+                "map_af44e4c1456e49e3ae43c6ff786c89dc",
                 {
-                    center: [42.662254149999995, 23.37332119613994],
+                    center: [42.69807953619626, 23.321380446073142],
                     crs: L.CRS.EPSG3857,
-                    zoom: 15,
+                    zoom: 13,
                     zoomControl: true,
                     preferCanvas: false,
                 }
@@ -55,32 +55,71 @@
 
         
     
-            var tile_layer_702b4494ae2445e38d8ec60d66aa29ff = L.tileLayer(
+            var tile_layer_c79bbb16c0a44937bb995a7d4c00e1c2 = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_581843887cea4a36b1d8f13f8798abee);
+            ).addTo(map_af44e4c1456e49e3ae43c6ff786c89dc);
         
     
-            var marker_d9e67215af6549b4b4eef6ea4c556313 = L.marker(
-                [42.662254149999995, 23.37332119613994],
+            var marker_744f2de336fd451b8f81341f81361001 = L.marker(
+                [42.69225175, 23.310437050000004],
                 {}
-            ).addTo(map_581843887cea4a36b1d8f13f8798abee);
+            ).addTo(map_af44e4c1456e49e3ae43c6ff786c89dc);
         
     
-        var popup_50d0e98466664d75a994e21909d7b0b8 = L.popup({"maxWidth": "100%"});
+            var icon_939b4f97e4e54e4a884676ea6360feb4 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "circle", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_744f2de336fd451b8f81341f81361001.setIcon(icon_939b4f97e4e54e4a884676ea6360feb4);
+        
+    
+        var popup_37014d36da594b91bdeb636dbce2cd00 = L.popup({"maxWidth": "100%"});
 
         
-            var html_23b109934bd54668a246b8b4fc7959ac = $(`<div id="html_23b109934bd54668a246b8b4fc7959ac" style="width: 100.0%; height: 100.0%;">S clasa</div>`)[0];
-            popup_50d0e98466664d75a994e21909d7b0b8.setContent(html_23b109934bd54668a246b8b4fc7959ac);
+            var html_80c53cd0a2704f5dbe01479b4c0529cb = $(`<div id="html_80c53cd0a2704f5dbe01479b4c0529cb" style="width: 100.0%; height: 100.0%;">Руски паметник</div>`)[0];
+            popup_37014d36da594b91bdeb636dbce2cd00.setContent(html_80c53cd0a2704f5dbe01479b4c0529cb);
         
 
-        marker_d9e67215af6549b4b4eef6ea4c556313.bindPopup(popup_50d0e98466664d75a994e21909d7b0b8)
+        marker_744f2de336fd451b8f81341f81361001.bindPopup(popup_37014d36da594b91bdeb636dbce2cd00)
         ;
 
         
     
     
-            marker_d9e67215af6549b4b4eef6ea4c556313.bindTooltip(
+            marker_744f2de336fd451b8f81341f81361001.bindTooltip(
+                `<div>
+                     Click me!
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_e1b794f796bd4616bdc554fff751bdff = L.marker(
+                [42.662254149999995, 23.37332119613994],
+                {}
+            ).addTo(map_af44e4c1456e49e3ae43c6ff786c89dc);
+        
+    
+            var icon_3ce65342fdd14d00a22ebc698f432722 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "circle", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_e1b794f796bd4616bdc554fff751bdff.setIcon(icon_3ce65342fdd14d00a22ebc698f432722);
+        
+    
+        var popup_03fed6feeeda46619165f425eb929eff = L.popup({"maxWidth": "100%"});
+
+        
+            var html_c7e34ccbb84d4b73a2c87c9ac1080a16 = $(`<div id="html_c7e34ccbb84d4b73a2c87c9ac1080a16" style="width: 100.0%; height: 100.0%;">ТУЕС</div>`)[0];
+            popup_03fed6feeeda46619165f425eb929eff.setContent(html_c7e34ccbb84d4b73a2c87c9ac1080a16);
+        
+
+        marker_e1b794f796bd4616bdc554fff751bdff.bindPopup(popup_03fed6feeeda46619165f425eb929eff)
+        ;
+
+        
+    
+    
+            marker_e1b794f796bd4616bdc554fff751bdff.bindTooltip(
                 `<div>
                      Click me!
                  </div>`,

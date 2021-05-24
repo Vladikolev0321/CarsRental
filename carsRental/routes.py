@@ -4,7 +4,7 @@ from wtforms.validators import Email
 from carsRental.models import *
 from carsRental import app, bcrypt, db, folium
 from flask import request, render_template, url_for, flash, redirect, abort
-from carsRental.forms import LoginForm, RegistrationForm, RentForm
+from carsRental.forms import CarPoolForm, LoginForm, RegistrationForm, RentForm
 from flask_login import login_user, current_user
 from base64 import b64encode
 import base64
@@ -205,6 +205,24 @@ def remove_car(car_id):
             return redirect(url_for('home'))
         else:
             abort(403)
+
+@app.route('/carpool', methods=['GET', 'POST'])
+@login_required
+def carpool():
+    form = CarPoolForm()
+    if request.method == 'GET':
+            return render_template('carpool.html', form=form)
+    else:
+        startlocation = form.startlocation.data
+        endloctation =  form.endloctation.data
+        starttime = form.starttime.data
+        endtime = form.endtime.data
+        
+
+
+
+
+    
 
 @app.route('/show/car/<int:car_id>/update', methods=['GET', 'POST'])
 @login_required
