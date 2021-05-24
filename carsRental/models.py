@@ -67,10 +67,12 @@ class RentalInformation(db.Model):
 
 class Paths(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    start_location_x = db.Column(db.String(1000), nullable=False)
-    start_location_y = db.Column(db.String(1000), nullable=False)
-    end_location_x = db.Column(db.String(1000), nullable=False)
-    end_location_y = db.Column(db.String(1000), nullable=False)
+    start_location_x = db.Column(db.String(100), nullable=False)
+    start_location_y = db.Column(db.String(100), nullable=False)
+    end_location_x = db.Column(db.String(100), nullable=False)
+    end_location_y = db.Column(db.String(100), nullable=False)
+    start_time = db.Column(db.String(20), nullable=True)
+    end_time = db.Column(db.String(20), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 # class Waypoints(db.Model):

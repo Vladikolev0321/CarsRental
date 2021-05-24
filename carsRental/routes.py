@@ -214,9 +214,28 @@ def carpool():
             return render_template('carpool.html', form=form)
     else:
         startlocation = form.startlocation.data
+        geo_start = nom.geocode(startlocation)
+
         endloctation =  form.endloctation.data
-        starttime = form.starttime.data
-        endtime = form.endtime.data
+        geo_end = nom.geocode(endloctation)
+
+        starttime = str(form.starttime.data)
+        endtime = str(form.endtime.data)
+        #return starttime
+
+        path = Paths(start_location_x = str(geo_start.latitude), start_location_y = str(geo_start.longitude),
+        end_location_x = str(geo_end.latitude), end_location_y = str(geo_end.longitude), start_time = starttime, end_time = endtime, user_id=current_user.id)
+        db.session.add(path)
+        db.session.commit()
+
+        return redirect(url_for('home'))
+
+        #location = form.endloctation.data
+        #geo = nom.geocode(location)
+        #end_location = (str(geo.latitude) + ", " + str(geo.longitude))
+        #rental_info = RentalInformation(start_location=start_location, end_location=end_location, end_time=end_time, start_time = start_time, user_id=current_user.id, car_id=car_id, nearest_station_id=station.id)
+        #db.session.add(rental_info)
+        #db.session.commit()
         
 
 

@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TimeField
+from wtforms.fields.html5 import DateTimeLocalField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 
 class RegistrationForm(FlaskForm):
@@ -25,8 +26,8 @@ class RentForm(FlaskForm):
 class CarPoolForm(FlaskForm):
     startlocation = StringField('Start location')
     endloctation = StringField('End Location')
-    starttime = TimeField('Start of rental time')
-    endtime = TimeField('End of rental time')
+    starttime = DateTimeLocalField('Start of rental time', format = '%Y-%m-%dT%H:%M')
+    endtime = DateTimeLocalField('End of rental time', format = '%Y-%m-%dT%H:%M')
     submit = SubmitField('Find car')
 
 

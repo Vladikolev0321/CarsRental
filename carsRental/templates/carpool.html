@@ -10,12 +10,12 @@
             {{form.endloctation(size=1000, class="form-control", placeholder="")}}
         </div>
         <div class="form-group">
-            {{form.startlocation.label}} <br>
-            {{form.startlocation(class="form-control w-25", type="time")}}
+            {{form.starttime.label}} <br>
+            {{form.starttime(class="form-control w-25", type="datetime-local")}}
         </div>
         <div class="form-group">
             {{form.endtime.label}} <br>
-            {{form.endtime(class="form-control w-25", type="time")}}
+            {{form.endtime(class="form-control w-25", type="datetime-local")}}
         </div>
         <div class="form-group">
             {{form.submit(class="btn btn-outline-primary")}}
