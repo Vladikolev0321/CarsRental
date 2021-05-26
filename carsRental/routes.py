@@ -228,6 +228,8 @@ def carpool():
         db.session.add(path)
         db.session.commit()
 
+
+
         return redirect(url_for('home'))
 
         #location = form.endloctation.data
@@ -355,7 +357,7 @@ def rentinfo():
         rev3 = nom.reverse(listToStr)
         popup3 = rev3.address.split(", ")
         marker3 = folium.Marker(
-            cord3, popup=popup2[0], tooltip=tooltip, icon=folium.Icon(color='black', icon = "flag-checkered", prefix='fa')
+            cord3, popup=popup3[0], tooltip=tooltip, icon=folium.Icon(color='black', icon = "flag-checkered", prefix='fa')
         ).add_to(folium_map)
 
         coordinates1 = [cord1, cord2]
@@ -375,6 +377,57 @@ def rentinfo():
 
         return render_template('rent_car.html', rentinfo=rentinfo, car=car, path = "\\static\\carImages\\", station = station )
 
+@app.route('/paths', methods=['GET', 'POST'])
+@login_required
+def paths():
+    path = Paths.query.first()
+    if path is None:
+        abort(403)
+
+    #Map
+    start_coords = [float(item) for item in rentinfo.start_location.split(", ")]
+    folium_map = folium.Map(location=start_coords, zoom_start=15)
+    tooltip = "Click me!"
+    #marksers
+    #cord1 = [float(item) for item in rentinfo.start_location.split(", ")]
+    cord1 = [float(path.start_location_x), float(path.start_location_y)]
+
+    rev1 = nom.reverse(path.start_location_x + ', ' + path.start_location_y)
+    
+    popup1 = rev1.address.split(", ")
+    marker1 = folium.Marker(
+        cord1, popup=popup1[0], tooltip=tooltip, icon=folium.Icon(color='green', icon = "map-marker", prefix='fa')
+    ).add_to(folium_map)
+        
+    cord2 = [float(item) for item in rentinfo.end_location.split(", ")]
+    rev2 = nom.reverse(rentinfo.end_location)
+    popup2 = rev2.address.split(", ")
+    marker2 = folium.Marker(
+        cord2, popup=popup2[0], tooltip=tooltip, icon=folium.Icon(color='blue', icon = "location-arrow", prefix='fa')
+    ).add_to(folium_map)
+    
+    cord3 = [station.latitude, station.longitude]
+    listToStr = ' '.join([str(elem) for elem in cord3])
+    rev3 = nom.reverse(listToStr)
+    popup3 = rev3.address.split(", ")
+    marker3 = folium.Marker(
+        cord3, popup=popup3[0], tooltip=tooltip, icon=folium.Icon(color='black', icon = "flag-checkered", prefix='fa')
+    ).add_to(folium_map)
+
+    coordinates1 = [cord1, cord2]
+    coordinates2 = [cord2, cord3]
+
+    folium.PolyLine(coordinates1,
+        color='red',
+        weight=1,
+        opacity=1).add_to(folium_map)
+
+    folium.PolyLine(coordinates2,
+        color='red',
+        weight=1,
+        opacity=1).add_to(folium_map)  
+
+    folium_map.save(app.root_path + '\\templates\\map.html')    
 
 
 @app.route('/show/car/<int:car_id>/abandon', methods=['GET', 'POST'])

@@ -23,7 +23,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_a094765265714f65bbc28c26ed1a54bf {
+                #map_cd3c6101cf3c4290a39655d94db49266 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -35,13 +35,13 @@
 </head>
 <body>    
     
-            <div class="folium-map" id="map_a094765265714f65bbc28c26ed1a54bf" ></div>
+            <div class="folium-map" id="map_cd3c6101cf3c4290a39655d94db49266" ></div>
         
 </body>
 <script>    
     
-            var map_a094765265714f65bbc28c26ed1a54bf = L.map(
-                "map_a094765265714f65bbc28c26ed1a54bf",
+            var map_cd3c6101cf3c4290a39655d94db49266 = L.map(
+                "map_cd3c6101cf3c4290a39655d94db49266",
                 {
                     center: [42.662254149999995, 23.37332119613994],
                     crs: L.CRS.EPSG3857,
@@ -55,36 +55,120 @@
 
         
     
-            var tile_layer_485b1fde56c94ff5a329eb9cbf9dae56 = L.tileLayer(
+            var tile_layer_01779822dbce41f5b050e2d06239c500 = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_a094765265714f65bbc28c26ed1a54bf);
+            ).addTo(map_cd3c6101cf3c4290a39655d94db49266);
         
     
-            var marker_6335343974b141f4840afb15ca8e8034 = L.marker(
+            var marker_7ce35171ff954f89a7c5705559c38a02 = L.marker(
                 [42.662254149999995, 23.37332119613994],
                 {}
-            ).addTo(map_a094765265714f65bbc28c26ed1a54bf);
+            ).addTo(map_cd3c6101cf3c4290a39655d94db49266);
         
     
-        var popup_25ef068aba7e4effb00f7555794e703e = L.popup({"maxWidth": "100%"});
+            var icon_14d208baafaa4497bde39645c2915064 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "map-marker", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_7ce35171ff954f89a7c5705559c38a02.setIcon(icon_14d208baafaa4497bde39645c2915064);
+        
+    
+        var popup_acb546903d0a45018e09921f1172764d = L.popup({"maxWidth": "100%"});
 
         
-            var html_462f68995ea940ddb17b8aa617a8bad6 = $(`<div id="html_462f68995ea940ddb17b8aa617a8bad6" style="width: 100.0%; height: 100.0%;">S clasa</div>`)[0];
-            popup_25ef068aba7e4effb00f7555794e703e.setContent(html_462f68995ea940ddb17b8aa617a8bad6);
+            var html_205667912b7f42f48632aea5c0d40c12 = $(`<div id="html_205667912b7f42f48632aea5c0d40c12" style="width: 100.0%; height: 100.0%;">ТУЕС</div>`)[0];
+            popup_acb546903d0a45018e09921f1172764d.setContent(html_205667912b7f42f48632aea5c0d40c12);
         
 
-        marker_6335343974b141f4840afb15ca8e8034.bindPopup(popup_25ef068aba7e4effb00f7555794e703e)
+        marker_7ce35171ff954f89a7c5705559c38a02.bindPopup(popup_acb546903d0a45018e09921f1172764d)
         ;
 
         
     
     
-            marker_6335343974b141f4840afb15ca8e8034.bindTooltip(
+            marker_7ce35171ff954f89a7c5705559c38a02.bindTooltip(
                 `<div>
                      Click me!
                  </div>`,
                 {"sticky": true}
             );
+        
+    
+            var marker_4eae526fe41143898336640d764338a5 = L.marker(
+                [42.7008522, 23.3678123],
+                {}
+            ).addTo(map_cd3c6101cf3c4290a39655d94db49266);
+        
+    
+            var icon_a356d1f46d9443049cd89f0f1217e018 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "location-arrow", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_4eae526fe41143898336640d764338a5.setIcon(icon_a356d1f46d9443049cd89f0f1217e018);
+        
+    
+        var popup_e1f22659ed7a44668b0615288d70a2f2 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_ad1e7fda202140b2847e99f69f2f0d19 = $(`<div id="html_ad1e7fda202140b2847e99f69f2f0d19" style="width: 100.0%; height: 100.0%;">44 СОУ "Неофит Бозвели"</div>`)[0];
+            popup_e1f22659ed7a44668b0615288d70a2f2.setContent(html_ad1e7fda202140b2847e99f69f2f0d19);
+        
+
+        marker_4eae526fe41143898336640d764338a5.bindPopup(popup_e1f22659ed7a44668b0615288d70a2f2)
+        ;
+
+        
+    
+    
+            marker_4eae526fe41143898336640d764338a5.bindTooltip(
+                `<div>
+                     Click me!
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_f7d5eb3b97994cf5a2a48fccdefbee49 = L.marker(
+                [42.662254149999995, 23.37332119613994],
+                {}
+            ).addTo(map_cd3c6101cf3c4290a39655d94db49266);
+        
+    
+            var icon_9ddc1e83d4da43279166d806e8bb2d5d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "flag-checkered", "iconColor": "white", "markerColor": "black", "prefix": "fa"}
+            );
+            marker_f7d5eb3b97994cf5a2a48fccdefbee49.setIcon(icon_9ddc1e83d4da43279166d806e8bb2d5d);
+        
+    
+        var popup_742904292c3f43a7938d1d377b93c459 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_d856c4701b584e58a9a156fd1ceb6a83 = $(`<div id="html_d856c4701b584e58a9a156fd1ceb6a83" style="width: 100.0%; height: 100.0%;">ТУЕС</div>`)[0];
+            popup_742904292c3f43a7938d1d377b93c459.setContent(html_d856c4701b584e58a9a156fd1ceb6a83);
+        
+
+        marker_f7d5eb3b97994cf5a2a48fccdefbee49.bindPopup(popup_742904292c3f43a7938d1d377b93c459)
+        ;
+
+        
+    
+    
+            marker_f7d5eb3b97994cf5a2a48fccdefbee49.bindTooltip(
+                `<div>
+                     Click me!
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var poly_line_b930c8091bc145cbaaefcaa13c22ebee = L.polyline(
+                [[42.662254149999995, 23.37332119613994], [42.7008522, 23.3678123]],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+            ).addTo(map_cd3c6101cf3c4290a39655d94db49266);
+        
+    
+            var poly_line_1531dde00fde4914858e29e7ab0b7866 = L.polyline(
+                [[42.7008522, 23.3678123], [42.662254149999995, 23.37332119613994]],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+            ).addTo(map_cd3c6101cf3c4290a39655d94db49266);
         
 </script>
