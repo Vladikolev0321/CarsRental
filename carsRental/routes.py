@@ -394,11 +394,57 @@ def paths():
         abort(403)
 
 
+    
+
     # #Map
     # start_coords = [float(item) for item in path.start_location.split(", ")]
     start_coords = [float(path.start_location_x), float(path.start_location_y)]
     folium_map = folium.Map(location=start_coords, zoom_start=15)
     tooltip = "Click me!"
+
+    #Other paths
+    other_paths = Paths.query.all()
+    for other_path in other_paths:
+        if other_path.id != path.id:
+            user = User.query.filter_by(id=other_path.user_id).first()
+            #marksers
+            #cord1 = [float(item) for item in rentinfo.start_location.split(", ")]
+            cord1 = [float(other_path.start_location_x), float(other_path.start_location_y)]
+
+            rev1 = nom.reverse(other_path.start_location_x + ', ' + other_path.start_location_y)
+            
+            popup1 = rev1.address.split(", ")
+            marker1 = folium.Marker(
+                cord1, popup=popup1[0], tooltip=user.username, icon=folium.Icon(color='blue', icon = "map-marker", prefix='fa')
+            ).add_to(folium_map)
+                
+            # cord2 = [float(item) for item in rentinfo.end_location.split(", ")]
+            cord2 = [float(other_path.end_location_x), float(other_path.end_location_y)]
+            rev2 = nom.reverse(other_path.end_location_x + ', ' + other_path.end_location_y)
+            popup2 = rev2.address.split(", ")
+            marker2 = folium.Marker(
+                cord2, popup=popup2[0], tooltip=user.username, icon=folium.Icon(color='blue', icon = "location-arrow", prefix='fa')
+            ).add_to(folium_map)
+            
+
+            coordinates = [cord1, cord2]
+
+            folium.PolyLine(coordinates,
+                color='blue',
+                weight=10,
+                opacity=1).add_to(folium_map)
+            
+
+    #Waypoints
+    waypoints = Waypoints.query.filter_by(path_id=path.id).all()
+    waypoints_count = Waypoints.query.filter_by(path_id=path.id).count
+    for waypoint in waypoints:
+        cord = [float(waypoint.location_x), float(waypoint.location_y)]
+        rev = nom.reverse(waypoint.location_x + ', ' + waypoint.location_y)
+        popup = rev.address.split(", ")
+        marker = folium.Marker(
+        cord, popup=popup[0], tooltip=tooltip, icon=folium.Icon(color='green', icon = "road", prefix='fa')
+        ).add_to(folium_map)
     #marksers
     #cord1 = [float(item) for item in rentinfo.start_location.split(", ")]
     cord1 = [float(path.start_location_x), float(path.start_location_y)]
@@ -415,7 +461,7 @@ def paths():
     rev2 = nom.reverse(path.end_location_x + ', ' + path.end_location_y)
     popup2 = rev2.address.split(", ")
     marker2 = folium.Marker(
-        cord2, popup=popup2[0], tooltip=tooltip, icon=folium.Icon(color='blue', icon = "location-arrow", prefix='fa')
+        cord2, popup=popup2[0], tooltip=tooltip, icon=folium.Icon(color='green', icon = "location-arrow", prefix='fa')
     ).add_to(folium_map)
     
     #cord3 = [station.latitude, station.longitude]
@@ -430,8 +476,8 @@ def paths():
     #coordinates2 = [cord2, cord3]
 
     folium.PolyLine(coordinates1,
-        color='red',
-        weight=1,
+        color='green',
+        weight=10,
         opacity=1).add_to(folium_map)
 
     # folium.PolyLine(coordinates2,
@@ -441,11 +487,12 @@ def paths():
 
     folium_map.save(app.root_path + '\\templates\\map.html')
 
-    return render_template('paths.html')
+    return render_template('paths.html', path=path)
 
-@app.route('/add_waypoint', methods=['GET', 'POST'])
+@app.route('/paths/<int:path_id>/add_waypoint', methods=['GET', 'POST'])
 @login_required
-def add_waypoint():
+def add_waypoint(path_id):
+
     form = WaypointForm()
     if request.method == 'GET': 
         return render_template('adding_waypoint.html', form=form)
@@ -454,10 +501,11 @@ def add_waypoint():
     geo_start = nom.geocode(location)
 
     waypoint = Waypoints(location_x = str(geo_start.latitude), location_y = str(geo_start.longitude),
-     path_id= )
+     path_id= path_id)
 
     db.session.add(waypoint)
     db.session.commit()
+    return redirect(url_for('paths'))
     
 
 
