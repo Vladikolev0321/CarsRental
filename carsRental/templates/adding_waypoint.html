@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+    <form action="" method="POST">
+        <div class="form-group">
+            {{form.location.label}} <br>
+            {{form.location(size=1000, class="form-control", placeholder="")}}
+        </div>
+        <div class="form-group">
+            {{form.submit(class="btn btn-outline-primary")}}
+        </div>
+    </form>
+{% endblock %}

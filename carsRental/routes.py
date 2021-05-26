@@ -4,7 +4,7 @@ from wtforms.validators import Email
 from carsRental.models import *
 from carsRental import app, bcrypt, db, folium
 from flask import request, render_template, url_for, flash, redirect, abort
-from carsRental.forms import CarPoolForm, LoginForm, RegistrationForm, RentForm
+from carsRental.forms import CarPoolForm, LoginForm, RegistrationForm, RentForm, WaypointForm
 from flask_login import login_user, current_user
 from base64 import b64encode
 import base64
@@ -221,10 +221,18 @@ def carpool():
 
         starttime = str(form.starttime.data)
         endtime = str(form.endtime.data)
+
+        isdriver =  True if form.isdriver.data == 'yes' else False
+            
+        # if form.isdriver.data == 'yes':
+        #     isdriver = True
+        #return str(isdriver)
         #return starttime
 
         path = Paths(start_location_x = str(geo_start.latitude), start_location_y = str(geo_start.longitude),
-        end_location_x = str(geo_end.latitude), end_location_y = str(geo_end.longitude), start_time = starttime, end_time = endtime, user_id=current_user.id)
+        end_location_x = str(geo_end.latitude), end_location_y = str(geo_end.longitude), start_time = starttime, end_time = endtime, user_id=current_user.id
+        , is_driver=isdriver)
+
         db.session.add(path)
         db.session.commit()
 
@@ -380,12 +388,15 @@ def rentinfo():
 @app.route('/paths', methods=['GET', 'POST'])
 @login_required
 def paths():
-    path = Paths.query.first()
+    path = Paths.query.filter_by(user_id=current_user.id).first()
+    #return str(path.id)
     if path is None:
         abort(403)
 
-    #Map
-    start_coords = [float(item) for item in rentinfo.start_location.split(", ")]
+
+    # #Map
+    # start_coords = [float(item) for item in path.start_location.split(", ")]
+    start_coords = [float(path.start_location_x), float(path.start_location_y)]
     folium_map = folium.Map(location=start_coords, zoom_start=15)
     tooltip = "Click me!"
     #marksers
@@ -399,35 +410,56 @@ def paths():
         cord1, popup=popup1[0], tooltip=tooltip, icon=folium.Icon(color='green', icon = "map-marker", prefix='fa')
     ).add_to(folium_map)
         
-    cord2 = [float(item) for item in rentinfo.end_location.split(", ")]
-    rev2 = nom.reverse(rentinfo.end_location)
+    # cord2 = [float(item) for item in rentinfo.end_location.split(", ")]
+    cord2 = [float(path.end_location_x), float(path.end_location_y)]
+    rev2 = nom.reverse(path.end_location_x + ', ' + path.end_location_y)
     popup2 = rev2.address.split(", ")
     marker2 = folium.Marker(
         cord2, popup=popup2[0], tooltip=tooltip, icon=folium.Icon(color='blue', icon = "location-arrow", prefix='fa')
     ).add_to(folium_map)
     
-    cord3 = [station.latitude, station.longitude]
-    listToStr = ' '.join([str(elem) for elem in cord3])
-    rev3 = nom.reverse(listToStr)
-    popup3 = rev3.address.split(", ")
-    marker3 = folium.Marker(
-        cord3, popup=popup3[0], tooltip=tooltip, icon=folium.Icon(color='black', icon = "flag-checkered", prefix='fa')
-    ).add_to(folium_map)
+    #cord3 = [station.latitude, station.longitude]
+    #listToStr = ' '.join([str(elem) for elem in cord3])
+    #rev3 = nom.reverse(listToStr)
+    # popup3 = rev3.address.split(", ")
+    # marker3 = folium.Marker(
+    #     cord3, popup=popup3[0], tooltip=tooltip, icon=folium.Icon(color='black', icon = "flag-checkered", prefix='fa')
+    # ).add_to(folium_map)
 
     coordinates1 = [cord1, cord2]
-    coordinates2 = [cord2, cord3]
+    #coordinates2 = [cord2, cord3]
 
     folium.PolyLine(coordinates1,
         color='red',
         weight=1,
         opacity=1).add_to(folium_map)
 
-    folium.PolyLine(coordinates2,
-        color='red',
-        weight=1,
-        opacity=1).add_to(folium_map)  
+    # folium.PolyLine(coordinates2,
+    #     color='red',
+    #     weight=1,
+    #     opacity=1).add_to(folium_map)  
 
-    folium_map.save(app.root_path + '\\templates\\map.html')    
+    folium_map.save(app.root_path + '\\templates\\map.html')
+
+    return render_template('paths.html')
+
+@app.route('/add_waypoint', methods=['GET', 'POST'])
+@login_required
+def add_waypoint():
+    form = WaypointForm()
+    if request.method == 'GET': 
+        return render_template('adding_waypoint.html', form=form)
+
+    location = form.location.data
+    geo_start = nom.geocode(location)
+
+    waypoint = Waypoints(location_x = str(geo_start.latitude), location_y = str(geo_start.longitude),
+     path_id= )
+
+    db.session.add(waypoint)
+    db.session.commit()
+    
+
 
 
 @app.route('/show/car/<int:car_id>/abandon', methods=['GET', 'POST'])

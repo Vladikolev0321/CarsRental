@@ -74,10 +74,14 @@ class Paths(db.Model):
     start_time = db.Column(db.String(20), nullable=True)
     end_time = db.Column(db.String(20), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    is_driver = db.Column(db.Boolean, nullable=False, default = False)
 
-# class Waypoints(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     path_id = db.Column(db.Integer, db.ForeignKey('paths.id'), nullable=False)
+class Waypoints(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    location_x = db.Column(db.String(100), nullable=False)
+    location_y = db.Column(db.String(100), nullable=False)
+    path_id = db.Column(db.Integer, db.ForeignKey('paths.id'), nullable=False)
+
 
 
 
