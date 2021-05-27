@@ -393,9 +393,6 @@ def paths():
     if path is None:
         abort(403)
 
-
-    
-
     # #Map
     # start_coords = [float(item) for item in path.start_location.split(", ")]
     start_coords = [float(path.start_location_x), float(path.start_location_y)]
@@ -486,6 +483,14 @@ def paths():
     #     opacity=1).add_to(folium_map)  
 
     folium_map.save(app.root_path + '\\templates\\map.html')
+
+    our_path_start_time =  datetime.strptime(path.start_time, '%Y-%m-%d %H:%M:%S')
+    our_path_end_time =  datetime.strptime(path.end_time, '%Y-%m-%d %H:%M:%S')
+    
+    for curr_path in other_paths:
+        curr_path_start_time = datetime.strptime(curr_path.start_time, '%Y-%m-%d %H:%M:%S')
+        return str(our_path_start_time)
+
 
     return render_template('paths.html', path=path)
 

@@ -82,6 +82,19 @@ class Waypoints(db.Model):
     location_y = db.Column(db.String(100), nullable=False)
     path_id = db.Column(db.Integer, db.ForeignKey('paths.id'), nullable=False)
 
+class Group(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    driver_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    driver_name = db.Column(db.String(100), nullable=False)
+    driver_phone_number = db.Column(db.String(100), nullable=False)
+
+class Member_Group(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    phone_number = db.Column(db.String(100), nullable=False)
+    group_id = db.Column(db.Integer, db.ForeignKey('group.id'), nullable=False)
+    member_id =  db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
 
 
 
