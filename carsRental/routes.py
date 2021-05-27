@@ -432,49 +432,64 @@ def paths():
     #             opacity=1).add_to(folium_map)
             
 
-    #Waypoints
+    # Waypoints
     waypoints = Waypoints.query.filter_by(path_id=path.id).all()
-    for waypoint in waypoints:
-        cord = [float(waypoint.location_x), float(waypoint.location_y)]
-        rev = nom.reverse(waypoint.location_x + ', ' + waypoint.location_y)
-        popup = rev.address.split(", ")
-        marker = folium.Marker(
-        cord, popup=popup[0], tooltip=tooltip, icon=folium.Icon(color='green', icon = "road", prefix='fa')
-        ).add_to(folium_map)
 
-    indexes = []
-    waypoints_count = 0 
-    for waypoint in waypoints:
-        indexes.append(waypoint.id)
-        waypoints_count+=1
+    if waypoints == []:
+        user = User.query.filter_by(id=path.user_id).first()
 
-    for i in range(0, waypoints_count):
-        curent_waypoint = Waypoints.query.filter_by(id = indexes[i]).first()
-        cord = [float(curent_waypoint.location_x), float(curent_waypoint.location_y)]
-        if i == 0:
-            start = [float(path.start_location_x), float(path.start_location_y)]
-            coordinates = [start, cord]
-            folium.PolyLine(coordinates,
-                color='green',
-                weight=10,
-                opacity=1).add_to(folium_map)
-        if i == waypoints_count-1:
-            end = [float(path.end_location_x), float(path.end_location_y)]
-            coordinates = [end, cord]
-            folium.PolyLine(coordinates,
-                color='green',
-                weight=10,
-                opacity=1).add_to(folium_map)
-            break
+        cord1 = [float(path.start_location_x), float(path.start_location_y)]
+        cord2 = [float(path.end_location_x), float(path.end_location_y)]
 
-        if waypoints_count > 1:
-            next_waypoint = Waypoints.query.filter_by(id = indexes[i+1]).first()
-            cord2 = [float(next_waypoint.location_x), float(next_waypoint.location_y)]
-            coordinates = [cord, cord2]
-            folium.PolyLine(coordinates,
+        coordinates = [cord1, cord2]
+        folium.PolyLine(coordinates,
+        color='green',
+        weight=10,
+        opacity=1).add_to(folium_map)
+
+
+    else:
+        for waypoint in waypoints:
+            cord = [float(waypoint.location_x), float(waypoint.location_y)]
+            rev = nom.reverse(waypoint.location_x + ', ' + waypoint.location_y)
+            popup = rev.address.split(", ")
+            marker = folium.Marker(
+            cord, popup=popup[0], tooltip=tooltip, icon=folium.Icon(color='green', icon = "road", prefix='fa')
+            ).add_to(folium_map)
+
+        indexes = []
+        waypoints_count = 0 
+        for waypoint in waypoints:
+            indexes.append(waypoint.id)
+            waypoints_count+=1
+
+        for i in range(0, waypoints_count):
+            curent_waypoint = Waypoints.query.filter_by(id = indexes[i]).first()
+            cord = [float(curent_waypoint.location_x), float(curent_waypoint.location_y)]
+            if i == 0:
+                start = [float(path.start_location_x), float(path.start_location_y)]
+                coordinates = [start, cord]
+                folium.PolyLine(coordinates,
                     color='green',
                     weight=10,
                     opacity=1).add_to(folium_map)
+            if i == waypoints_count-1:
+                end = [float(path.end_location_x), float(path.end_location_y)]
+                coordinates = [end, cord]
+                folium.PolyLine(coordinates,
+                    color='green',
+                    weight=10,
+                    opacity=1).add_to(folium_map)
+                break
+
+            if waypoints_count > 1:
+                next_waypoint = Waypoints.query.filter_by(id = indexes[i+1]).first()
+                cord2 = [float(next_waypoint.location_x), float(next_waypoint.location_y)]
+                coordinates = [cord, cord2]
+                folium.PolyLine(coordinates,
+                        color='green',
+                        weight=10,
+                        opacity=1).add_to(folium_map)
 
 
     #marksers
@@ -523,9 +538,91 @@ def paths():
         if curr_path.id != path.id:
             curr_path_start_time = datetime.strptime(curr_path.start_time, '%Y-%m-%d %H:%M:%S')
             if abs(our_path_start_time - curr_path_start_time) <= timedelta(minutes = 30):
-                user = User.query.filter_by(id=curr_path.user_id).first()
-                #marksers
-                #cord1 = [float(item) for item in rentinfo.start_location.split(", ")]
+                # user = User.query.filter_by(id=curr_path.user_id).first()
+                # #marksers
+                # #cord1 = [float(item) for item in rentinfo.start_location.split(", ")]
+                # cord1 = [float(curr_path.start_location_x), float(curr_path.start_location_y)]
+
+                # rev1 = nom.reverse(curr_path.start_location_x + ', ' + curr_path.start_location_y)
+                
+                # popup1 = rev1.address.split(", ")
+                # marker1 = folium.Marker(
+                #     cord1, popup=popup1[0], tooltip=user.username, icon=folium.Icon(color='blue', icon = "map-marker", prefix='fa')
+                # ).add_to(folium_map)
+                    
+                # # cord2 = [float(item) for item in rentinfo.end_location.split(", ")]
+                # cord2 = [float(curr_path.end_location_x), float(curr_path.end_location_y)]
+                # rev2 = nom.reverse(curr_path.end_location_x + ', ' + curr_path.end_location_y)
+                # popup2 = rev2.address.split(", ")
+                # marker2 = folium.Marker(
+                #     cord2, popup=popup2[0], tooltip=user.username, icon=folium.Icon(color='blue', icon = "location-arrow", prefix='fa')
+                # ).add_to(folium_map)
+                
+
+
+
+                # coordinates = [cord1, cord2]
+
+                # folium.PolyLine(coordinates,
+                #     color='blue',
+                #     weight=10,
+                #     opacity=1).add_to(folium_map)
+                curr_path_waypoints = Waypoints.query.filter_by(path_id=curr_path.id).all()
+                if curr_path_waypoints == []:
+                    user = User.query.filter_by(id=curr_path.user_id).first()
+
+                    cord1 = [float(curr_path.start_location_x), float(curr_path.start_location_y)]
+                    cord2 = [float(curr_path.end_location_x), float(curr_path.end_location_y)]
+
+                    coordinates = [cord1, cord2]
+                    folium.PolyLine(coordinates,
+                    color='blue',
+                    weight=10,
+                    opacity=1).add_to(folium_map)
+                
+                else:
+                    for waypoint in curr_path_waypoints:
+                        cord = [float(waypoint.location_x), float(waypoint.location_y)]
+                        rev = nom.reverse(waypoint.location_x + ', ' + waypoint.location_y)
+                        popup = rev.address.split(", ")
+                        marker = folium.Marker(
+                        cord, popup=popup[0], tooltip=user.username, icon=folium.Icon(color='blue', icon = "road", prefix='fa')
+                        ).add_to(folium_map)
+
+                    indexes = []
+                    waypoints_count = 0 
+                    for waypoint in curr_path_waypoints:
+                        indexes.append(waypoint.id)
+                        waypoints_count+=1
+
+                    for i in range(0, waypoints_count):
+                        curent_waypoint = Waypoints.query.filter_by(id = indexes[i]).first()
+                        cord = [float(curent_waypoint.location_x), float(curent_waypoint.location_y)]
+                        if i == 0:
+                            start = [float(curr_path.start_location_x), float(curr_path.start_location_y)]
+                            coordinates = [start, cord]
+                            folium.PolyLine(coordinates,
+                                color='blue',
+                                weight=10,
+                                opacity=1).add_to(folium_map)
+                        if i == waypoints_count-1:
+                            end = [float(curr_path.end_location_x), float(curr_path.end_location_y)]
+                            coordinates = [end, cord]
+                            folium.PolyLine(coordinates,
+                                color='blue',
+                                weight=10,
+                                opacity=1).add_to(folium_map)
+                            break
+
+                        if waypoints_count > 1:
+                            next_waypoint = Waypoints.query.filter_by(id = indexes[i+1]).first()
+                            cord2 = [float(next_waypoint.location_x), float(next_waypoint.location_y)]
+                            coordinates = [cord, cord2]
+                            folium.PolyLine(coordinates,
+                                    color='blue',
+                                    weight=10,
+                                    opacity=1).add_to(folium_map)
+                    
                 cord1 = [float(curr_path.start_location_x), float(curr_path.start_location_y)]
 
                 rev1 = nom.reverse(curr_path.start_location_x + ', ' + curr_path.start_location_y)
@@ -544,12 +641,11 @@ def paths():
                 ).add_to(folium_map)
                 
 
-                coordinates = [cord1, cord2]
 
-                folium.PolyLine(coordinates,
-                    color='blue',
-                    weight=10,
-                    opacity=1).add_to(folium_map)
+                    
+
+
+
 
     folium_map.save(app.root_path + '\\templates\\map.html')
 
