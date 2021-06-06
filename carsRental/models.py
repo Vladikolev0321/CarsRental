@@ -91,7 +91,7 @@ class Group(db.Model):
 class Member_Group(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    phone_number = db.Column(db.String(100), nullable=False)
+    phone_number = db.Column(db.String(100), nullable=True)
     group_id = db.Column(db.Integer, db.ForeignKey('group.id'), nullable=False)
     member_id =  db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
