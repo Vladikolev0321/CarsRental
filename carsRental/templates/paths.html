@@ -1,11 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
     <iframe class="map", src="/map" width="1250vw" height="750vh" style="margin-top: 5%; margin-left: -40%; border-style: solid;"></iframe>
-    {% if path.is_driver == True %}
         <table class="table table-ligh" style="border-style: solid ; border-color: black; border-width: 2px; width: 60%; margin-left: 140%; margin-top: -103.5%;">
             <td>
                 <button type="button" onclick="window.location.href='{{ url_for("add_waypoint", path_id=path.id) }}'" class="btn btn-outline-info">Add waypoint</button>
             </td>  
         </table>
-    {% endif %} 
 {% endblock %}
