@@ -230,8 +230,7 @@ def carpool():
         #return starttime
 
         path = Paths(start_location_x = str(geo_start.latitude), start_location_y = str(geo_start.longitude),
-        end_location_x = str(geo_end.latitude), end_location_y = str(geo_end.longitude), start_time = starttime, end_time = endtime, user_id=current_user.id
-        , is_driver=isdriver)
+        end_location_x = str(geo_end.latitude), end_location_y = str(geo_end.longitude), start_time = starttime, end_time = endtime, user_id=current_user.id, is_driver=isdriver)
 
         db.session.add(path)
         db.session.commit()
@@ -385,10 +384,21 @@ def rentinfo():
 
         return render_template('rent_car.html', rentinfo=rentinfo, car=car, path = "\\static\\carImages\\", station = station )
 
+
+def shortest_distance(x1, y1, a, b, c):
+      
+    d = abs((a * x1 + b * y1 + c)) / (math.sqrt(a * a + b * b))
+    return d
+
 @app.route('/paths', methods=['GET', 'POST'])
 @login_required
 def paths():
     start = Paths.query.filter_by(user_id=current_user.id).first()
+
+    a_start = float(start.start_location_y) - float(start.end_location_y)                                                                  #a = p1.y - p2.y
+    b_start = float(start.end_location_x) - float(start.start_location_x)                                                                  #b = p2.x - p1.x
+    c_start = float(start.start_location_x) * float(start.end_location_y) - float(start.end_location_x) * float(start.start_location_y)    #c = p1.x * p2.y - p2.x * p1.y
+
     our_path_start_time =  datetime.strptime(start.start_time, '%Y-%m-%d %H:%M:%S')
     #return str(path.id)
     if start is None:
@@ -413,7 +423,27 @@ def paths():
             user = User.query.filter_by(id=path.user_id).first()
             tooltip = user.username
         curr_path_start_time = datetime.strptime(path.start_time, '%Y-%m-%d %H:%M:%S')
-        if abs(our_path_start_time - curr_path_start_time) <= timedelta(minutes = 30) or path.user_id == current_user.id:
+
+        path_points = []
+        #if path.user_id == current_user.id:
+        path_points.append({"x": path.start_location_x, "y": path.start_location_y})
+        path_points.append({"x": path.end_location_x, "y": path.end_location_y})
+        waypoints = Waypoints.query.filter_by(path_id = path.id).all()
+        for waypoint in waypoints:
+            path_points.append({"x": waypoint.location_x, "y": waypoint.location_y})
+
+        is_close_enough = True
+
+        if path.user_id != current_user.id:
+            for point in path_points:
+                print("\nfor path with ID = ", path.id)
+                print(shortest_distance(float(point["x"]), float(point["y"]), a_start, b_start, c_start))
+                if shortest_distance(float(point["x"]), float(point["y"]), a_start, b_start, c_start)*100 > 1.5:
+                    is_close_enough = False                
+
+
+
+        if ((abs(our_path_start_time - curr_path_start_time) <= timedelta(minutes = 30)) and is_close_enough == True) or path.user_id == current_user.id:
             #Markers for star and end
             cord_start = [float(path.start_location_x), float(path.start_location_y)]
             rev_start = nom.reverse(path.start_location_x + ', ' + path.start_location_y)
