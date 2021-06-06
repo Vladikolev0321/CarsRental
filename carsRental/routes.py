@@ -223,6 +223,14 @@ def carpool():
         endtime = str(form.endtime.data)
 
         isdriver =  True if form.isdriver.data == 'yes' else False
+
+        
+        if isdriver:
+            group = Group(driver_id=current_user.id, driver_name=current_user.username, #driver_phone_number=
+            driver_phone_number="R")
+            db.session.add(group)
+            db.session.commit()
+        
             
         # if form.isdriver.data == 'yes':
         #     isdriver = True
@@ -234,6 +242,7 @@ def carpool():
 
         db.session.add(path)
         db.session.commit()
+
 
 
 
@@ -395,6 +404,9 @@ def shortest_distance(x1, y1, a, b, c):
 def paths():
     start = Paths.query.filter_by(user_id=current_user.id).first()
 
+  #  if start.is_driver 
+
+
     a_start = float(start.start_location_y) - float(start.end_location_y)                                                                  #a = p1.y - p2.y
     b_start = float(start.end_location_x) - float(start.start_location_x)                                                                  #b = p2.x - p1.x
     c_start = float(start.start_location_x) * float(start.end_location_y) - float(start.end_location_x) * float(start.start_location_y)    #c = p1.x * p2.y - p2.x * p1.y
@@ -444,7 +456,16 @@ def paths():
 
 
         if ((abs(our_path_start_time - curr_path_start_time) <= timedelta(minutes = 30)) and is_close_enough == True) or path.user_id == current_user.id:
-            #Markers for star and end
+            
+            # Adding users to a group
+            curr_user = User.query.filter_by(id=path.user_id).first()
+          #  member = Member_Group(name=curr_user.username, #phone_number=""
+         #   phone_number="M", group_id=, member_id=curr_user.id)
+
+            
+            
+            
+            # Markers for star and end
             cord_start = [float(path.start_location_x), float(path.start_location_y)]
             rev_start = nom.reverse(path.start_location_x + ', ' + path.start_location_y)
             popup_start = rev_start.address.split(", ")
