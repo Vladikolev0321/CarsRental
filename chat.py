@@ -6,22 +6,22 @@ from carsRental.models import User, Message
 from flask_login.utils import login_required
 from flask_login import login_user, current_user
 
-@app.route('/chat/<correspondent_id>')
+@app.route('/chat/<group_id>')
 @login_required
-def chat(correspondent_id):
+def chat(group_id):
     # token = request.cookies.get('token')
     # current_user = User.find_by_token(token)
 
-    correspondent = User.query.filter_by(id=correspondent_id).first()
+    group = group_id.query.filter_by(id=group_id).first()
 
-    outbound = Message.query.filter_by(sender_id=current_user.id, receiver_id=correspondent.id)
-    inbound = Message.query.filter_by(sender_id=correspondent.id, receiver_id=current_user.id)
+    outbound = Message.query.filter_by(sender_id=current_user.id, receiver_id=group.id)
+    inbound = Message.query.filter_by(sender_id=cgroup.id, receiver_id=current_user.id)
 
     messages = sorted(list(outbound) + list(inbound), key=lambda x: x.timestamp)
 
     return render_template('chat.html',
             # current_user=current_user,
-            correspondent=correspondent,
+            correspondent=group,
             messages=messages)
 
 @app.route('/message/<receiver_id>', methods=['POST'])
