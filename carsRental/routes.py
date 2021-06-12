@@ -17,6 +17,14 @@ from datetime import datetime, timedelta
 import pytz
 import geocoder
 import math
+from carsRental import socketio
+from flask_socketio import SocketIO, send
+
+# chat functionality
+@socketio.on('message')
+def handleMessage(msg):
+	print('Message: ' + msg)
+	send(msg, broadcast=True)
 
 
 
@@ -517,7 +525,7 @@ def paths():
                             cord2 = [float(next_waypoint.location_x), float(next_waypoint.location_y)]
                             coordinates = [cord, cord2]
                             folium.PolyLine(coordinates,
-                                    color='blue',
+                                    color=color,
                                     weight=10,
                                     opacity=1).add_to(folium_map)
             else:

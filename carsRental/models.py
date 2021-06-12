@@ -90,12 +90,18 @@ class Group(db.Model):
 
 class Member_Group(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    phone_number = db.Column(db.String(100), nullable=False)
+    # name = db.Column(db.String(100), nullable=False)
+    # phone_number = db.Column(db.String(100), nullable=False)
     group_id = db.Column(db.Integer, db.ForeignKey('group.id'), nullable=False)
     member_id =  db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    sender_id = db.Column(db.Integer, db.ForeignKey(User.id))
+    # receiver_id = db.Column(db.Integer, db.ForeignKey(User.id))
+    group_id = db.Column(db.Integer, db.ForeignKey(Group.id))
+    content = db.Column(db.String, nullable=False)
+    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
 
 db.create_all()
