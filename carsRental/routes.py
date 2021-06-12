@@ -234,10 +234,17 @@ def carpool():
 
         
         if isdriver:
-            group = Group(driver_id=current_user.id, driver_name=current_user.username, #driver_phone_number=
-            driver_phone_number="R")
-            db.session.add(group)
-            db.session.commit()
+            is_group = Group.query.filter_by(driver_id=current_user.id).first()
+            if is_group is None:
+                group = Group(driver_id=current_user.id, driver_name=current_user.username, #driver_phone_number=
+                driver_phone_number="R")
+                db.session.add(group)
+                db.session.commit()
+                
+                group_id = Group.query.filter_by(driver_id=current_user.id).first().id
+                new_member = Member_Group(name = current_user.username, group_id = group_id, member_id = current_user.id)
+                db.session.add(new_member)
+                db.session.commit()
         
             
         # if form.isdriver.data == 'yes':
@@ -466,9 +473,26 @@ def paths():
         if ((abs(our_path_start_time - curr_path_start_time) <= timedelta(minutes = 30)) and is_close_enough == True) or path.user_id == current_user.id:
             
             # Adding users to a group
-            curr_user = User.query.filter_by(id=path.user_id).first()
-          #  member = Member_Group(name=curr_user.username, #phone_number=""
-         #   phone_number="M", group_id=, member_id=curr_user.id)
+            curr_user = User.query.filter_by(id=start.user_id).first()
+            user_2 = User.query.filter_by(id=path.user_id).first()
+
+            is_curr_user_driver = Group.query.filter_by(driver_id = curr_user.id).first()
+            if is_curr_user_driver is None:
+                is_user_2_driver = Group.query.filter_by(driver_id = user_2.id).first()
+                if is_user_2_driver:
+                    if Member_Group.query.filter_by(member_id = curr_user.id).first() is None:
+                        new_member = Member_Group(name = current_user.username, group_id = is_user_2_driver.id, member_id = curr_user.id)
+                        db.session.add(new_member)
+                        db.session.commit()
+            else:
+                if Member_Group.query.filter_by(member_id = user_2.id).first() is None:
+                    new_member = Member_Group(name = user_2.username, group_id = is_curr_user_driver.id, member_id = user_2.id)
+                    db.session.add(new_member)
+                    db.session.commit()
+            
+
+        #  member = Member_Group(name=curr_user.username, #phone_number=""
+        #   phone_number="M", group_id=, member_id=curr_user.id)
 
             
             
