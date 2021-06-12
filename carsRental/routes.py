@@ -21,10 +21,10 @@ from carsRental import socketio
 from flask_socketio import SocketIO, send
 
 # chat functionality
-@socketio.on('message')
-def handleMessage(msg):
-	print('Message: ' + msg)
-	send(msg, broadcast=True)
+# @socketio.on('message')
+# def handleMessage(msg):
+# 	print('Message: ' + msg)
+# 	send(msg, broadcast=True)
 
 
 
