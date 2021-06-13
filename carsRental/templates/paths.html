@@ -1,9 +1,36 @@
 {% extends "layout.html" %}
 {% block content %}
     <iframe class="map", src="/map" width="1250vw" height="750vh" style="margin-top: 5%; margin-left: -40%; border-style: solid;"></iframe>
-        <table class="table table-ligh" style="border-style: solid ; border-color: black; border-width: 2px; width: 60%; margin-left: 140%; margin-top: -103.5%;">
-            <td>
-                <button type="button" onclick="window.location.href='{{ url_for("add_waypoint", path_id=path.id) }}'" class="btn btn-outline-info">Add waypoint</button>
-            </td>  
-        </table>
+    <div style="width: 60%; margin-left: 140%; margin-top: -103.5%;">
+        {% if path != None %}
+            <button type="button" onclick="window.location.href='{{ url_for("add_waypoint", path_id=path.id) }}'" class="btn btn-outline-info">Add waypoint</button>
+        {% else %}
+            <button type="button" onclick="window.location.href='/carpool'" class="btn btn-outline-info">Add path</button>
+        {% endif %}
+    </div>
+    <!--Chat-->
+    <!-- <div style="margin-top: 70%; margin-left: 165%; width: 50%; border: 1px solid black; width: 40%;">
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var socket = io.connect('http://127.0.0.1:5000/paths');
+
+                socket.on('connect', function() {
+                    socket.send('User has connected!');
+                });
+
+                socket.on('message', function(msg) {
+                    $("#messages").append('<li>'+msg+'</li>');
+                    console.log('Receive message');
+                });
+
+                $('#send').on('click', function() {
+                    socket.send($('#mymsg').val());
+                    $('#mymsg').val('');
+                });
+            });
+        </script>
+        <ul id = "messages"></ul>
+        <input id= "mymsg" type="text">
+        <button id = "send" class="btn btn-outline-success my-2 my-sm-0" type="submit">Send</button>
+    </div> -->
 {% endblock %}

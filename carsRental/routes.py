@@ -431,11 +431,13 @@ def paths():
 
     #  if start.is_driver
 
-    our_path_start_time =  datetime.strptime(start.start_time, '%Y-%m-%d %H:%M:%S')
     #return str(path.id)
     if start is None:
-        abort(403)
+        folium_map = folium.Map(location=[42.69807953619626, 23.321380446073142], zoom_start=15)
+        folium_map.save(app.root_path + '\\templates\\map.html')
+        return render_template('paths.html', path=start)
 
+    our_path_start_time =  datetime.strptime(start.start_time, '%Y-%m-%d %H:%M:%S')
     # #Map
     # start_coords = [float(item) for item in path.start_location.split(", ")]
     start_coords = [float(start.start_location_x), float(start.start_location_y)]
@@ -455,19 +457,19 @@ def paths():
         for waypoint in waypoints:
             indexes.append(waypoint.id)
             waypoints_count+=1
-            #Sort list of waypoints
-            for i in range(0, waypoints_count):
-                waypoint_i = Waypoints.query.filter_by(id = indexes[i]).first()
-                waypoint_i_cord = [float(waypoint_i.location_x), float(waypoint_i.location_y)]
-                for k in range(i+1,waypoints_count):
-                    waypoint_k = Waypoints.query.filter_by(id = indexes[k]).first()
-                    waypoint_k_cord = [float(waypoint_k.location_x), float(waypoint_k.location_y)]
-                    g1 = distance.distance(cord_start, waypoint_i_cord).km
-                    g2 = distance.distance(cord_start, waypoint_k_cord).km
-                    if g1 > g2:
-                        tmp = indexes[i]
-                        indexes[i] = indexes[k]
-                        indexes[k] = tmp
+        #Sort list of waypoints
+        for i in range(0, waypoints_count):
+            waypoint_i = Waypoints.query.filter_by(id = indexes[i]).first()
+            waypoint_i_cord = [float(waypoint_i.location_x), float(waypoint_i.location_y)]
+            for k in range(i+1,waypoints_count):
+                waypoint_k = Waypoints.query.filter_by(id = indexes[k]).first()
+                waypoint_k_cord = [float(waypoint_k.location_x), float(waypoint_k.location_y)]
+                g1 = distance.distance(cord_start, waypoint_i_cord).km
+                g2 = distance.distance(cord_start, waypoint_k_cord).km
+                if g1 > g2:
+                    tmp = indexes[i]
+                    indexes[i] = indexes[k]
+                    indexes[k] = tmp
         
     for waypoint_id in indexes:
         waypoint = Waypoints.query.filter_by(id = waypoint_id).first()
@@ -494,28 +496,21 @@ def paths():
         waypoints = Waypoints.query.filter_by(path_id = path.id).all()
         if waypoints: 
             for waypoint in waypoints:
-                if waypoint.path_id == start.id:
-                    cord = [float(waypoint.location_x), float(waypoint.location_y)]
-                    rev = nom.reverse(waypoint.location_x + ', ' + waypoint.location_y)
-                    popup = rev.address.split(", ")
-                    marker = folium.Marker(
-                        cord, popup=popup[0], tooltip=tooltip, icon=folium.Icon(color=color, icon = "map-signs", prefix='fa')
-                    ).add_to(folium_map)
                 indexes.append(waypoint.id)
                 waypoints_count+=1
-                #Sort list of waypoints
-                for i in range(0, waypoints_count):
-                    waypoint_i = Waypoints.query.filter_by(id = indexes[i]).first()
-                    waypoint_i_cord = [float(waypoint_i.location_x), float(waypoint_i.location_y)]
-                    for k in range(i+1,waypoints_count):
-                        waypoint_k = Waypoints.query.filter_by(id = indexes[k]).first()
-                        waypoint_k_cord = [float(waypoint_k.location_x), float(waypoint_k.location_y)]
-                        g1 = distance.distance(cord_start, waypoint_i_cord).km
-                        g2 = distance.distance(cord_start, waypoint_k_cord).km
-                        if g1 > g2:
-                            tmp = indexes[i]
-                            indexes[i] = indexes[k]
-                            indexes[k] = tmp
+            #Sort list of waypoints
+            for i in range(0, waypoints_count):
+                waypoint_i = Waypoints.query.filter_by(id = indexes[i]).first()
+                waypoint_i_cord = [float(waypoint_i.location_x), float(waypoint_i.location_y)]
+                for k in range(i+1,waypoints_count):
+                    waypoint_k = Waypoints.query.filter_by(id = indexes[k]).first()
+                    waypoint_k_cord = [float(waypoint_k.location_x), float(waypoint_k.location_y)]
+                    g1 = distance.distance(cord_start, waypoint_i_cord).km
+                    g2 = distance.distance(cord_start, waypoint_k_cord).km
+                    if g1 > g2:
+                        tmp = indexes[i]
+                        indexes[i] = indexes[k]
+                        indexes[k] = tmp
 
         foreign_path_points = []
         foreign_path_points.append({"x": path.start_location_x, "y": path.start_location_y})
