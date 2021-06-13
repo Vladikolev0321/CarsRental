@@ -591,8 +591,32 @@ def paths():
                 cord_end, popup=popup_end[0], tooltip=tooltip, icon=folium.Icon(color=color, icon = "map-marker", prefix='fa')
             ).add_to(folium_map)
 
-            #waypoints = Waypoints.query.filter_by(path_id = path.id).all()
-            if waypoints:            
+            waypoints = Waypoints.query.filter_by(path_id = path.id).all()
+            if waypoints:
+                indexes = []
+                waypoints_count = 0 
+                for waypoint in waypoints:
+                    cord = [float(waypoint.location_x), float(waypoint.location_y)]
+                    rev = nom.reverse(waypoint.location_x + ', ' + waypoint.location_y)
+                    popup = rev.address.split(", ")
+                    marker = folium.Marker(
+                        cord, popup=popup[0], tooltip=tooltip, icon=folium.Icon(color=color, icon = "map-signs", prefix='fa')
+                    ).add_to(folium_map)
+                    indexes.append(waypoint.id)
+                    waypoints_count+=1
+                #Sort list of waypoints
+                for i in range(0, waypoints_count):
+                    waypoint_i = Waypoints.query.filter_by(id = indexes[i]).first()
+                    waypoint_i_cord = [float(waypoint_i.location_x), float(waypoint_i.location_y)]
+                    for k in range(i+1,waypoints_count):
+                        waypoint_k = Waypoints.query.filter_by(id = indexes[k]).first()
+                        waypoint_k_cord = [float(waypoint_k.location_x), float(waypoint_k.location_y)]
+                        g1 = distance.distance(cord_start, waypoint_i_cord).km
+                        g2 = distance.distance(cord_start, waypoint_k_cord).km
+                        if g1 > g2:
+                            tmp = indexes[i]
+                            indexes[i] = indexes[k]
+                            indexes[k] = tmp
                 # Waipoints roads
                 for i in range(0, waypoints_count):
                     curent_waypoint = Waypoints.query.filter_by(id = indexes[i]).first()
