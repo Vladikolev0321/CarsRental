@@ -414,17 +414,22 @@ def shortest_distance(x1, y1, a, b, c):
     d = abs((a * x1 + b * y1 + c)) / (math.sqrt(a * a + b * b))
     return d
 
+class Line:
+    def __init__(self, start_location_x, start_location_y, end_location_x, end_location_y):
+        self.a = float(start_location_y) - float(end_location_y)                                                                  #a = p1.y - p2.y
+        self.b = float(end_location_x) - float(start_location_x)                                                                  #b = p2.x - p1.x
+        self.c = float(start_location_x) * float(end_location_y) - float(end_location_x) * float(start_location_y)      #c = p1.x * p2.y - p2.x * p1.y
+        self.start_location_x = start_location_x
+        self.start_location_y = start_location_y
+        self.end_location_x = end_location_x
+        self.end_location_y = end_location_y
+
 @app.route('/paths', methods=['GET', 'POST'])
 @login_required
 def paths():
     start = Paths.query.filter_by(user_id=current_user.id).first()
 
-  #  if start.is_driver 
-
-
-    a_start = float(start.start_location_y) - float(start.end_location_y)                                                                  #a = p1.y - p2.y
-    b_start = float(start.end_location_x) - float(start.start_location_x)                                                                  #b = p2.x - p1.x
-    c_start = float(start.start_location_x) * float(start.end_location_y) - float(start.end_location_x) * float(start.start_location_y)    #c = p1.x * p2.y - p2.x * p1.y
+    #  if start.is_driver
 
     our_path_start_time =  datetime.strptime(start.start_time, '%Y-%m-%d %H:%M:%S')
     #return str(path.id)
@@ -438,7 +443,39 @@ def paths():
     tooltip = "Click me!"
 
     paths = Paths.query.all()
-    
+    #Points from our path, lines from the other
+    path_points = []
+    path_points.append({"x": start.start_location_x, "y": start.start_location_y})
+
+    indexes = []
+    waypoints_count = 0 
+    waypoints = Waypoints.query.filter_by(path_id = start.id).all()
+    cord_start = [float(start.start_location_x), float(start.start_location_y)]
+    if waypoints:
+        for waypoint in waypoints:
+            indexes.append(waypoint.id)
+            waypoints_count+=1
+            #Sort list of waypoints
+            for i in range(0, waypoints_count):
+                waypoint_i = Waypoints.query.filter_by(id = indexes[i]).first()
+                waypoint_i_cord = [float(waypoint_i.location_x), float(waypoint_i.location_y)]
+                for k in range(i+1,waypoints_count):
+                    waypoint_k = Waypoints.query.filter_by(id = indexes[k]).first()
+                    waypoint_k_cord = [float(waypoint_k.location_x), float(waypoint_k.location_y)]
+                    g1 = distance.distance(cord_start, waypoint_i_cord).km
+                    g2 = distance.distance(cord_start, waypoint_k_cord).km
+                    if g1 > g2:
+                        tmp = indexes[i]
+                        indexes[i] = indexes[k]
+                        indexes[k] = tmp
+        
+    for waypoint_id in indexes:
+        waypoint = Waypoints.query.filter_by(id = waypoint_id).first()
+        path_points.append({"x": waypoint.location_x, "y": waypoint.location_y})
+
+    path_points.append({"x": start.end_location_x, "y": start.end_location_y})
+
+
     for path in paths:
         color = None
         tooltip = None
@@ -451,25 +488,67 @@ def paths():
             tooltip = user.username
         curr_path_start_time = datetime.strptime(path.start_time, '%Y-%m-%d %H:%M:%S')
 
-        path_points = []
-        #if path.user_id == current_user.id:
-        path_points.append({"x": path.start_location_x, "y": path.start_location_y})
-        path_points.append({"x": path.end_location_x, "y": path.end_location_y})
+        #create list for all waypoints
+        indexes = []
+        waypoints_count = 0 
         waypoints = Waypoints.query.filter_by(path_id = path.id).all()
-        for waypoint in waypoints:
-            path_points.append({"x": waypoint.location_x, "y": waypoint.location_y})
+        if waypoints: 
+            for waypoint in waypoints:
+                if waypoint.path_id == start.id:
+                    cord = [float(waypoint.location_x), float(waypoint.location_y)]
+                    rev = nom.reverse(waypoint.location_x + ', ' + waypoint.location_y)
+                    popup = rev.address.split(", ")
+                    marker = folium.Marker(
+                        cord, popup=popup[0], tooltip=tooltip, icon=folium.Icon(color=color, icon = "map-signs", prefix='fa')
+                    ).add_to(folium_map)
+                indexes.append(waypoint.id)
+                waypoints_count+=1
+                #Sort list of waypoints
+                for i in range(0, waypoints_count):
+                    waypoint_i = Waypoints.query.filter_by(id = indexes[i]).first()
+                    waypoint_i_cord = [float(waypoint_i.location_x), float(waypoint_i.location_y)]
+                    for k in range(i+1,waypoints_count):
+                        waypoint_k = Waypoints.query.filter_by(id = indexes[k]).first()
+                        waypoint_k_cord = [float(waypoint_k.location_x), float(waypoint_k.location_y)]
+                        g1 = distance.distance(cord_start, waypoint_i_cord).km
+                        g2 = distance.distance(cord_start, waypoint_k_cord).km
+                        if g1 > g2:
+                            tmp = indexes[i]
+                            indexes[i] = indexes[k]
+                            indexes[k] = tmp
 
-        is_close_enough = True
+        foreign_path_points = []
+        foreign_path_points.append({"x": path.start_location_x, "y": path.start_location_y})
+        for waypoint_id in indexes:
+            waypoint = Waypoints.query.filter_by(id = waypoint_id).first()
+            foreign_path_points.append({"x": waypoint.location_x, "y": waypoint.location_y})
+        foreign_path_points.append({"x": path.end_location_x, "y": path.end_location_y})
 
+        lines = []
+        for i in range(len(foreign_path_points) - 1):
+            line = Line(foreign_path_points[i]["x"], foreign_path_points[i]["y"], 
+                        foreign_path_points[i+1]["x"], foreign_path_points[i+1]["y"])
+            lines.append(line)
+
+
+        is_close_enough = False
+        #Points from our path, lines from the other
         if path.user_id != current_user.id:
+            close_lines = 0
             for point in path_points:
                 print("\nfor path with ID = ", path.id)
-                print(shortest_distance(float(point["x"]), float(point["y"]), a_start, b_start, c_start))
-                if shortest_distance(float(point["x"]), float(point["y"]), a_start, b_start, c_start)*100 > 1.5:
-                    is_close_enough = False                
+                for line in lines:
+                    print(shortest_distance(float(point["x"]), float(point["y"]), line.a, line.b, line.c))
+                    if shortest_distance(float(point["x"]), float(point["y"]), line.a, line.b, line.c)*100 < 1.5:
+                        close_lines += 1
+                        break
+            print("Close lines: " + str(close_lines) + "; Count of points:" + str(len(path_points)))
+
+            if (close_lines == len(path_points)):
+                is_close_enough = True 
 
 
-
+        print("is_close_enough: " + str(is_close_enough))
         if ((abs(our_path_start_time - curr_path_start_time) <= timedelta(minutes = 30)) and is_close_enough == True) or path.user_id == current_user.id:
             
             # Adding users to a group
@@ -512,33 +591,8 @@ def paths():
                 cord_end, popup=popup_end[0], tooltip=tooltip, icon=folium.Icon(color=color, icon = "map-marker", prefix='fa')
             ).add_to(folium_map)
 
-            waypoints = Waypoints.query.filter_by(path_id = path.id).all()
-            if waypoints:
-                indexes = []
-                waypoints_count = 0 
-                for waypoint in waypoints:
-                    cord = [float(waypoint.location_x), float(waypoint.location_y)]
-                    rev = nom.reverse(waypoint.location_x + ', ' + waypoint.location_y)
-                    popup = rev.address.split(", ")
-                    marker = folium.Marker(
-                        cord, popup=popup[0], tooltip=tooltip, icon=folium.Icon(color=color, icon = "map-signs", prefix='fa')
-                    ).add_to(folium_map)
-                    indexes.append(waypoint.id)
-                    waypoints_count+=1
-                #Sort list of waypoints
-                for i in range(0, waypoints_count):
-                    waypoint_i = Waypoints.query.filter_by(id = indexes[i]).first()
-                    waypoint_i_cord = [float(waypoint_i.location_x), float(waypoint_i.location_y)]
-                    for k in range(i+1,waypoints_count):
-                        waypoint_k = Waypoints.query.filter_by(id = indexes[k]).first()
-                        waypoint_k_cord = [float(waypoint_k.location_x), float(waypoint_k.location_y)]
-                        g1 = distance.distance(cord_start, waypoint_i_cord).km
-                        g2 = distance.distance(cord_start, waypoint_k_cord).km
-                        if g1 > g2:
-                            tmp = indexes[i]
-                            indexes[i] = indexes[k]
-                            indexes[k] = tmp
-                        
+            #waypoints = Waypoints.query.filter_by(path_id = path.id).all()
+            if waypoints:            
                 # Waipoints roads
                 for i in range(0, waypoints_count):
                     curent_waypoint = Waypoints.query.filter_by(id = indexes[i]).first()
