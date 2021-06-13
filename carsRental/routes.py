@@ -532,8 +532,6 @@ def paths():
                     for k in range(i+1,waypoints_count):
                         waypoint_k = Waypoints.query.filter_by(id = indexes[k]).first()
                         waypoint_k_cord = [float(waypoint_k.location_x), float(waypoint_k.location_y)]
-                        a = (1, 2)
-                        b = (3, 4)
                         g1 = distance.distance(cord_start, waypoint_i_cord).km
                         g2 = distance.distance(cord_start, waypoint_k_cord).km
                         if g1 > g2:
