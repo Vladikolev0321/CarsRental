@@ -35,44 +35,58 @@ from flask_socketio import SocketIO, send
 nom = Nominatim(user_agent="CarsRental")
 
 
-### for chat
+### for old chat
 
-@socketio.on('message')
-def handleMessage(data):
-    print(f"Message: {data}")
-    send(data, broadcast=True)
+# @socketio.on('message')
+# def handleMessage(data):
+#     print(f"Message: {data}")
+#     send(data, broadcast=True)
 
-    message = Message(username=data['username'], msg=data['msg'])
-    db.session.add(message)
-    db.session.commit()
+#     message = Message(username=data['username'], msg=data['msg'])
+#     db.session.add(message)
+#     db.session.commit()
 
-@app.route('/chat2', methods=["GET", "POST"])
-def chat2():
-    print(session)
-    username = None
-    if session.get('username'):
-        username = session.get('username')
-    return render_template('chat2.html', username=username)
+# @app.route('/chat2', methods=["GET", "POST"])
+# def chat2():
+#     print(session)
+#     username = None
+#     if session.get('username'):
+#         username = session.get('username')
+#     return render_template('chat2.html', username=username)
 
-@app.route('/login2', methods=["GET", "POST"])
-def login2():
-    if request.method == "POST":
-        username = request.form.get('username')
-        session['username'] = username
-    return redirect(url_for('chat2'))
+# @app.route('/login2', methods=["GET", "POST"])
+# def login2():
+#     if request.method == "POST":
+#         username = request.form.get('username')
+#         session['username'] = username
+#     return redirect(url_for('chat2'))
 
 
 
-@app.route('/logout2')
-def logout2():
-    session.pop('username', None)
-    return redirect(url_for('/'))
+# @app.route('/logout2')
+# def logout2():
+#     session.pop('username', None)
+#     return redirect(url_for('/'))
 
 
 
 ###
 
+# for chat
 
+def messageReceived(methods=['GET', 'POST']):
+    print('message was received!!!')
+
+@socketio.on('my event')
+def handle_my_custom_event(json, methods=['GET', 'POST']):
+    print('received my event: ' + str(json))
+    socketio.emit('my response', json, callback=messageReceived)
+
+
+
+
+
+##############
 
 @app.route("/", methods=['GET', 'POST'])
 
@@ -287,7 +301,7 @@ def carpool():
                 db.session.commit()
                 
                 group_id = Group.query.filter_by(driver_id=current_user.id).first().id
-                new_member = Member_Group(name = current_user.username, group_id = group_id, member_id = current_user.id)
+                new_member = Member_Group(group_id = group_id, member_id = current_user.id)
                 db.session.add(new_member)
                 db.session.commit()
         
@@ -480,7 +494,7 @@ def paths():
     if start is None:
         folium_map = folium.Map(location=[42.69807953619626, 23.321380446073142], zoom_start=15)
         folium_map.save(app.root_path + '\\templates\\map.html')
-        return render_template('paths.html', path=start)
+        return render_template('paths.html', path=start, member = Member_Group.query.filter_by(member_id=current_user.id).first())
 
     our_path_start_time =  datetime.strptime(start.start_time, '%Y-%m-%d %H:%M:%S')
     # #Map
@@ -596,17 +610,32 @@ def paths():
             user_2 = User.query.filter_by(id=path.user_id).first()
 
             is_curr_user_driver = Group.query.filter_by(driver_id = curr_user.id).first()
-            if is_curr_user_driver is None:
+            if is_curr_user_driver is None:#curr_user isn't in group
                 is_user_2_driver = Group.query.filter_by(driver_id = user_2.id).first()
                 if is_user_2_driver:
                     if Member_Group.query.filter_by(member_id = curr_user.id).first() is None:
-                        new_member = Member_Group(name = current_user.username, group_id = is_user_2_driver.id, member_id = curr_user.id)
+                        new_member = Member_Group(group_id = is_user_2_driver.id, member_id = curr_user.id)
                         db.session.add(new_member)
                         db.session.commit()
-            else:
-                if Member_Group.query.filter_by(member_id = user_2.id).first() is None:
-                    new_member = Member_Group(name = user_2.username, group_id = is_curr_user_driver.id, member_id = user_2.id)
+
+                        # member_to_remove = Member_Group.query.filter_by(member_id = curr_user.id, group_id = is_curr_user_driver.id).first()
+                        # db.session.delete(member_to_remove)
+                        # db.session.delete(is_curr_user_driver)
+
+                        # db.session.commit()
+
+            else: #curr_user is in group
+                if Member_Group.query.filter_by(member_id = user_2.id, group_id = is_curr_user_driver.id).first() is None:
+                    new_member = Member_Group(group_id = is_curr_user_driver.id, member_id = user_2.id)
                     db.session.add(new_member)
+                    db.session.commit()
+
+                    user_2_group = Group.query.filter_by(driver_id = user_2.id).first()
+                    member_to_remove = Member_Group.query.filter_by(member_id = user_2.id, group_id = user_2_group.id).first()
+                    
+                    db.session.delete(member_to_remove)
+                    db.session.delete(user_2_group)
+
                     db.session.commit()
             
 
@@ -694,7 +723,7 @@ def paths():
                 weight=10,
                 opacity=1).add_to(folium_map)
     folium_map.save(app.root_path + '\\templates\\map.html')
-    return render_template('paths.html', path=start)
+    return render_template('paths.html', path=start, member = Member_Group.query.filter_by(member_id=current_user.id).first())
 
 @app.route('/paths/<int:path_id>/add_waypoint', methods=['GET', 'POST'])
 @login_required
