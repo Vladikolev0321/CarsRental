@@ -1,4 +1,8 @@
-from flask import Flask
+from flask.globals import request, session
+from flask.helpers import url_for
+from flask.templating import render_template
+#from carsRental.models import Message
+from flask import Flask, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, login_manager
@@ -17,7 +21,39 @@ bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins='*')
+
+
+# @socketio.on('message')
+# def handleMessage(data):
+#     print(f"Message: {data}")
+#     send(data, broadcast=True)
+
+#     message = Message(username=data['username'], msg=data['msg'])
+#     db.session.add(message)
+#     db.session.commit()
+
+# @app.route('/chat2')
+# def chat():
+#     print(session)
+#     username = None
+#     if session.get('username'):
+#         username = session.get('username')
+#     return render_template('chat2.html', username=username)
+
+# @app.route('/login2', methods=["POST"])
+# def login2():
+#     if request.method == "POST":
+#         username = request.form.get('username')
+#         session['username'] = username
+#     return redirect(url_for('chat'))
+
+
+
+# @app.route('/logout2')
+# def logout():
+#     session.pop('username', None)
+#     return redirect(url_for('/'))
 
 
 

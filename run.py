@@ -1,4 +1,4 @@
-import socketio
+#import socketio
 from carsRental import app, socketio
 
 if __name__ == '__main__':

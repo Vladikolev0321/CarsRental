@@ -3,7 +3,7 @@ from werkzeug.utils import redirect
 from wtforms.validators import Email
 from carsRental.models import *
 from carsRental import app, bcrypt, db, folium
-from flask import request, render_template, url_for, flash, redirect, abort
+from flask import request, render_template, url_for, flash, redirect, abort, session
 from carsRental.forms import CarPoolForm, LoginForm, RegistrationForm, RentForm, WaypointForm
 from flask_login import login_user, current_user
 from base64 import b64encode
@@ -28,7 +28,52 @@ from flask_socketio import SocketIO, send
 
 
 
+
+
+
+
 nom = Nominatim(user_agent="CarsRental")
+
+
+### for chat
+
+@socketio.on('message')
+def handleMessage(data):
+    print(f"Message: {data}")
+    send(data, broadcast=True)
+
+    message = Message(username=data['username'], msg=data['msg'])
+    db.session.add(message)
+    db.session.commit()
+
+@app.route('/chat2', methods=["GET", "POST"])
+def chat2():
+    print(session)
+    username = None
+    if session.get('username'):
+        username = session.get('username')
+    return render_template('chat2.html', username=username)
+
+@app.route('/login2', methods=["GET", "POST"])
+def login2():
+    if request.method == "POST":
+        username = request.form.get('username')
+        session['username'] = username
+    return redirect(url_for('chat2'))
+
+
+
+@app.route('/logout2')
+def logout2():
+    session.pop('username', None)
+    return redirect(url_for('/'))
+
+
+
+###
+
+
+
 @app.route("/", methods=['GET', 'POST'])
 
 def home():
