@@ -739,8 +739,10 @@ def paths():
     folium_map.save(app.root_path + '\\templates\\map.html')
     member = Member_Group.query.filter_by(member_id=current_user.id).first()
     messages = Message.query.filter_by(group_id = member.group_id).all()
+    members = Member_Group.query.filter_by(group_id =member.group_id).all()
+    users = User.query.all()
     #timestamp = messages.timestampstrftime()
-    return render_template('paths.html', path=start, member = member, messages = messages)
+    return render_template('paths.html', path=start, member = member, messages = messages, members = members, users = users)
 
 @app.route('/paths/<int:path_id>/add_waypoint', methods=['GET', 'POST'])
 @login_required

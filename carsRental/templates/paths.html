@@ -4,7 +4,7 @@
     <style type="text/css">
     #chat{
         margin-left: 140%;
-        margin-top: 10%;
+        margin-top: 5%;
         width: 50%;
         height: 50%;
         
@@ -25,6 +25,26 @@
     </div>
 
     {% if member %}
+    <div style="margin-left: 140%; width: 50%; margin-top: 5%; border: 1px solid black; padding: 2%;">
+        <h2 style="text-align: center;">Group members</h2>
+        <hr>
+        <div>
+            <select style="width: 100%; height: 20%;">
+                {% for m in members %}
+                {% for u in users %}
+                    {% if m.member_id == u.id %}
+                        {% if u.id == current_user.id %}
+                            <option value="" selected>{{u.username}}</option>
+                        {% else %}
+                            <option value="">{{u.username}}</option>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+            </select>
+            
+        </div>
+    </div>
     <!--Chat_old-->
     <div id="chat" style="border: 1px solid black; height: auto; padding: 3%;">
         <h2 style="text-align: center;">Chat</h2>

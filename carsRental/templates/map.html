@@ -23,7 +23,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_5bfe71e17d99497592a617e5f17a49e5 {
+                #map_4c503ad1433b41b6b451bfb4219f465d {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -35,15 +35,15 @@
 </head>
 <body>    
     
-            <div class="folium-map" id="map_5bfe71e17d99497592a617e5f17a49e5" ></div>
+            <div class="folium-map" id="map_4c503ad1433b41b6b451bfb4219f465d" ></div>
         
 </body>
 <script>    
     
-            var map_5bfe71e17d99497592a617e5f17a49e5 = L.map(
-                "map_5bfe71e17d99497592a617e5f17a49e5",
+            var map_4c503ad1433b41b6b451bfb4219f465d = L.map(
+                "map_4c503ad1433b41b6b451bfb4219f465d",
                 {
-                    center: [42.6783131, 23.31602720794567],
+                    center: [42.6788082, 23.3216264],
                     crs: L.CRS.EPSG3857,
                     zoom: 15,
                     zoomControl: true,
@@ -55,182 +55,38 @@
 
         
     
-            var tile_layer_bc1d726d5998485ead2af7c5cce0f84a = L.tileLayer(
+            var tile_layer_06dff1bd155b46c2a9a0a17b53c0d770 = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_5bfe71e17d99497592a617e5f17a49e5);
+            ).addTo(map_4c503ad1433b41b6b451bfb4219f465d);
         
     
-            var marker_76c196df3d7c4c2993f0d0753e62ab30 = L.marker(
+            var marker_67dc17bd200d4276933e30232c3248e9 = L.marker(
                 [42.6788082, 23.3216264],
                 {}
-            ).addTo(map_5bfe71e17d99497592a617e5f17a49e5);
+            ).addTo(map_4c503ad1433b41b6b451bfb4219f465d);
         
     
-            var icon_aaa2c8115ed4417fbfe320c811556819 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "street-view", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
-            );
-            marker_76c196df3d7c4c2993f0d0753e62ab30.setIcon(icon_aaa2c8115ed4417fbfe320c811556819);
-        
-    
-        var popup_8e0a316171d3478e9cd50215e84a802f = L.popup({"maxWidth": "100%"});
-
-        
-            var html_a68bd79492214c77b5e8967b34d06440 = $(`<div id="html_a68bd79492214c77b5e8967b34d06440" style="width: 100.0%; height: 100.0%;">Европейски съюз</div>`)[0];
-            popup_8e0a316171d3478e9cd50215e84a802f.setContent(html_a68bd79492214c77b5e8967b34d06440);
-        
-
-        marker_76c196df3d7c4c2993f0d0753e62ab30.bindPopup(popup_8e0a316171d3478e9cd50215e84a802f)
-        ;
-
-        
-    
-    
-            marker_76c196df3d7c4c2993f0d0753e62ab30.bindTooltip(
-                `<div>
-                     123
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_63454218c4d54fadaf5f4bdcaf7f8ab5 = L.marker(
-                [42.6693797, 23.3670576],
-                {}
-            ).addTo(map_5bfe71e17d99497592a617e5f17a49e5);
-        
-    
-            var icon_b5fdaf79e3254e6b82be910f513b03a8 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "map-marker", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
-            );
-            marker_63454218c4d54fadaf5f4bdcaf7f8ab5.setIcon(icon_b5fdaf79e3254e6b82be910f513b03a8);
-        
-    
-        var popup_7aff503d3c2d415b89156b1045a195f7 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_14d98e47b2804c239ae2c96f73001cbe = $(`<div id="html_14d98e47b2804c239ae2c96f73001cbe" style="width: 100.0%; height: 100.0%;">Площад на авиацията</div>`)[0];
-            popup_7aff503d3c2d415b89156b1045a195f7.setContent(html_14d98e47b2804c239ae2c96f73001cbe);
-        
-
-        marker_63454218c4d54fadaf5f4bdcaf7f8ab5.bindPopup(popup_7aff503d3c2d415b89156b1045a195f7)
-        ;
-
-        
-    
-    
-            marker_63454218c4d54fadaf5f4bdcaf7f8ab5.bindTooltip(
-                `<div>
-                     123
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var poly_line_fd0dbcd829224015bc36da4b72992acf = L.polyline(
-                [[42.6788082, 23.3216264], [42.6693797, 23.3670576]],
-                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "smoothFactor": 1.0, "stroke": true, "weight": 10}
-            ).addTo(map_5bfe71e17d99497592a617e5f17a49e5);
-        
-    
-            var marker_c937300675774e92a5f22a232e399abb = L.marker(
-                [42.6797867, 23.320543995719042],
-                {}
-            ).addTo(map_5bfe71e17d99497592a617e5f17a49e5);
-        
-    
-            var icon_636c068582844f8ba592bad8ea4afc9e = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "street-view", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
-            );
-            marker_c937300675774e92a5f22a232e399abb.setIcon(icon_636c068582844f8ba592bad8ea4afc9e);
-        
-    
-        var popup_c4ab4210b85a471aa3f581ca5a78397d = L.popup({"maxWidth": "100%"});
-
-        
-            var html_9d98b63eb91a492e82314c178a3cfa5f = $(`<div id="html_9d98b63eb91a492e82314c178a3cfa5f" style="width: 100.0%; height: 100.0%;">Национален музей "Земята и хората"</div>`)[0];
-            popup_c4ab4210b85a471aa3f581ca5a78397d.setContent(html_9d98b63eb91a492e82314c178a3cfa5f);
-        
-
-        marker_c937300675774e92a5f22a232e399abb.bindPopup(popup_c4ab4210b85a471aa3f581ca5a78397d)
-        ;
-
-        
-    
-    
-            marker_c937300675774e92a5f22a232e399abb.bindTooltip(
-                `<div>
-                     Vladi
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_a9a84ae698a545f492d0c51262a46a54 = L.marker(
-                [42.662254149999995, 23.37332119613994],
-                {}
-            ).addTo(map_5bfe71e17d99497592a617e5f17a49e5);
-        
-    
-            var icon_7a5761392d344602baba26fabbbe7c37 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "map-marker", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
-            );
-            marker_a9a84ae698a545f492d0c51262a46a54.setIcon(icon_7a5761392d344602baba26fabbbe7c37);
-        
-    
-        var popup_e3cd99c4fb894369b03a4d65e37a204a = L.popup({"maxWidth": "100%"});
-
-        
-            var html_cf96716ee94143e98b6a8a7d9a1990f0 = $(`<div id="html_cf96716ee94143e98b6a8a7d9a1990f0" style="width: 100.0%; height: 100.0%;">ТУЕС</div>`)[0];
-            popup_e3cd99c4fb894369b03a4d65e37a204a.setContent(html_cf96716ee94143e98b6a8a7d9a1990f0);
-        
-
-        marker_a9a84ae698a545f492d0c51262a46a54.bindPopup(popup_e3cd99c4fb894369b03a4d65e37a204a)
-        ;
-
-        
-    
-    
-            marker_a9a84ae698a545f492d0c51262a46a54.bindTooltip(
-                `<div>
-                     Vladi
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var poly_line_9d5790b3e44f4402b24df86c98588b50 = L.polyline(
-                [[42.6797867, 23.320543995719042], [42.662254149999995, 23.37332119613994]],
-                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "smoothFactor": 1.0, "stroke": true, "weight": 10}
-            ).addTo(map_5bfe71e17d99497592a617e5f17a49e5);
-        
-    
-            var marker_5afe1b8fd251465098e55105b8e3a441 = L.marker(
-                [42.6783131, 23.31602720794567],
-                {}
-            ).addTo(map_5bfe71e17d99497592a617e5f17a49e5);
-        
-    
-            var icon_077852ef664f429a822af17726fea14d = L.AwesomeMarkers.icon(
+            var icon_f80d4b7090dd47ad90f14ba9f71a3309 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "street-view", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
             );
-            marker_5afe1b8fd251465098e55105b8e3a441.setIcon(icon_077852ef664f429a822af17726fea14d);
+            marker_67dc17bd200d4276933e30232c3248e9.setIcon(icon_f80d4b7090dd47ad90f14ba9f71a3309);
         
     
-        var popup_80d292aab3924c8b8db4a2dbaa127817 = L.popup({"maxWidth": "100%"});
+        var popup_27eee195f5304598a9a022c1a3ed8977 = L.popup({"maxWidth": "100%"});
 
         
-            var html_347c0643bc894ba6a1654c5412501e81 = $(`<div id="html_347c0643bc894ba6a1654c5412501e81" style="width: 100.0%; height: 100.0%;">бул. Арсеналски</div>`)[0];
-            popup_80d292aab3924c8b8db4a2dbaa127817.setContent(html_347c0643bc894ba6a1654c5412501e81);
+            var html_b9669f4b7e8c40d2a1720de3ca6bbbe7 = $(`<div id="html_b9669f4b7e8c40d2a1720de3ca6bbbe7" style="width: 100.0%; height: 100.0%;">Европейски съюз</div>`)[0];
+            popup_27eee195f5304598a9a022c1a3ed8977.setContent(html_b9669f4b7e8c40d2a1720de3ca6bbbe7);
         
 
-        marker_5afe1b8fd251465098e55105b8e3a441.bindPopup(popup_80d292aab3924c8b8db4a2dbaa127817)
+        marker_67dc17bd200d4276933e30232c3248e9.bindPopup(popup_27eee195f5304598a9a022c1a3ed8977)
         ;
 
         
     
     
-            marker_5afe1b8fd251465098e55105b8e3a441.bindTooltip(
+            marker_67dc17bd200d4276933e30232c3248e9.bindTooltip(
                 `<div>
                      Click me
                  </div>`,
@@ -238,32 +94,32 @@
             );
         
     
-            var marker_dd52252153f94a498c0b72cb21524d32 = L.marker(
+            var marker_333b5a4d7a764c61bc225ef813749b70 = L.marker(
                 [42.6693797, 23.3670576],
                 {}
-            ).addTo(map_5bfe71e17d99497592a617e5f17a49e5);
+            ).addTo(map_4c503ad1433b41b6b451bfb4219f465d);
         
     
-            var icon_7dd3b114b8fe48da99b668719930c787 = L.AwesomeMarkers.icon(
+            var icon_a29927b2414d49199091fe1bcb8a816b = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "map-marker", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
             );
-            marker_dd52252153f94a498c0b72cb21524d32.setIcon(icon_7dd3b114b8fe48da99b668719930c787);
+            marker_333b5a4d7a764c61bc225ef813749b70.setIcon(icon_a29927b2414d49199091fe1bcb8a816b);
         
     
-        var popup_41aca118c621476b80af960bff87ba9d = L.popup({"maxWidth": "100%"});
+        var popup_3d2625e8d9d14f469fdc0a74f5b28679 = L.popup({"maxWidth": "100%"});
 
         
-            var html_f12def21b6644501936759e1a543f7be = $(`<div id="html_f12def21b6644501936759e1a543f7be" style="width: 100.0%; height: 100.0%;">Площад на авиацията</div>`)[0];
-            popup_41aca118c621476b80af960bff87ba9d.setContent(html_f12def21b6644501936759e1a543f7be);
+            var html_831f0856335b4583872086960742381b = $(`<div id="html_831f0856335b4583872086960742381b" style="width: 100.0%; height: 100.0%;">Площад на авиацията</div>`)[0];
+            popup_3d2625e8d9d14f469fdc0a74f5b28679.setContent(html_831f0856335b4583872086960742381b);
         
 
-        marker_dd52252153f94a498c0b72cb21524d32.bindPopup(popup_41aca118c621476b80af960bff87ba9d)
+        marker_333b5a4d7a764c61bc225ef813749b70.bindPopup(popup_3d2625e8d9d14f469fdc0a74f5b28679)
         ;
 
         
     
     
-            marker_dd52252153f94a498c0b72cb21524d32.bindTooltip(
+            marker_333b5a4d7a764c61bc225ef813749b70.bindTooltip(
                 `<div>
                      Click me
                  </div>`,
@@ -271,9 +127,153 @@
             );
         
     
-            var poly_line_334a79d7462d4e129e67130b80da9f1e = L.polyline(
-                [[42.6783131, 23.31602720794567], [42.6693797, 23.3670576]],
+            var poly_line_c87941fd6c1d4adc9da58691ed4fd984 = L.polyline(
+                [[42.6788082, 23.3216264], [42.6693797, 23.3670576]],
                 {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "green", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "smoothFactor": 1.0, "stroke": true, "weight": 10}
-            ).addTo(map_5bfe71e17d99497592a617e5f17a49e5);
+            ).addTo(map_4c503ad1433b41b6b451bfb4219f465d);
+        
+    
+            var marker_77af5055fe884eb5899de25efd145eba = L.marker(
+                [42.6797867, 23.320543995719042],
+                {}
+            ).addTo(map_4c503ad1433b41b6b451bfb4219f465d);
+        
+    
+            var icon_f07f47c2002c4f8492a00518f8005d48 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "street-view", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_77af5055fe884eb5899de25efd145eba.setIcon(icon_f07f47c2002c4f8492a00518f8005d48);
+        
+    
+        var popup_68ecb52ed2f946aba0386f80c7b247ce = L.popup({"maxWidth": "100%"});
+
+        
+            var html_14feddca44a54ca0a256e5783af17097 = $(`<div id="html_14feddca44a54ca0a256e5783af17097" style="width: 100.0%; height: 100.0%;">Национален музей "Земята и хората"</div>`)[0];
+            popup_68ecb52ed2f946aba0386f80c7b247ce.setContent(html_14feddca44a54ca0a256e5783af17097);
+        
+
+        marker_77af5055fe884eb5899de25efd145eba.bindPopup(popup_68ecb52ed2f946aba0386f80c7b247ce)
+        ;
+
+        
+    
+    
+            marker_77af5055fe884eb5899de25efd145eba.bindTooltip(
+                `<div>
+                     Vladi
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_3f0d349efa594db3af80b3902803e321 = L.marker(
+                [42.662254149999995, 23.37332119613994],
+                {}
+            ).addTo(map_4c503ad1433b41b6b451bfb4219f465d);
+        
+    
+            var icon_e2bdf64b132849e498e0ebb85c6ab0ed = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "map-marker", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_3f0d349efa594db3af80b3902803e321.setIcon(icon_e2bdf64b132849e498e0ebb85c6ab0ed);
+        
+    
+        var popup_29dcbb2d6b734ae6b266b44350a32e1b = L.popup({"maxWidth": "100%"});
+
+        
+            var html_827e8a1b054a4727bccd8a20289eb800 = $(`<div id="html_827e8a1b054a4727bccd8a20289eb800" style="width: 100.0%; height: 100.0%;">ТУЕС</div>`)[0];
+            popup_29dcbb2d6b734ae6b266b44350a32e1b.setContent(html_827e8a1b054a4727bccd8a20289eb800);
+        
+
+        marker_3f0d349efa594db3af80b3902803e321.bindPopup(popup_29dcbb2d6b734ae6b266b44350a32e1b)
+        ;
+
+        
+    
+    
+            marker_3f0d349efa594db3af80b3902803e321.bindTooltip(
+                `<div>
+                     Vladi
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var poly_line_f4b0af575a974674b38d75ed1e4234c3 = L.polyline(
+                [[42.6797867, 23.320543995719042], [42.662254149999995, 23.37332119613994]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "smoothFactor": 1.0, "stroke": true, "weight": 10}
+            ).addTo(map_4c503ad1433b41b6b451bfb4219f465d);
+        
+    
+            var marker_ea0bafcf88a44431994ba93e2c0f22d7 = L.marker(
+                [42.6783131, 23.31602720794567],
+                {}
+            ).addTo(map_4c503ad1433b41b6b451bfb4219f465d);
+        
+    
+            var icon_a0c7779f0d354bab979306ed5a6e703a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "street-view", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_ea0bafcf88a44431994ba93e2c0f22d7.setIcon(icon_a0c7779f0d354bab979306ed5a6e703a);
+        
+    
+        var popup_de70b99d52ef41248f08ca08c3a86ba8 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_6c78bb20c08a46faa718e838ed14e6e7 = $(`<div id="html_6c78bb20c08a46faa718e838ed14e6e7" style="width: 100.0%; height: 100.0%;">бул. Арсеналски</div>`)[0];
+            popup_de70b99d52ef41248f08ca08c3a86ba8.setContent(html_6c78bb20c08a46faa718e838ed14e6e7);
+        
+
+        marker_ea0bafcf88a44431994ba93e2c0f22d7.bindPopup(popup_de70b99d52ef41248f08ca08c3a86ba8)
+        ;
+
+        
+    
+    
+            marker_ea0bafcf88a44431994ba93e2c0f22d7.bindTooltip(
+                `<div>
+                     StelianRBG
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_69d20ca4103644b98701bc1f651ad437 = L.marker(
+                [42.6693797, 23.3670576],
+                {}
+            ).addTo(map_4c503ad1433b41b6b451bfb4219f465d);
+        
+    
+            var icon_9afb11dd9fff4f18939a09f89438d622 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "map-marker", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_69d20ca4103644b98701bc1f651ad437.setIcon(icon_9afb11dd9fff4f18939a09f89438d622);
+        
+    
+        var popup_a7cdb08ccb1440b7a0c22f8d023b369e = L.popup({"maxWidth": "100%"});
+
+        
+            var html_a23c5333efe44ca28958c9d1ede6c220 = $(`<div id="html_a23c5333efe44ca28958c9d1ede6c220" style="width: 100.0%; height: 100.0%;">Площад на авиацията</div>`)[0];
+            popup_a7cdb08ccb1440b7a0c22f8d023b369e.setContent(html_a23c5333efe44ca28958c9d1ede6c220);
+        
+
+        marker_69d20ca4103644b98701bc1f651ad437.bindPopup(popup_a7cdb08ccb1440b7a0c22f8d023b369e)
+        ;
+
+        
+    
+    
+            marker_69d20ca4103644b98701bc1f651ad437.bindTooltip(
+                `<div>
+                     StelianRBG
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var poly_line_746e5d845d8247658462e525948cb671 = L.polyline(
+                [[42.6783131, 23.31602720794567], [42.6693797, 23.3670576]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "smoothFactor": 1.0, "stroke": true, "weight": 10}
+            ).addTo(map_4c503ad1433b41b6b451bfb4219f465d);
         
 </script>
