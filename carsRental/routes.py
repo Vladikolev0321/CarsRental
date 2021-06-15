@@ -80,7 +80,18 @@ def messageReceived(methods=['GET', 'POST']):
 @socketio.on('my event')
 def handle_my_custom_event(json, methods=['GET', 'POST']):
     print('received my event: ' + str(json))
-    socketio.emit('my response', json, callback=messageReceived)
+
+    # message = Message(username=json['user_name'], msg=json['content'])
+    member_with_this_id = Member_Group.query.filter_by(member_id=current_user.id).first()
+    if json['message'] is not '':
+
+        message = Message(sender_id = current_user.id, group_id = member_with_this_id.group_id, content=json['message'])
+        print(message.content)
+        
+
+        socketio.emit('my response', json, callback=messageReceived)
+        db.session.add(message)
+        db.session.commit()
 
 
 
