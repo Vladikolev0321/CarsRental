@@ -3,6 +3,7 @@ from enum import unique
 from sqlalchemy.orm import backref
 from carsRental import db, login_manager
 from datetime import datetime
+from pytz import timezone
 from flask_login import UserMixin
 from dateutil.tz import gettz
 #from flask_admin.contrib.sqla import ModelView
@@ -98,10 +99,12 @@ class Member_Group(db.Model):
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     sender_id = db.Column(db.Integer, db.ForeignKey(User.id))
+    sender_username = db.Column(db.String(20), nullable=False)
     # receiver_id = db.Column(db.Integer, db.ForeignKey(User.id))
     group_id = db.Column(db.Integer, db.ForeignKey(Group.id))
     content = db.Column(db.Text, nullable=False)
-    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.now(timezone("Europe/Sofia")))
+
 
 
 db.create_all()

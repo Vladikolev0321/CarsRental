@@ -85,7 +85,7 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
     member_with_this_id = Member_Group.query.filter_by(member_id=current_user.id).first()
     if json['message'] is not '':
 
-        message = Message(sender_id = current_user.id, group_id = member_with_this_id.group_id, content=json['message'])
+        message = Message(sender_id = current_user.id, sender_username = current_user.username, group_id = member_with_this_id.group_id, content=json['message'], timestamp = datetime.now(timezone("Europe/Sofia")))
         print(message.content)
         
 
@@ -505,7 +505,10 @@ def paths():
     if start is None:
         folium_map = folium.Map(location=[42.69807953619626, 23.321380446073142], zoom_start=15)
         folium_map.save(app.root_path + '\\templates\\map.html')
-        return render_template('paths.html', path=start, member = Member_Group.query.filter_by(member_id=current_user.id).first())
+        member = Member_Group.query.filter_by(member_id=current_user.id).first()
+        messages = Message.query.filter_by(group_id = member.group_id).all()
+
+        return render_template('paths.html', path=start, member = member, messages = messages)
 
     our_path_start_time =  datetime.strptime(start.start_time, '%Y-%m-%d %H:%M:%S')
     # #Map
@@ -734,7 +737,10 @@ def paths():
                 weight=10,
                 opacity=1).add_to(folium_map)
     folium_map.save(app.root_path + '\\templates\\map.html')
-    return render_template('paths.html', path=start, member = Member_Group.query.filter_by(member_id=current_user.id).first())
+    member = Member_Group.query.filter_by(member_id=current_user.id).first()
+    messages = Message.query.filter_by(group_id = member.group_id).all()
+    #timestamp = messages.timestampstrftime()
+    return render_template('paths.html', path=start, member = member, messages = messages)
 
 @app.route('/paths/<int:path_id>/add_waypoint', methods=['GET', 'POST'])
 @login_required

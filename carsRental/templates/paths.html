@@ -1,5 +1,20 @@
 {% extends "layout.html" %}
 {% block content %}
+
+    <style type="text/css">
+    #chat{
+        margin-left: 140%;
+        margin-top: 10%;
+        width: 50%;
+        height: 50%;
+        
+    }
+
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+
     <iframe class="map", src="/map" width="1250vw" height="750vh" style="margin-top: 5%; margin-left: -40%; border-style: solid;"></iframe>
     <div style="width: 60%; margin-left: 140%; margin-top: -103.5%;">
         {% if path != None %}
@@ -11,9 +26,44 @@
 
     {% if member %}
     <!--Chat_old-->
-    <div style="margin-left: 140%; margin-top: 10%">
-    <h3 style='color: #ccc;font-size: 30px;'>No message yet..</h3>
-    <div class="message_holder"></div>
+    <div id="chat">
+        <div id="messages" style="overflow-y: scroll;">
+        
+        <div class="message_holder">
+            
+        {% if messages %}
+
+            {% for message in messages %}
+
+            <div style="margin-bottom: 3%;"><b style="color: #000">{{message.sender_username}} </b> <i>({{message.timestamp.strftime("%H:%M %d-%m-%Y")}})</i> :<br> {{message.content}}</div>
+            <!-- <script type="text/javascript" src="jquery-3.5.1.min.js">
+            console.log('{{message.content}}')
+
+            var div_mess = document.getElementsByClassName("example")[0];
+            var username = document.createElement("div");
+
+            var text = document.createTextNode('{{message.content}}');
+            
+
+            tag.appendChild(text);
+            var element = document.getElementById("new");
+            element.appendChild(tag);
+            
+            /*
+                $( 'div.message_holder' ).append( '<div><b style="color: #000">'+'{{message.sender_username}}'+'</b> '+'{{message.content}}'+'</div>' )
+            */
+            </script> -->
+            {% endfor %}
+
+        {% else %}
+
+        <h3 style='color: #ccc;font-size: 30px;'>No message yet..</h3>
+
+        {% endif %}
+
+        </div>
+        </div>
+
 <!----<div><b style="color: #000">'+msg.user_name+'</b> '+msg.message+'</div>-->
     <form action="" method="POST">
       <input type="text" class="message" placeholder="Messages"/>
@@ -21,8 +71,7 @@
     </form>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+    
     <script type="text/javascript">
       var socket = io.connect('http://' + document.domain + ':' + location.port);
 
@@ -44,9 +93,22 @@
       socket.on( 'my response', function( msg ) {
         console.log( msg )
         if( typeof msg.user_name !== 'undefined' ) {
+            var dt = new Date();
+            var month = '' + (dt.getMonth() + 1);
+            var day = '' + dt.getDate();
+
+            if (month.length < 2) 
+                month = '0' + month;
+            if (day.length < 2) 
+                day = '0' + day;
+
           $( 'h3' ).remove()
-          $( 'div.message_holder' ).append( '<div><b style="color: #000">'+msg.user_name+'</b> '+msg.message+'</div>' )
+          $( 'div.message_holder' ).append( '<div style="margin-bottom: 3%;"><b style="color: #000">'+msg.user_name+' </b> <i>('+dt.getHours() + ":" + dt.getMinutes() + " " + 
+              day + "-" + month  + "-" + dt.getFullYear() +
+              ')</i> :<br> '+msg.message+'</div>' )
         }
+
+
       })
     </script>
     </div>
