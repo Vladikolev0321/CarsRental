@@ -26,10 +26,12 @@
 
     {% if member %}
     <!--Chat_old-->
-    <div id="chat">
+    <div id="chat" style="border: 1px solid black; height: auto; padding: 3%;">
+        <h2 style="text-align: center;">Chat</h2>
+        <hr>
         <div id="messages" style="overflow-y: scroll;">
         
-        <div class="message_holder">
+        <div class="message_holder" style="height: 36vh;">
             
         {% if messages %}
 
@@ -63,11 +65,13 @@
 
         </div>
         </div>
+        <hr>
 
 <!----<div><b style="color: #000">'+msg.user_name+'</b> '+msg.message+'</div>-->
-    <form action="" method="POST">
-      <input type="text" class="message" placeholder="Messages"/>
-      <input type="submit"/>
+    <form action="" method="POST" class="form-inline">
+      <input type="text" class="message form-control w-75" placeholder="Message....." style="margin-right: 4%;"/>
+      <input type="submit" class="btn btn-primary" value="Send">
+
     </form>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
