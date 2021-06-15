@@ -23,7 +23,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_4c503ad1433b41b6b451bfb4219f465d {
+                #map_85ae7958e98a4b3da73734b7590c3ff4 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -35,17 +35,17 @@
 </head>
 <body>    
     
-            <div class="folium-map" id="map_4c503ad1433b41b6b451bfb4219f465d" ></div>
+            <div class="folium-map" id="map_85ae7958e98a4b3da73734b7590c3ff4" ></div>
         
 </body>
 <script>    
     
-            var map_4c503ad1433b41b6b451bfb4219f465d = L.map(
-                "map_4c503ad1433b41b6b451bfb4219f465d",
+            var map_85ae7958e98a4b3da73734b7590c3ff4 = L.map(
+                "map_85ae7958e98a4b3da73734b7590c3ff4",
                 {
-                    center: [42.6788082, 23.3216264],
+                    center: [42.69807953619626, 23.321380446073142],
                     crs: L.CRS.EPSG3857,
-                    zoom: 15,
+                    zoom: 13,
                     zoomControl: true,
                     preferCanvas: false,
                 }
@@ -55,225 +55,75 @@
 
         
     
-            var tile_layer_06dff1bd155b46c2a9a0a17b53c0d770 = L.tileLayer(
+            var tile_layer_e9a87da8450d4e849b3c7bb1f13e950e = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_4c503ad1433b41b6b451bfb4219f465d);
+            ).addTo(map_85ae7958e98a4b3da73734b7590c3ff4);
         
     
-            var marker_67dc17bd200d4276933e30232c3248e9 = L.marker(
-                [42.6788082, 23.3216264],
+            var marker_a99bf8bfebe8479c8db78bc67a83d929 = L.marker(
+                [42.69225175, 23.310437050000004],
                 {}
-            ).addTo(map_4c503ad1433b41b6b451bfb4219f465d);
+            ).addTo(map_85ae7958e98a4b3da73734b7590c3ff4);
         
     
-            var icon_f80d4b7090dd47ad90f14ba9f71a3309 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "street-view", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            var icon_c2f1f9b950dc41e9af7e008edd04cafd = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "circle", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
             );
-            marker_67dc17bd200d4276933e30232c3248e9.setIcon(icon_f80d4b7090dd47ad90f14ba9f71a3309);
+            marker_a99bf8bfebe8479c8db78bc67a83d929.setIcon(icon_c2f1f9b950dc41e9af7e008edd04cafd);
         
     
-        var popup_27eee195f5304598a9a022c1a3ed8977 = L.popup({"maxWidth": "100%"});
+        var popup_422be5258fcd43f0bc5c7f10584de9f1 = L.popup({"maxWidth": "100%"});
 
         
-            var html_b9669f4b7e8c40d2a1720de3ca6bbbe7 = $(`<div id="html_b9669f4b7e8c40d2a1720de3ca6bbbe7" style="width: 100.0%; height: 100.0%;">Европейски съюз</div>`)[0];
-            popup_27eee195f5304598a9a022c1a3ed8977.setContent(html_b9669f4b7e8c40d2a1720de3ca6bbbe7);
+            var html_e060bade03a44e36b9217c49722144c8 = $(`<div id="html_e060bade03a44e36b9217c49722144c8" style="width: 100.0%; height: 100.0%;">Руски паметник</div>`)[0];
+            popup_422be5258fcd43f0bc5c7f10584de9f1.setContent(html_e060bade03a44e36b9217c49722144c8);
         
 
-        marker_67dc17bd200d4276933e30232c3248e9.bindPopup(popup_27eee195f5304598a9a022c1a3ed8977)
+        marker_a99bf8bfebe8479c8db78bc67a83d929.bindPopup(popup_422be5258fcd43f0bc5c7f10584de9f1)
         ;
 
         
     
     
-            marker_67dc17bd200d4276933e30232c3248e9.bindTooltip(
+            marker_a99bf8bfebe8479c8db78bc67a83d929.bindTooltip(
                 `<div>
-                     Click me
+                     Click me!
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_333b5a4d7a764c61bc225ef813749b70 = L.marker(
-                [42.6693797, 23.3670576],
-                {}
-            ).addTo(map_4c503ad1433b41b6b451bfb4219f465d);
-        
-    
-            var icon_a29927b2414d49199091fe1bcb8a816b = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "map-marker", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
-            );
-            marker_333b5a4d7a764c61bc225ef813749b70.setIcon(icon_a29927b2414d49199091fe1bcb8a816b);
-        
-    
-        var popup_3d2625e8d9d14f469fdc0a74f5b28679 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_831f0856335b4583872086960742381b = $(`<div id="html_831f0856335b4583872086960742381b" style="width: 100.0%; height: 100.0%;">Площад на авиацията</div>`)[0];
-            popup_3d2625e8d9d14f469fdc0a74f5b28679.setContent(html_831f0856335b4583872086960742381b);
-        
-
-        marker_333b5a4d7a764c61bc225ef813749b70.bindPopup(popup_3d2625e8d9d14f469fdc0a74f5b28679)
-        ;
-
-        
-    
-    
-            marker_333b5a4d7a764c61bc225ef813749b70.bindTooltip(
-                `<div>
-                     Click me
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var poly_line_c87941fd6c1d4adc9da58691ed4fd984 = L.polyline(
-                [[42.6788082, 23.3216264], [42.6693797, 23.3670576]],
-                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "green", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "smoothFactor": 1.0, "stroke": true, "weight": 10}
-            ).addTo(map_4c503ad1433b41b6b451bfb4219f465d);
-        
-    
-            var marker_77af5055fe884eb5899de25efd145eba = L.marker(
-                [42.6797867, 23.320543995719042],
-                {}
-            ).addTo(map_4c503ad1433b41b6b451bfb4219f465d);
-        
-    
-            var icon_f07f47c2002c4f8492a00518f8005d48 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "street-view", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
-            );
-            marker_77af5055fe884eb5899de25efd145eba.setIcon(icon_f07f47c2002c4f8492a00518f8005d48);
-        
-    
-        var popup_68ecb52ed2f946aba0386f80c7b247ce = L.popup({"maxWidth": "100%"});
-
-        
-            var html_14feddca44a54ca0a256e5783af17097 = $(`<div id="html_14feddca44a54ca0a256e5783af17097" style="width: 100.0%; height: 100.0%;">Национален музей "Земята и хората"</div>`)[0];
-            popup_68ecb52ed2f946aba0386f80c7b247ce.setContent(html_14feddca44a54ca0a256e5783af17097);
-        
-
-        marker_77af5055fe884eb5899de25efd145eba.bindPopup(popup_68ecb52ed2f946aba0386f80c7b247ce)
-        ;
-
-        
-    
-    
-            marker_77af5055fe884eb5899de25efd145eba.bindTooltip(
-                `<div>
-                     Vladi
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_3f0d349efa594db3af80b3902803e321 = L.marker(
+            var marker_25a61d829fef41e0bc15a7ea98c42220 = L.marker(
                 [42.662254149999995, 23.37332119613994],
                 {}
-            ).addTo(map_4c503ad1433b41b6b451bfb4219f465d);
+            ).addTo(map_85ae7958e98a4b3da73734b7590c3ff4);
         
     
-            var icon_e2bdf64b132849e498e0ebb85c6ab0ed = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "map-marker", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            var icon_cdc7f7fabfd645d9a610119b148ac714 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "circle", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
             );
-            marker_3f0d349efa594db3af80b3902803e321.setIcon(icon_e2bdf64b132849e498e0ebb85c6ab0ed);
+            marker_25a61d829fef41e0bc15a7ea98c42220.setIcon(icon_cdc7f7fabfd645d9a610119b148ac714);
         
     
-        var popup_29dcbb2d6b734ae6b266b44350a32e1b = L.popup({"maxWidth": "100%"});
+        var popup_147d3aa02e1b429bbfe1d39eb9890ddd = L.popup({"maxWidth": "100%"});
 
         
-            var html_827e8a1b054a4727bccd8a20289eb800 = $(`<div id="html_827e8a1b054a4727bccd8a20289eb800" style="width: 100.0%; height: 100.0%;">ТУЕС</div>`)[0];
-            popup_29dcbb2d6b734ae6b266b44350a32e1b.setContent(html_827e8a1b054a4727bccd8a20289eb800);
+            var html_9021ba46b0a7484d8ca33db7389c0bea = $(`<div id="html_9021ba46b0a7484d8ca33db7389c0bea" style="width: 100.0%; height: 100.0%;">ТУЕС</div>`)[0];
+            popup_147d3aa02e1b429bbfe1d39eb9890ddd.setContent(html_9021ba46b0a7484d8ca33db7389c0bea);
         
 
-        marker_3f0d349efa594db3af80b3902803e321.bindPopup(popup_29dcbb2d6b734ae6b266b44350a32e1b)
+        marker_25a61d829fef41e0bc15a7ea98c42220.bindPopup(popup_147d3aa02e1b429bbfe1d39eb9890ddd)
         ;
 
         
     
     
-            marker_3f0d349efa594db3af80b3902803e321.bindTooltip(
+            marker_25a61d829fef41e0bc15a7ea98c42220.bindTooltip(
                 `<div>
-                     Vladi
+                     Click me!
                  </div>`,
                 {"sticky": true}
             );
-        
-    
-            var poly_line_f4b0af575a974674b38d75ed1e4234c3 = L.polyline(
-                [[42.6797867, 23.320543995719042], [42.662254149999995, 23.37332119613994]],
-                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "smoothFactor": 1.0, "stroke": true, "weight": 10}
-            ).addTo(map_4c503ad1433b41b6b451bfb4219f465d);
-        
-    
-            var marker_ea0bafcf88a44431994ba93e2c0f22d7 = L.marker(
-                [42.6783131, 23.31602720794567],
-                {}
-            ).addTo(map_4c503ad1433b41b6b451bfb4219f465d);
-        
-    
-            var icon_a0c7779f0d354bab979306ed5a6e703a = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "street-view", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
-            );
-            marker_ea0bafcf88a44431994ba93e2c0f22d7.setIcon(icon_a0c7779f0d354bab979306ed5a6e703a);
-        
-    
-        var popup_de70b99d52ef41248f08ca08c3a86ba8 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_6c78bb20c08a46faa718e838ed14e6e7 = $(`<div id="html_6c78bb20c08a46faa718e838ed14e6e7" style="width: 100.0%; height: 100.0%;">бул. Арсеналски</div>`)[0];
-            popup_de70b99d52ef41248f08ca08c3a86ba8.setContent(html_6c78bb20c08a46faa718e838ed14e6e7);
-        
-
-        marker_ea0bafcf88a44431994ba93e2c0f22d7.bindPopup(popup_de70b99d52ef41248f08ca08c3a86ba8)
-        ;
-
-        
-    
-    
-            marker_ea0bafcf88a44431994ba93e2c0f22d7.bindTooltip(
-                `<div>
-                     StelianRBG
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_69d20ca4103644b98701bc1f651ad437 = L.marker(
-                [42.6693797, 23.3670576],
-                {}
-            ).addTo(map_4c503ad1433b41b6b451bfb4219f465d);
-        
-    
-            var icon_9afb11dd9fff4f18939a09f89438d622 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "map-marker", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
-            );
-            marker_69d20ca4103644b98701bc1f651ad437.setIcon(icon_9afb11dd9fff4f18939a09f89438d622);
-        
-    
-        var popup_a7cdb08ccb1440b7a0c22f8d023b369e = L.popup({"maxWidth": "100%"});
-
-        
-            var html_a23c5333efe44ca28958c9d1ede6c220 = $(`<div id="html_a23c5333efe44ca28958c9d1ede6c220" style="width: 100.0%; height: 100.0%;">Площад на авиацията</div>`)[0];
-            popup_a7cdb08ccb1440b7a0c22f8d023b369e.setContent(html_a23c5333efe44ca28958c9d1ede6c220);
-        
-
-        marker_69d20ca4103644b98701bc1f651ad437.bindPopup(popup_a7cdb08ccb1440b7a0c22f8d023b369e)
-        ;
-
-        
-    
-    
-            marker_69d20ca4103644b98701bc1f651ad437.bindTooltip(
-                `<div>
-                     StelianRBG
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var poly_line_746e5d845d8247658462e525948cb671 = L.polyline(
-                [[42.6783131, 23.31602720794567], [42.6693797, 23.3670576]],
-                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "smoothFactor": 1.0, "stroke": true, "weight": 10}
-            ).addTo(map_4c503ad1433b41b6b451bfb4219f465d);
         
 </script>

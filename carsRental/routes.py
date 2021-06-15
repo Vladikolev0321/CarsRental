@@ -506,7 +506,11 @@ def paths():
         folium_map = folium.Map(location=[42.69807953619626, 23.321380446073142], zoom_start=15)
         folium_map.save(app.root_path + '\\templates\\map.html')
         member = Member_Group.query.filter_by(member_id=current_user.id).first()
-        messages = Message.query.filter_by(group_id = member.group_id).all()
+        messages = None
+        ## 
+        if member is not None:
+            messages = Message.query.filter_by(group_id = member.group_id).all()
+        ##
 
         return render_template('paths.html', path=start, member = member, messages = messages)
 
